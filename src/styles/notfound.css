@@ -1,0 +1,94 @@
+/**
+ * notfound.css — Styles for the 404 Not Found page (NotFound.jsx)
+ * Uses design tokens from tokens.css (loaded via global.css).
+ */
+
+/* ── Page shell ── */
+.notfound-page {
+  display: grid;
+  min-height: 100vh;
+  place-items: center;
+  padding: clamp(2rem, 6vw, 4rem) var(--container-padding);
+  background: var(--surface-page);
+  text-align: center;
+}
+
+/* ── Card ── */
+.notfound-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-5);
+  width: min(560px, 100%);
+}
+
+/* ── Logo ── */
+.notfound-logo {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: 2px solid var(--color-gold-20);
+  object-fit: contain;
+  background: var(--color-forest);
+  padding: 6px;
+  opacity: 0.75;
+}
+
+/* ── Decorative Arabic numerals ── */
+.notfound-arabic {
+  margin: 0;
+  color: var(--color-gold);
+  font-family: var(--font-arabic);
+  font-size: clamp(4rem, 15vw, 7rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: var(--tracking-arabic);
+  opacity: 0.35;
+}
+
+/* ── Heading ── */
+.notfound-heading {
+  margin: calc(-1 * var(--space-3)) 0 0;
+  color: var(--text-heading);
+  font-family: var(--font-serif);
+  font-size: clamp(1.75rem, 5vw, 2.75rem);
+  font-weight: 500;
+  line-height: var(--line-heading);
+}
+
+/* ── Body copy ── */
+.notfound-body {
+  margin: calc(-1 * var(--space-2)) 0 0;
+  max-width: 400px;
+  color: var(--text-muted);
+  font-size: var(--font-size-lg);
+  line-height: var(--line-body);
+}
+
+/* ── Action buttons ── */
+.notfound-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-3);
+  margin-top: var(--space-2);
+}
+
+.notfound-btn-home,
+.notfound-btn-alt {
+  min-width: 160px;
+}
+
+/* ── Responsive ── */
+@media (max-width: 480px) {
+  .notfound-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .notfound-btn-home,
+  .notfound-btn-alt {
+    width: 100%;
+    text-align: center;
+  }
+}

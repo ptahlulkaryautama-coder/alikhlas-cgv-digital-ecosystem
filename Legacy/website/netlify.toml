@@ -1,0 +1,44 @@
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=(self)"
+    Content-Security-Policy = """
+      default-src 'self';
+      script-src 'self' 'unsafe-inline'
+        https://cdn.tailwindcss.com
+        https://cdnjs.cloudflare.com;
+      style-src 'self' 'unsafe-inline'
+        https://fonts.googleapis.com;
+      font-src 'self'
+        https://fonts.gstatic.com;
+      img-src 'self' data: https:;
+      connect-src 'self'
+        https://api.aladhan.com
+        https://script.google.com
+        https://script.googleusercontent.com;
+      frame-src
+        https://www.google.com;
+      object-src 'none';
+      base-uri 'self';
+    """
+
+# Cache static assets aggressively (images)
+[[headers]]
+  for = "/*.png"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.jpg"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# HTML: no cache (always fresh)
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "no-cache, no-store, must-revalidate"

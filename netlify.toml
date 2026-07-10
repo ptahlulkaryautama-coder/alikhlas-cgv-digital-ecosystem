@@ -1,0 +1,47 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# ── Security headers (all routes) ─────────────────────────────────────────────
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=(self)"
+
+    # Content Security Policy
+    # Allows:
+    #   default-src 'self'            — same-origin for scripts, workers, frames
+    #   script-src  'self'            — JS only from same origin (Vite bundles)
+    #   style-src   'self' 'unsafe-inline'
+    #                                 — 'unsafe-inline' needed because Vite injects
+    #                                   critical CSS as <style> tags at build time
+    #   img-src     'self' data: https:
+    #                                 — images from same origin, data URIs (logos
+    #                                   inlined by Vite), and any HTTPS host
+    #                                   (program posters, prayer API may return img URLs)
+    #   font-src    'self' https://fonts.gstatic.com
+    #                                 — Google Fonts (DM Sans, DM Serif, Amiri)
+    #   connect-src 'self'
+    #               https://script.google.com
+    #               https://*.googleusercontent.com
+    #               https://api.aladhan.com
+    #                                 — GAS deployment + Aladhan prayer time API
+    #   frame-src   'none'            — no iframes allowed
+    #   object-src  'none'            — no plugins
+    #   base-uri    'self'            — prevent base-tag injection
+    #   form-action 'self'            — form submissions only to same origin
+    Content-Security-Policy = "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://script.google.com https://*.googleusercontent.com https://api.aladhan.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self';"
+
+# ── Long-lived cache for hashed assets (Vite fingerprints all bundles) ─────────
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"

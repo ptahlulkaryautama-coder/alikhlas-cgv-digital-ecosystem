@@ -1,0 +1,224 @@
+/**
+ * login.css — Styles for the admin PIN gate page (Login.jsx)
+ * Uses design tokens from tokens.css (loaded via global.css).
+ */
+
+/* ── Page shell ── */
+.login-page {
+  display: grid;
+  min-height: 100vh;
+  place-items: center;
+  padding: clamp(1.5rem, 5vw, 3rem) var(--container-padding);
+  background: var(--surface-page);
+}
+
+/* Subtle texture pattern behind card */
+.login-page::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 20% 20%, rgba(14, 56, 40, 0.04) 0%, transparent 60%),
+    radial-gradient(circle at 80% 80%, rgba(201, 165, 90, 0.06) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Card ── */
+.login-card {
+  position: relative;
+  z-index: 1;
+  width: min(420px, 100%);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-2xl);
+  background: var(--surface-card);
+  padding: clamp(2rem, 6vw, 3rem);
+  box-shadow: var(--shadow-soft);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+/* ── Brand ── */
+.login-brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.login-logo {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: 2px solid var(--color-gold-20);
+  object-fit: contain;
+  background: var(--color-forest);
+  padding: 4px;
+  flex-shrink: 0;
+}
+
+.login-brand-name {
+  display: block;
+  color: var(--text-heading);
+  font-family: var(--font-serif);
+  font-size: var(--font-size-lg);
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.login-brand-sub {
+  display: block;
+  color: var(--text-muted);
+  font-size: var(--font-size-xs);
+  margin-top: 2px;
+}
+
+/* ── Headings ── */
+.login-heading {
+  margin: 0;
+  color: var(--text-heading);
+  font-family: var(--font-serif);
+  font-size: var(--font-size-2xl);
+  font-weight: 500;
+  line-height: var(--line-heading);
+}
+
+.login-subheading {
+  margin: calc(-1 * var(--space-3)) 0 0;
+  color: var(--text-muted);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-body);
+}
+
+/* ── Prototype warning badge ── */
+.login-proto-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  border: 1px solid var(--color-gold-20);
+  border-radius: var(--radius-pill);
+  background: var(--color-gold-10);
+  padding: var(--space-2) var(--space-4);
+  color: var(--color-forest);
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.login-proto-icon {
+  font-size: 0.9em;
+}
+
+/* ── Form ── */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.login-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.login-label {
+  color: var(--text-primary);
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.login-input {
+  width: 100%;
+  border: 1.5px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  background: var(--surface-page);
+  padding: 0.875rem 1rem;
+  font-size: var(--font-size-lg);
+  font-family: var(--font-sans);
+  color: var(--text-primary);
+  letter-spacing: 0.35em;
+  transition: border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.login-input::placeholder {
+  letter-spacing: 0.1em;
+  color: var(--color-muted);
+  opacity: 0.5;
+}
+
+.login-input:focus {
+  outline: none;
+  border-color: var(--color-forest);
+  box-shadow: 0 0 0 3px rgba(14, 56, 40, 0.1);
+}
+
+.login-input-error {
+  border-color: #c0392b;
+}
+
+.login-input-error:focus {
+  border-color: #c0392b;
+  box-shadow: 0 0 0 3px rgba(192, 57, 43, 0.12);
+}
+
+.login-input:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ── Error message ── */
+.login-error {
+  margin: 0;
+  color: #c0392b;
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+}
+
+/* ── Submit button ── */
+.login-submit {
+  width: 100%;
+  min-height: 52px;
+  border: none;
+  border-radius: var(--radius-pill);
+  background: var(--color-forest);
+  color: var(--color-white);
+  font-family: var(--font-sans);
+  font-size: var(--font-size-base);
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 180ms ease, transform 180ms ease, opacity 180ms ease;
+}
+
+.login-submit:hover:not(:disabled) {
+  background: var(--forest-soft);
+  transform: translateY(-1px);
+}
+
+.login-submit:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ── Back link ── */
+.login-back-link {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: var(--font-size-sm);
+  text-decoration: none;
+  transition: color 150ms ease;
+}
+
+.login-back-link:hover {
+  color: var(--color-forest);
+}
+
+/* ── Responsive ── */
+@media (max-width: 480px) {
+  .login-card {
+    border-radius: var(--radius-xl);
+    gap: var(--space-4);
+  }
+}

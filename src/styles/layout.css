@@ -1,0 +1,111 @@
+.container {
+  width: min(var(--container-lg), calc(100% - (var(--container-padding) * 2)));
+  margin-inline: auto;
+}
+
+.container-xl {
+  width: min(var(--container-xl), calc(100% - (var(--container-padding) * 2)));
+  margin-inline: auto;
+}
+
+.section {
+  padding-block: var(--section-space);
+}
+
+.section-lg {
+  padding-block: var(--section-space-lg);
+}
+
+.section-title {
+  margin: 0;
+  color: var(--text-heading);
+  font-family: var(--font-serif);
+  font-size: var(--font-size-section-title);
+  font-weight: 500;
+  line-height: var(--line-tight);
+  letter-spacing: 0;
+  text-wrap: balance;
+}
+
+.section-copy {
+  max-width: 680px;
+  color: var(--text-muted);
+  font-size: var(--font-size-lg);
+  line-height: var(--line-relaxed);
+}
+
+.label {
+  color: var(--color-gold);
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  border: 1px solid transparent;
+  border-radius: var(--radius-pill);
+  padding: 0.875rem 1.5rem;
+  font-weight: 700;
+  line-height: 1;
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease,
+    color 180ms ease,
+    transform 180ms ease;
+}
+
+.button:hover {
+  transform: translateY(-1px);
+}
+
+.button-primary {
+  background: var(--color-forest);
+  color: var(--color-white);
+}
+
+.button-gold {
+  background: var(--color-gold);
+  color: var(--color-deep);
+  box-shadow: var(--shadow-gold);
+}
+
+.button-light {
+  background: var(--color-warm);
+  color: var(--color-deep);
+}
+
+.button-outline {
+  border-color: var(--border-strong);
+  background: transparent;
+  color: var(--color-forest);
+}
+
+.card {
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  background: var(--surface-card);
+  box-shadow: var(--shadow-card);
+}
+
+.card-soft {
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  background: var(--surface-page);
+}
+
+.focus-ring:focus-visible {
+  outline: 3px solid rgba(201, 165, 90, 0.55);
+  outline-offset: 4px;
+}
+
+@media (max-width: 720px) {
+  .section,
+  .section-lg {
+    padding-block: var(--section-space-sm);
+  }
+}
