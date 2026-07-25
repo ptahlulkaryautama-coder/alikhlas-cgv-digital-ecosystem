@@ -14,10 +14,10 @@
 
 import { useEffect, useState } from 'react';
 import { getPublicFinanceSummary } from '../services/api.js';
-import { publicFinanceSummary } from '../data/siteContent.js';
+import { mockFinanceSummary } from '../data/dashboardMockData.js';
 
 export default function useFinanceData() {
-  const [data, setData]       = useState(publicFinanceSummary);
+  const [data, setData]       = useState(mockFinanceSummary);
   const [source, setSource]   = useState('fallback');
   const [isLoading, setIsLoading] = useState(true);
 
@@ -25,7 +25,7 @@ export default function useFinanceData() {
     const controller = new AbortController();
     let isMounted = true;
 
-    getPublicFinanceSummary(publicFinanceSummary, { signal: controller.signal })
+    getPublicFinanceSummary(mockFinanceSummary, { signal: controller.signal })
       .then((result) => {
         if (!isMounted) return;
         setData(result.data);

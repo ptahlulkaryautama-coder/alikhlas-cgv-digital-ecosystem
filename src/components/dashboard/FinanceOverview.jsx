@@ -120,7 +120,7 @@ export default function FinanceOverview() {
             <div className="db-card-head">
               <div>
                 <div className="db-card-title">Sumber Kas Masuk</div>
-                <div className="db-card-sub">Distribusi Mei 2026</div>
+                <div className="db-card-sub">Distribusi Juni 2026</div>
               </div>
             </div>
 
@@ -170,8 +170,8 @@ export default function FinanceOverview() {
       <div className="db-card db-cp" style={{ marginBottom: '14px' }}>
         <div className="db-card-head">
           <div>
-            <div className="db-card-title">Realisasi Anggaran</div>
-            <div className="db-card-sub">Serapan program bulan ini</div>
+            <div className="db-card-title">Distribusi Pengeluaran</div>
+            <div className="db-card-sub">Persentase menunjukkan porsi pengeluaran per kategori dari total pengeluaran kas bulan ini (bukan pencapaian target anggaran).</div>
           </div>
           <span className="db-chip o">Juni 2026</span>
         </div>

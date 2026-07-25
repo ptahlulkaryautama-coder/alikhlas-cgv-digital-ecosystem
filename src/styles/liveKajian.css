@@ -1,0 +1,540 @@
+/**
+ * liveKajian.css
+ * Styling for YouTube Live Kajian feature (Banner, Section, Embed, and PublicLive page)
+ */
+
+/* ── CONDITIONAL LIVE BANNER (Below Header) ── */
+.live-kajian-banner {
+  background: #7a0000;
+  background: linear-gradient(90deg, #7a0000 0%, #9e1212 100%);
+  color: #ffffff;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  font-size: 13px;
+  position: relative;
+  z-index: 90;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  width: 100%;
+  overflow-x: hidden;
+}
+
+.live-banner-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.live-banner-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  min-width: 0;
+}
+
+.live-badge-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.18);
+  padding: 3px 10px;
+  border-radius: 99px;
+  font-size: 10.5px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+.live-pulse-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #ff4d4d;
+  animation: liveDotPulse 1.8s infinite ease-in-out;
+  flex-shrink: 0;
+}
+
+.live-pulse-dot-hero {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ff4d4d;
+  margin-right: 6px;
+  animation: liveDotPulse 1.8s infinite ease-in-out;
+  flex-shrink: 0;
+}
+
+@keyframes liveDotPulse {
+  0% { transform: scale(0.9); opacity: 0.7; }
+  50% { transform: scale(1.35); opacity: 1; }
+  100% { transform: scale(0.9); opacity: 0.7; }
+}
+
+.live-banner-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: 500;
+  color: #fff;
+}
+
+.live-banner-title strong {
+  font-weight: 700;
+}
+
+.live-banner-speaker {
+  opacity: 0.85;
+}
+
+.live-banner-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #c9a55a;
+  color: #0c2b1d;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 5px 14px;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.live-banner-cta:hover {
+  background: #dbb76c;
+  color: #0c2b1d;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* ── LIVE KAJIAN SECTION ── */
+.live-kajian-section {
+  padding: 64px 0;
+  background: var(--color-warm-bg, #f3efe6);
+  border-top: 1px solid rgba(12, 43, 29, 0.08);
+  border-bottom: 1px solid rgba(12, 43, 29, 0.08);
+  width: 100%;
+  overflow-x: hidden;
+}
+
+.live-sec-header {
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto 36px auto;
+}
+
+.live-sec-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--color-gold, #c9a55a);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 8px;
+}
+
+.live-kicker-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #c9a55a;
+}
+
+.live-sec-title {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: 32px;
+  font-weight: normal;
+  color: var(--color-forest, #0c2b1d);
+  margin: 0 0 12px 0;
+  line-height: 1.25;
+}
+
+.live-sec-subtitle {
+  font-size: 14.5px;
+  color: #4a5d52;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Section Cards & Grid */
+.live-sec-card {
+  background: #fdfcf9;
+  border: 1px solid rgba(12, 43, 29, 0.1);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(12, 43, 29, 0.04);
+  margin-bottom: 32px;
+}
+
+.live-sec-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+}
+
+.live-sec-player {
+  background: #081911;
+}
+
+/* Embed Container 16:9 */
+.yt-embed-container {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%; /* 16:9 ratio */
+  background: #081911;
+  overflow: hidden;
+}
+
+.yt-embed-iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.yt-embed-fallback-card {
+  padding: 40px 24px;
+  text-align: center;
+  background: #fdfcf9;
+  border: 1px dashed rgba(12, 43, 29, 0.2);
+  border-radius: 12px;
+}
+
+.yt-fallback-icon {
+  font-size: 36px;
+  margin-bottom: 12px;
+}
+
+.yt-fallback-title {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: 18px;
+  color: var(--color-forest, #0c2b1d);
+  margin-bottom: 6px;
+}
+
+.yt-fallback-desc {
+  font-size: 13px;
+  color: #556b5e;
+  max-width: 480px;
+  margin: 0 auto 16px auto;
+  line-height: 1.5;
+}
+
+.yt-fallback-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--color-forest, #0c2b1d);
+  color: #fff;
+  font-size: 12.5px;
+  font-weight: 700;
+  padding: 8px 16px;
+  border-radius: 6px;
+  text-decoration: none;
+}
+
+/* Info Panel */
+.live-sec-info {
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.live-info-badge-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.live-badge-red {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #fde8e8;
+  color: #c0392b;
+  border: 1px solid rgba(192, 57, 43, 0.25);
+  font-size: 10.5px;
+  font-weight: 800;
+  padding: 3px 10px;
+  border-radius: 99px;
+  letter-spacing: 0.05em;
+}
+
+.live-badge-ended {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #e8f5ee;
+  color: #0f6130;
+  border: 1px solid rgba(15, 97, 48, 0.2);
+  font-size: 10.5px;
+  font-weight: 800;
+  padding: 3px 10px;
+  border-radius: 99px;
+  letter-spacing: 0.05em;
+}
+
+.live-info-schedule {
+  font-size: 11.5px;
+  color: #6b7f74;
+  font-weight: 500;
+}
+
+.live-info-title {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: 22px;
+  font-weight: normal;
+  color: var(--color-forest, #0c2b1d);
+  margin: 0 0 12px 0;
+  line-height: 1.35;
+}
+
+.live-info-speaker {
+  font-size: 13.5px;
+  color: #3b5044;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.live-info-speaker strong {
+  color: var(--color-forest, #0c2b1d);
+}
+
+.live-info-desc {
+  font-size: 13px;
+  color: #556b5e;
+  line-height: 1.6;
+  margin: 0 0 20px 0;
+}
+
+.live-info-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.live-related-links {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 12px;
+  border-top: 1px solid rgba(12, 43, 29, 0.08);
+  padding-top: 16px;
+  flex-wrap: wrap;
+}
+
+.live-rel-label {
+  color: #6b7f74;
+  font-weight: 500;
+}
+
+.live-rel-link {
+  color: var(--color-forest, #0c2b1d);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.live-rel-link:hover {
+  text-decoration: underline;
+}
+
+/* State Boxes (Scheduled & Inactive) */
+.live-scheduled-banner, .live-inactive-box {
+  padding: 40px 32px;
+  text-align: center;
+}
+
+.live-sched-badge {
+  display: inline-block;
+  background: var(--color-gold-bg, #fcf8ee);
+  color: var(--color-gold-text, #8A6200);
+  border: 1px solid rgba(201, 165, 90, 0.3);
+  font-size: 11px;
+  font-weight: 800;
+  padding: 4px 12px;
+  border-radius: 99px;
+  margin-bottom: 16px;
+}
+
+.live-sched-time {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-forest, #0c2b1d);
+  margin-bottom: 12px;
+}
+
+.live-inactive-icon {
+  font-size: 40px;
+  margin-bottom: 12px;
+}
+
+.live-inactive-badge {
+  display: inline-block;
+  background: #eee;
+  color: #555;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 99px;
+  margin-bottom: 16px;
+}
+
+/* Archive Grid */
+.live-archive-grid-section {
+  margin-top: 40px;
+}
+
+.live-archive-header h3 {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: 20px;
+  color: var(--color-forest, #0c2b1d);
+  margin-bottom: 16px;
+}
+
+.live-archive-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.live-archive-card {
+  background: #fdfcf9;
+  border: 1px solid rgba(12, 43, 29, 0.08);
+  border-radius: 12px;
+  padding: 18px;
+  box-shadow: 0 4px 12px rgba(12, 43, 29, 0.03);
+}
+
+.archive-card-badge {
+  font-size: 9.5px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 4px;
+  display: inline-block;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+
+.archive-card-badge.sched {
+  background: rgba(201, 165, 90, 0.15);
+  color: #8A6200;
+}
+
+.archive-card-badge.ended {
+  background: #e8f5ee;
+  color: #0f6130;
+}
+
+.archive-card-title {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--color-forest, #0c2b1d);
+  line-height: 1.35;
+  margin: 0 0 6px 0;
+}
+
+.archive-card-speaker, .archive-card-time {
+  font-size: 11.5px;
+  color: #556b5e;
+  margin-bottom: 2px;
+}
+
+/* ── RESPONSIVE BREAKPOINTS (375px, 430px, 768px, 1024px, 1440px) ── */
+@media (max-width: 1440px) {
+  .live-banner-container, .live-sec-card {
+    max-width: 1200px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .live-archive-cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .live-sec-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .live-sec-info {
+    padding: 24px;
+  }
+
+  .live-archive-cards-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 430px) {
+  .live-banner-container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 0 16px;
+  }
+
+  .live-banner-title {
+    white-space: normal;
+  }
+
+  .live-sec-info {
+    padding: 16px;
+  }
+
+  .live-sec-title {
+    font-size: 24px;
+  }
+
+  .live-info-title {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 375px) {
+  .live-info-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .live-info-actions .button {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* ── ACCESSIBILITY & REDUCED MOTION ── */
+.live-banner-cta:focus-visible,
+.live-rel-link:focus-visible,
+.yt-fallback-btn:focus-visible,
+.yt-embed-iframe:focus-visible {
+  outline: 2px solid #0c2b1d;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .live-pulse-dot,
+  .live-pulse-dot-hero,
+  .yt-live-dot {
+    animation: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}

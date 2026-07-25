@@ -1,0 +1,422 @@
+/* ── Premium Animated Learning Spot (Sejenak Belajar) ── */
+.learning-spot-section {
+  position: relative;
+  overflow: hidden;
+  background: var(--color-forest);
+  padding: var(--space-10) var(--container-padding);
+  text-align: center;
+}
+
+.learning-spot-section::before,
+.learning-spot-section::after {
+  position: absolute;
+  border: 1px solid rgba(201, 165, 90, 0.06);
+  transform: rotate(45deg);
+  content: "";
+  pointer-events: none;
+}
+
+.learning-spot-section::before {
+  top: -6rem;
+  right: -6rem;
+  width: 20rem;
+  height: 20rem;
+}
+
+.learning-spot-section::after {
+  bottom: -6rem;
+  left: -6rem;
+  width: 15rem;
+  height: 15rem;
+}
+
+.learning-spot-category-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+
+.learning-spot-eyebrow {
+  margin: 0;
+  color: var(--color-gold);
+  font-size: var(--font-size-xs);
+  letter-spacing: 0.12em;
+}
+
+.learning-spot-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-2);
+  max-width: 100%;
+}
+
+.learning-spot-tab {
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.06);
+  padding: 0.35rem 0.8rem;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.learning-spot-tab:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--color-white);
+}
+
+.learning-spot-tab.is-active {
+  background: rgba(201, 165, 90, 0.16);
+  border-color: var(--color-gold);
+  color: var(--color-warm, #FAF6F0);
+  font-weight: 700;
+}
+
+.learning-spot-toolbar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.learning-spot-ctrl-btn {
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.06);
+  padding: 0.35rem 0.8rem;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.learning-spot-ctrl-btn:hover {
+  background: rgba(201, 165, 90, 0.2);
+  border-color: var(--color-gold);
+  color: var(--color-gold);
+}
+
+.learning-spot-pause-btn.is-paused {
+  background: rgba(201, 165, 90, 0.25);
+  border-color: var(--color-gold);
+  color: var(--color-gold);
+}
+
+.learning-spot-counter {
+  display: inline-block;
+  padding: 0.3rem 0.65rem;
+  border-radius: var(--radius-pill);
+  background: rgba(0, 0, 0, 0.2);
+  color: rgba(255, 255, 255, 0.6);
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+
+.learning-spot-progress-bar {
+  width: 100%;
+  max-width: 280px;
+  height: 2px;
+  margin: var(--space-2) auto var(--space-5) auto;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+}
+
+.learning-spot-progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--color-gold), rgba(201, 165, 90, 0.5));
+  animation-name: learningSpotProgress;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
+@keyframes learningSpotProgress {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+.learning-spot-card {
+  transition: opacity 0.25s ease;
+  opacity: 1;
+  max-width: 840px;
+  margin: 0 auto;
+}
+
+/* Word-by-Word RTL Reveal Animation for Arabic Text */
+@keyframes wordRevealRtl {
+  from {
+    opacity: 0;
+    transform: translateY(3px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.arabic-word {
+  display: inline-block;
+  opacity: 0;
+  animation: wordRevealRtl 0.4s ease forwards;
+  white-space: pre;
+}
+
+.learning-spot-card .ayat-arabic {
+  font-family: var(--font-arabic, 'Amiri', 'Noto Naskh Arabic', serif);
+  font-size: clamp(1.45rem, 4vw, 2.1rem);
+  line-height: 2.1;
+  color: #ffffff;
+  direction: rtl;
+  text-align: center;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  max-width: 100%;
+  border: none !important;
+  margin: 0 0 var(--space-4) 0;
+}
+
+.learning-spot-card .ayat-arabic::before,
+.learning-spot-card .ayat-arabic::after {
+  content: none !important;
+  display: none !important;
+  animation: none !important;
+}
+
+/* Sentence/Line Fade-In Animation for Indonesian Translation */
+@keyframes lineFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.learning-spot-card .ayat-translation {
+  opacity: 0;
+  animation: lineFadeIn 0.5s ease forwards;
+  color: var(--color-warm, #FAF6F0);
+  font-size: clamp(0.98rem, 2.2vw, 1.15rem);
+  line-height: 1.8;
+  max-width: 760px;
+  margin: 0 auto var(--space-4) auto;
+}
+
+.learning-spot-card .learning-spot-attribution-footer {
+  opacity: 0;
+  animation: lineFadeIn 0.5s ease forwards;
+  margin-top: var(--space-3);
+}
+
+.learning-spot-highlight-wrapper {
+  margin-bottom: var(--space-3);
+}
+
+.learning-spot-highlight {
+  display: inline-block;
+  padding: 0.15rem 0.65rem;
+  border-radius: var(--radius-pill);
+  background: rgba(201, 165, 90, 0.12);
+  color: var(--color-gold);
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.learning-spot-badges {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.learning-spot-type-tag {
+  display: inline-block;
+  padding: 0.15rem 0.6rem;
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: var(--color-white);
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+.learning-spot-topic {
+  display: inline-block;
+  padding: 0.15rem 0.65rem;
+  border-radius: var(--radius-pill);
+  background: rgba(201, 165, 90, 0.12);
+  border: 1px solid rgba(201, 165, 90, 0.22);
+  color: var(--color-gold);
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* Quieter Supporting Verification Label */
+.learning-spot-verified-badge {
+  display: inline-block;
+  padding: 0.15rem 0.6rem;
+  border-radius: var(--radius-pill);
+  background: rgba(201, 165, 90, 0.12);
+  border: 1px solid rgba(201, 165, 90, 0.3);
+  color: var(--color-gold);
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+}
+
+.ayat-source {
+  margin: 0;
+  color: var(--color-gold);
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.learning-spot-reference {
+  display: block;
+  margin-top: 0.25rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.85rem;
+  font-style: italic;
+}
+
+/* Bottom Utility Bar Layout */
+.learning-spot-bottom-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-top: var(--space-6);
+  padding-top: var(--space-4);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.learning-spot-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 0.5rem 1.15rem;
+  border-radius: var(--radius-pill);
+  border: 1px solid rgba(201, 165, 90, 0.35);
+  background: rgba(12, 24, 16, 0.4);
+  color: var(--color-gold);
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.learning-spot-cta:hover {
+  background: var(--color-gold);
+  color: var(--color-deep);
+  border-color: var(--color-gold);
+}
+
+/* Screen Reader Only Utility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Accessibility: Respect Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .arabic-word,
+  .learning-spot-card .ayat-translation,
+  .learning-spot-card .learning-spot-attribution-footer {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+  }
+
+  .learning-spot-progress-fill {
+    animation: none !important;
+    width: 100% !important;
+  }
+}
+
+/* Mobile Responsiveness (375px - 768px) */
+@media (max-width: 768px) {
+  .learning-spot-section {
+    padding: var(--space-6) var(--container-padding);
+  }
+
+  .learning-spot-tabs {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    width: 100%;
+    justify-content: flex-start;
+    padding-bottom: 4px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .learning-spot-tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .learning-spot-tab {
+    min-height: 44px;
+    padding: 0.5rem 0.9rem;
+    font-size: var(--font-size-xs);
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .learning-spot-bottom-bar {
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-3);
+  }
+
+  .learning-spot-toolbar {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .learning-spot-ctrl-btn {
+    min-height: 44px;
+    padding: 0.5rem 0.85rem;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .learning-spot-card .ayat-arabic {
+    font-size: 1.55rem;
+    line-height: 2.1;
+  }
+
+  .learning-spot-cta {
+    min-height: 44px;
+    width: 100%;
+    justify-content: center;
+  }
+}
+

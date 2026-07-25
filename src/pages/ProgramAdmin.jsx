@@ -30,11 +30,22 @@ export default function ProgramAdmin() {
       title="Program & Kegiatan"
       subtitle="Manajemen Kajian · Sheet 01_Program_Kajian"
       activeId="program"
+      period="Mei 2026"
     >
-      {/* ── Page header ──────────────────────────────────────────────── */}
-      <div className="db-pg-header">
-        <div>
-          <div className="db-pg-eyebrow">Pengelolaan Konten</div>
+      <div className="db-page-container">
+        {/* ── Top Module Banner ────────────────────────────────────────── */}
+        <div className="db-top-banner">
+          <div className="db-banner-icon">📋</div>
+          <div className="db-banner-content">
+            <div className="db-banner-title">Manajemen Program Kajian</div>
+            <div className="db-banner-sub">Masjid Al Ikhlas Cipta Greenville · DKM Al Ikhlas CGV</div>
+          </div>
+        </div>
+
+        {/* ── Page header ──────────────────────────────────────────────── */}
+        <div className="db-pg-header">
+          <div>
+            <div className="db-pg-eyebrow">Pengelolaan Konten</div>
           <h1 className="db-pg-title">
             Program &amp; <em>Kegiatan</em>
           </h1>
@@ -86,7 +97,7 @@ export default function ProgramAdmin() {
       <div className="db-sec-eyebrow" style={{ marginTop: '4px' }}>
         Tautan Cepat
       </div>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '10px', marginBottom: '24px' }}>
+      <div className="db-quick-link-grid">
         {[
           { icon: '🌐', label: 'Section Program (Website)', href: '/#program',       desc: 'Lihat tampilan publik section Program & Kegiatan' },
           { icon: '🔍', label: 'Transparansi',              href: '/transparansi',   desc: 'Laporan keuangan publik terhubung ke jamaah' },
@@ -95,24 +106,17 @@ export default function ProgramAdmin() {
           <a
             key={link.label}
             href={link.href}
-            style={{
-              display: 'block',
-              background: 'var(--db-bg-card)',
-              borderRadius: 'var(--db-r-xl)',
-              border: '1px solid rgba(12,24,16,.07)',
-              padding: '14px 16px',
-              textDecoration: 'none',
-              boxShadow: 'var(--db-sh-sm)',
-              transition: 'transform .2s, box-shadow .2s',
-            }}
-            onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = 'var(--db-sh-gold)'; }}
-            onMouseLeave={(e) => { e.currentTarget.style.transform = ''; e.currentTarget.style.boxShadow = 'var(--db-sh-sm)'; }}
+            className="db-quick-link-card"
           >
-            <div style={{ fontSize: 18, marginBottom: 8 }}>{link.icon}</div>
-            <div style={{ fontSize: 12.5, fontWeight: 600, color: 'var(--db-text-1)', marginBottom: 3 }}>{link.label}</div>
-            <div style={{ fontSize: 11.5, color: 'var(--db-text-3)', lineHeight: 1.5 }}>{link.desc}</div>
+            <div className="card-icon-wrapper">
+              {link.icon}
+            </div>
+            <div className="card-title">{link.label}</div>
+            <div className="card-desc">{link.desc}</div>
           </a>
         ))}
+      </div>
+
       </div>
 
       {/* ── Page footer ──────────────────────────────────────────────── */}

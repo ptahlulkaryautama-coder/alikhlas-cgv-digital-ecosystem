@@ -1,4 +1,6 @@
-import heroUrl from '../../assets/al-ikhlas-townhouse-hero.png';
+import heroDesktop from '../../assets/hero-desktop.png';
+import heroTablet from '../../assets/hero-tablet.png';
+import heroMobile from '../../assets/hero-mobile.png';
 import Button from '../common/Button.jsx';
 import Container from '../common/Container.jsx';
 
@@ -12,7 +14,7 @@ export default function Hero({ isPrayerLoading, nextPrayer, prayerSource, prayer
   const statusText = isPrayerLoading
     ? 'Memuat jadwal...'
     : isFallback
-      ? 'Jadwal fallback Batam'
+      ? 'Waktu salat Batam (Referensi)'
       : 'Waktu salat Batam';
   const cards = prayerTimes?.length
     ? prayerTimes
@@ -22,8 +24,15 @@ export default function Hero({ isPrayerLoading, nextPrayer, prayerSource, prayer
     <section className="home-hero" aria-labelledby="hero-title">
       <img
         className="home-hero-image"
-        src={heroUrl}
+        src={heroDesktop}
+        srcSet={`${heroMobile} 418w, ${heroTablet} 836w, ${heroDesktop} 1672w`}
+        sizes="(max-width: 600px) 418px, (max-width: 1024px) 836px, 1672px"
+        width="1672"
+        height="941"
         alt="Masjid Al Ikhlas Cipta Greenville Batam saat suasana sunset"
+        loading="eager"
+        fetchPriority="high"
+        decoding="async"
       />
       <div className="home-hero-shade" aria-hidden="true" />
       <div className="home-hero-top-fade" aria-hidden="true" />
@@ -33,22 +42,24 @@ export default function Hero({ isPrayerLoading, nextPrayer, prayerSource, prayer
         <div className="home-hero-copy">
           <p className="hero-location">Cipta Greenville · Tembesi · Batam</p>
           <h1 id="hero-title">
-            <span>Masjid yang</span>
-            <span>dihidupkan dari</span>
-            <span>keikhlasan.</span>
+            <span>Masjid yang tumbuh dari</span>
+            <span>keikhlasan dan</span>
+            <span>kebersamaan warga.</span>
           </h1>
           <p className="hero-subtitle">
-            Beberapa unit townhouse yang menjadi rumah ibadah, ruang belajar anak,
-            tempat keluarga berkumpul, dan pusat amanah warga Cipta Greenville.
+            Berawal dari sebuah unit townhouse di Cipta Greenville, Masjid Al Ikhlas kini 
+            digunakan untuk shalat berjamaah, belajar mengaji, dan kegiatan warga.
           </p>
           <div className="hero-actions">
-            <Button href="#program" variant="light">
+            <Button href="/agenda" variant="light">
               Lihat Kegiatan
             </Button>
-            <Button href="#donasi" variant="glass">
+            <Button href="/donasi" variant="outline-light">
               Dukung Masjid
             </Button>
           </div>
+
+
         </div>
 
         <aside className="hero-prayer-card" aria-label="Informasi waktu salat">

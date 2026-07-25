@@ -1,16 +1,5 @@
 /**
- * KpiCards.jsx — Dashboard KPI metric cards row
- *
- * Accepts optional `liveFinanceKpi` prop from useDashboardData.
- * When live KPI is available (source=api), live values replace mock finance figures.
- * Program count and Agenda count are always derived from live data when available.
- *
- * Props:
- *   liveFinanceKpi {object|null}  — from finance.kpi (null = use mock)
- *   financeSource  {string}       — 'api' | 'fallback'
- *   programCount   {number}       — count from live or mock programs
- *   agendaCount    {number}       — count from live or mock agenda
- *   isLoading      {boolean}
+ * KpiCards.jsx — Dashboard KPI metric cards row (4 cards aligned)
  */
 
 import { mockKpi } from '../../data/dashboardMockData.js';
@@ -35,62 +24,50 @@ export default function KpiCards({
   financeSource = 'fallback',
   programCount = null,
   agendaCount = null,
+  kabarCount = null,
   isLoading = false,
 }) {
-  // Merge live finance into the KPI config, falling back to mock
   const finance = liveFinanceKpi ?? {
-    kasMasuk:   { value: mockKpi.kasMasuk.value,   hint: mockKpi.kasMasuk.hint },
-    kasKeluar:  { value: mockKpi.kasKeluar.value,  hint: mockKpi.kasKeluar.hint },
     saldoAkhir: { value: mockKpi.saldoAkhir.value, hint: mockKpi.saldoAkhir.hint },
   };
 
   const KPI_CONFIG = [
     {
-      variant: 'v-green',
-      watermark: '↑',
-      tag: 'Kas Masuk',
-      prefix: 'Rp',
-      value: finance.kasMasuk.value,
-      hint: finance.kasMasuk.hint,
-      isFinance: true,
-    },
-    {
-      variant: 'v-red',
-      watermark: '↓',
-      tag: 'Kas Keluar',
-      prefix: 'Rp',
-      value: finance.kasKeluar.value,
-      hint: finance.kasKeluar.hint,
-      isFinance: true,
-    },
-    {
       variant: 'v-featured',
       watermark: '✦',
       tag: 'Saldo Kas',
-      prefix: 'Rp',
-      value: finance.saldoAkhir.value,
-      hint: finance.saldoAkhir.hint,
+      prefix: '',
+      value: 'Belum diverifikasi',
+      hint: 'Menunggu laporan Bendahara',
       isFinance: true,
-    },
-    {
-      variant: 'v-blue',
-      watermark: '◼',
-      tag: 'Program Aktif',
-      suffix: 'program',
-      value: programCount !== null ? String(programCount) : mockKpi.programAktif.value,
-      hint: programCount !== null
-        ? `${programCount} kajian dari sheet`
-        : mockKpi.programAktif.hint,
     },
     {
       variant: 'v-teal',
       watermark: '◉',
-      tag: 'Agenda Bulan Ini',
+      tag: 'Agenda Aktif',
       suffix: 'kegiatan',
       value: agendaCount !== null ? String(agendaCount) : mockKpi.agendaBulanIni.value,
       hint: agendaCount !== null
-        ? `${agendaCount} kegiatan dijadwalkan`
+        ? `${agendaCount} kegiatan aktif`
         : mockKpi.agendaBulanIni.hint,
+    },
+    {
+      variant: 'v-blue',
+      watermark: '◼',
+      tag: 'Program Berjalan',
+      suffix: 'program',
+      value: programCount !== null ? String(programCount) : mockKpi.programAktif.value,
+      hint: programCount !== null
+        ? `${programCount} kajian berjalan`
+        : mockKpi.programAktif.hint,
+    },
+    {
+      variant: 'v-green',
+      watermark: '📰',
+      tag: 'Kabar Publik',
+      suffix: 'artikel',
+      value: kabarCount !== null ? String(kabarCount) : '6',
+      hint: 'Warta warta jamaah',
     },
   ];
 
@@ -109,7 +86,7 @@ export default function KpiCards({
             border: '1px solid rgba(122,75,10,.12)',
             borderRadius: '8px',
             padding: '5px 10px',
-            marginBottom: '8px',
+            marginBottom: '12px',
             width: 'fit-content',
           }}
           role="status"
@@ -120,7 +97,7 @@ export default function KpiCards({
         </div>
       )}
 
-      <div className="db-kpi-grid" role="list" aria-label="Ringkasan KPI">
+      <div className="db-kpi-4-grid" role="list" aria-label="Ringkasan KPI">
         {KPI_CONFIG.map((kpi) => (
           <div
             key={kpi.tag}

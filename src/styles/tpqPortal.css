@@ -1,0 +1,622 @@
+/**
+ * tpqPortal.css
+ * Styling for TPQ Al Mardhotillah Portal (/app/tpq & /tpq)
+ * Archetype: Serious/Corporate (70%) + Playful/Charming accents (30%)
+ */
+
+/* ── BISMILLAH STRIP ── */
+.tpq-portal-bismillah {
+  background: linear-gradient(135deg, #0c2b1d 0%, #154d38 100%);
+  border: 1px solid rgba(201, 165, 90, 0.35);
+  border-radius: 14px;
+  padding: 14px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 24px;
+  box-shadow: 0 4px 20px rgba(12, 43, 29, 0.16), 0 0 12px rgba(201, 165, 90, 0.1);
+  max-width: 100%;
+}
+
+.tpq-bismillah-arabic {
+  font-family: 'Amiri', 'Traditional Arabic', serif;
+  font-size: 20px;
+  color: #c9a55a;
+  letter-spacing: 0.04em;
+  text-align: center;
+}
+
+.tpq-bismillah-line {
+  width: 32px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201, 165, 90, 0.6));
+}
+
+.tpq-bismillah-line.r {
+  background: linear-gradient(90deg, rgba(201, 165, 90, 0.6), transparent);
+}
+
+/* ── KPI STATS GRID ── */
+.tpq-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 28px;
+  max-width: 100%;
+}
+
+.tpq-kpi-card {
+  background: #fdfcf9;
+  border: 1px solid rgba(12, 43, 29, 0.1);
+  border-top: 3px solid rgba(201, 165, 90, 0.4);
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(12, 43, 29, 0.03);
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
+  overflow: hidden;
+  word-wrap: break-word;
+}
+
+.tpq-kpi-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(201, 165, 90, 0.5);
+  border-top-color: #c9a55a;
+  box-shadow: 0 8px 20px rgba(12, 43, 29, 0.07);
+}
+
+.tpq-kpi-tag {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  /* Darkened from #8a6200 → #5c3d00: gold-on-gold-tint was ~3.3:1 (WCAG AA fail for small text). */
+  color: #5c3d00;
+  background: rgba(201, 165, 90, 0.14);
+  padding: 3px 8px;
+  border-radius: 99px;
+  margin-bottom: 8px;
+}
+
+.tpq-kpi-num {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: 32px;
+  font-weight: normal;
+  color: #0c2b1d;
+  line-height: 1;
+  margin-bottom: 4px;
+  word-wrap: break-word;
+}
+
+.tpq-kpi-unit {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: #6b7f74;
+  margin-left: 4px;
+}
+
+.tpq-kpi-hint {
+  font-size: 11.5px;
+  color: #556b5e;
+  line-height: 1.4;
+}
+
+/* ── CLASS GROUPS SECTION ── */
+.tpq-sec-wrapper {
+  margin-bottom: 32px;
+  max-width: 100%;
+}
+
+.tpq-kelas-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  max-width: 100%;
+}
+
+.tpq-kelas-card {
+  background: #fdfcf9;
+  border: 1px solid rgba(12, 43, 29, 0.1);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 4px 16px rgba(12, 43, 29, 0.03);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  word-wrap: break-word;
+}
+
+.tpq-kelas-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(201, 165, 90, 0.4);
+  box-shadow: 0 8px 22px rgba(12, 43, 29, 0.06);
+}
+
+.tpq-kelas-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tpq-kelas-head-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: #0c2b1d;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+}
+
+.tpq-kelas-badge {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 99px;
+  color: #0f6130;
+  background: #e8f5ee;
+  border: 1px solid rgba(15, 97, 48, 0.2);
+}
+
+.tpq-kelas-desc {
+  font-size: 13.5px;
+  color: #4a5d52;
+  line-height: 1.55;
+  margin-bottom: 16px;
+}
+
+.tpq-kelas-fokus {
+  margin-bottom: 16px;
+}
+
+.tpq-fokus-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: #0c2b1d;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 6px;
+}
+
+.tpq-fokus-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.tpq-fokus-chip {
+  font-size: 11px;
+  color: #3b5044;
+  background: #f3efe6;
+  padding: 3px 9px;
+  border-radius: 6px;
+  border: 1px solid rgba(12, 43, 29, 0.06);
+}
+
+.tpq-kelas-meta {
+  background: #f7f5ef;
+  border: 1px solid rgba(12, 43, 29, 0.06);
+  border-radius: 10px;
+  padding: 12px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 12.5px;
+}
+
+.tpq-meta-line {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.tpq-meta-label {
+  font-weight: 700;
+  color: #0c2b1d;
+  min-width: 70px;
+}
+
+.tpq-meta-val {
+  color: #3b5044;
+  word-wrap: break-word;
+}
+
+/* ── ROADMAP SECTION ── */
+.tpq-roadmap-box {
+  background: #fdfcf9;
+  border: 1px solid rgba(12, 43, 29, 0.1);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 4px 16px rgba(12, 43, 29, 0.03);
+  max-width: 100%;
+}
+
+.tpq-roadmap-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  max-width: 100%;
+}
+
+.tpq-roadmap-item {
+  background: #f7f5ef;
+  border: 1px solid rgba(12, 43, 29, 0.08);
+  border-radius: 12px;
+  padding: 16px;
+  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  word-wrap: break-word;
+}
+
+.tpq-roadmap-item:hover {
+  background: #ffffff;
+  border-color: #c9a55a;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(12, 43, 29, 0.06);
+}
+
+.tpq-roadmap-badge {
+  font-size: 9.5px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  /* Darkened from #8a6200 → #5c3d00: gold-on-gold-tint was ~3.3:1 (WCAG AA fail). */
+  color: #5c3d00;
+  background: rgba(201, 165, 90, 0.16);
+  padding: 2px 8px;
+  border-radius: 4px;
+  display: inline-block;
+  margin-bottom: 8px;
+}
+
+.tpq-roadmap-name {
+  font-size: 15px;
+  font-weight: 700;
+  color: #0c2b1d;
+  margin-bottom: 4px;
+}
+
+.tpq-roadmap-desc {
+  font-size: 12px;
+  color: #556b5e;
+  line-height: 1.45;
+  margin-bottom: 10px;
+}
+
+.tpq-roadmap-target {
+  font-size: 11px;
+  color: #0c2b1d;
+  background: rgba(12, 43, 29, 0.05);
+  padding: 6px 10px;
+  border-radius: 6px;
+  line-height: 1.35;
+}
+
+/* ── TEACHERS SECTION ── */
+.tpq-teachers-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  max-width: 100%;
+}
+
+.tpq-teacher-card {
+  background: #fdfcf9;
+  border: 1px solid rgba(12, 43, 29, 0.09);
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(12, 43, 29, 0.03);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  word-wrap: break-word;
+}
+
+.tpq-teacher-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #0c2b1d;
+  color: #c9a55a;
+  border: 2px solid rgba(201, 165, 90, 0.4);
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+
+.tpq-teacher-name {
+  font-size: 15px;
+  font-weight: 700;
+  color: #0c2b1d;
+  margin-bottom: 2px;
+}
+
+.tpq-teacher-role {
+  font-size: 11.5px;
+  font-weight: 600;
+  /* Darkened from #8a6200 → #5c3d00: 11.5px/600 is not bold enough for the 3:1 large-text
+     exception; required 4.5:1. #5c3d00 on #fdfcf9 ≈ 5.4:1. */
+  color: #5c3d00;
+  margin-bottom: 8px;
+}
+
+.tpq-teacher-bio {
+  font-size: 12px;
+  color: #556b5e;
+  line-height: 1.45;
+  margin-bottom: 12px;
+}
+
+.tpq-teacher-spec {
+  font-size: 11px;
+  color: #3b5044;
+  background: #f7f5ef;
+  padding: 6px 10px;
+  border-radius: 6px;
+}
+
+/* ── AGENDA SECTION ── */
+.tpq-agenda-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  max-width: 100%;
+}
+
+.tpq-agenda-card {
+  background: #fdfcf9;
+  border: 1px solid rgba(12, 43, 29, 0.09);
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(12, 43, 29, 0.03);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  word-wrap: break-word;
+}
+
+.tpq-agenda-cat {
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #1b3a7a;
+  background: #e8eef8;
+  padding: 3px 8px;
+  border-radius: 4px;
+  display: inline-block;
+  margin-bottom: 10px;
+}
+
+.tpq-status-badge {
+  font-size: 9.5px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.tpq-status-badge.past {
+  background: #f0f0f0;
+  color: #444444;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.tpq-status-badge.future {
+  background: #e8f5ee;
+  color: #0f6130;
+  border: 1px solid rgba(15, 97, 48, 0.2);
+}
+
+.tpq-agenda-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #0c2b1d;
+  line-height: 1.35;
+  margin-bottom: 12px;
+}
+
+.tpq-agenda-meta {
+  font-size: 12px;
+  color: #3b5044;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* ── FAQS SECTION ── */
+.tpq-faq-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  max-width: 100%;
+}
+
+.tpq-faq-card {
+  background: #fdfcf9;
+  border: 1px solid rgba(12, 43, 29, 0.09);
+  border-radius: 14px;
+  padding: 20px;
+  word-wrap: break-word;
+}
+
+.tpq-faq-q {
+  font-size: 14px;
+  font-weight: 700;
+  color: #0c2b1d;
+  margin-bottom: 8px;
+  line-height: 1.35;
+}
+
+.tpq-faq-a {
+  font-size: 12.5px;
+  color: #556b5e;
+  line-height: 1.55;
+}
+
+/* ── PRIVACY NOTICE CARD ── */
+.tpq-privacy-notice {
+  background: #fcf8ee;
+  border: 1px solid rgba(201, 165, 90, 0.35);
+  border-radius: 14px;
+  padding: 20px 24px;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 32px;
+  box-shadow: 0 4px 12px rgba(201, 165, 90, 0.06);
+  max-width: 100%;
+  word-wrap: break-word;
+}
+
+.tpq-notice-icon {
+  font-size: 28px;
+  flex-shrink: 0;
+}
+
+.tpq-notice-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #7a4b0a;
+  margin-bottom: 4px;
+}
+
+.tpq-notice-desc {
+  font-size: 12.5px;
+  color: #4a5d52;
+  line-height: 1.6;
+}
+
+/* ── RESPONSIVE BREAKPOINTS (375px, 768px, 1024px, 1440px) ── */
+@media (max-width: 1440px) {
+  .tpq-kpi-grid,
+  .tpq-teachers-grid,
+  .tpq-roadmap-grid {
+    gap: 16px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .tpq-roadmap-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 1024px) {
+  .tpq-kpi-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .tpq-teachers-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .tpq-faq-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 900px) {
+  .tpq-roadmap-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .tpq-kelas-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .tpq-agenda-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .tpq-roadmap-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .tpq-faq-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 430px) {
+  .tpq-kpi-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .tpq-roadmap-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .tpq-teachers-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 375px) {
+  .tpq-portal-bismillah {
+    padding: 10px 14px;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .tpq-bismillah-line {
+    display: none;
+  }
+
+  .tpq-kpi-card,
+  .tpq-kelas-card,
+  .tpq-roadmap-item,
+  .tpq-teacher-card,
+  .tpq-agenda-card,
+  .tpq-faq-card {
+    padding: 16px;
+  }
+
+  .tpq-privacy-notice {
+    padding: 16px;
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+/* ── ACCESSIBILITY & PREFERS-REDUCED-MOTION ── */
+.tpq-kelas-card:focus-visible,
+.tpq-roadmap-item:focus-visible,
+.tpq-teacher-card:focus-visible,
+.tpq-agenda-card:focus-visible,
+.tpq-faq-card:focus-visible {
+  outline: 2px solid #0c2b1d;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tpq-kpi-card,
+  .tpq-kelas-card,
+  .tpq-roadmap-item,
+  .tpq-teacher-card,
+  .tpq-agenda-card,
+  .tpq-faq-card {
+    transition: none !important;
+    transform: none !important;
+  }
+
+  .tpq-kpi-card:hover,
+  .tpq-kelas-card:hover,
+  .tpq-roadmap-item:hover {
+    transform: none !important;
+  }
+}

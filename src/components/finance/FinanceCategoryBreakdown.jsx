@@ -1,120 +1,57 @@
-/**
- * FinanceCategoryBreakdown.jsx — Income and expense breakdown bars
- *
- * Two-column layout: Sumber Masuk | Penggunaan Keluar
- * Uses safe fallback data from siteContent.js when API ringkasan has no breakdown.
- *
- * Note: GAS 02_Keuangan ringkasan does not include per-category breakdown arrays.
- * This component always uses the static breakdown from siteContent.js as the
- * illustrative reference. A future phase can wire category aggregates when the
- * GAS endpoint exposes them.
- *
- * No donor names, private notes, or raw transaction data.
- */
+import { financePeriods } from '../../data/siteContent.js';
+import '../../styles/financeAdmin.css';
 
-import { financeBreakdown, incomeBreakdown } from '../../data/siteContent.js';
-
-function BreakdownBar({ label, amount, percent, colorClass, maxAmount }) {
-  const barPct = maxAmount > 0 ? Math.round((percent / 100) * 100) : percent;
+export default function FinanceCategoryBreakdown({ selectedPeriod = 'juni2026' }) {
+  const activePeriod = financePeriods[selectedPeriod];
+  const incomeSources = activePeriod.incomeBreakdown;
+  const expenseBreakdown = activePeriod.expenseBreakdown;
+  const periodLabel = activePeriod.label;
 
   return (
-    <div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '5px', alignItems: 'baseline' }}>
-        <span style={{ fontSize: '12.5px', fontWeight: 500, color: 'var(--db-text-1)' }}>{label}</span>
-        <span
-          style={{
-            fontSize: '12.5px',
-            fontWeight: 700,
-            color: colorClass === 'g' ? 'var(--db-emerald)' : 'var(--db-down-text)',
-          }}
-        >
-          {amount}
-        </span>
-      </div>
-      <div className="db-pb-wrap">
-        <div
-          className={`db-pb ${colorClass}`}
-          style={{ width: `${barPct}%` }}
-          role="progressbar"
-          aria-valuenow={barPct}
-          aria-valuemin={0}
-          aria-valuemax={100}
-          aria-label={`${label}: ${percent}%`}
-        />
-      </div>
-    </div>
-  );
-}
+    <div className="fin-breakdown-grid">
+      {/* Card 1: Donut Chart */}
+      <div className="fin-breakdown-wrapper" style={{ marginBottom: 0 }}>
+        <div className="fin-breakdown-title">Komposisi Sumber Masuk ({periodLabel})</div>
+        <div className="fin-breakdown-subtitle">Breakdown per kategori</div>
 
-export default function FinanceCategoryBreakdown({ period = 'Mei 2026' }) {
-  return (
-    <div className="db-card db-cp" style={{ marginBottom: '16px' }}>
-      <div className="db-card-head">
-        <div>
-          <div className="db-card-title">Rekap per Kategori · {period}</div>
-          <div className="db-card-sub">Breakdown sumber dan penggunaan dana — data ilustratif</div>
-        </div>
-        {/* Always static note */}
-        <span
-          className="db-chip o"
-          style={{ fontSize: '10px', fontWeight: 600, padding: '2px 8px', whiteSpace: 'nowrap', flexShrink: 0 }}
-          title="Breakdown per kategori menggunakan data ilustratif. GAS ringkasan tidak menyertakan array per-kategori."
-        >
-          Ilustratif
-        </span>
-      </div>
-
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: '1fr 1fr',
-          gap: '28px',
-        }}
-      >
-        {/* ── Income column ── */}
-        <div>
-          <div className="db-sec-eyebrow">Sumber Masuk</div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '13px' }}>
-            {incomeBreakdown.map((item) => (
-              <BreakdownBar
-                key={item.label}
-                label={item.label}
-                amount={item.amount}
-                percent={item.percent}
-                colorClass="g"
-              />
-            ))}
-          </div>
-        </div>
-
-        {/* ── Expense column ── */}
-        <div>
-          <div className="db-sec-eyebrow">Penggunaan Keluar</div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '13px' }}>
-            {financeBreakdown.map((item) => (
-              <BreakdownBar
-                key={item.label}
-                label={item.label}
-                amount={item.amount}
-                percent={item.percent}
-                colorClass="r"
-              />
+        <div className="fin-donut-container">
+          <div className="fin-donut" aria-hidden="true"></div>
+          <div className="fin-legend-list">
+            {incomeSources.map((item, idx) => (
+              <div className="fin-legend-item" key={idx}>
+                <div className="fin-legend-color" style={{ background: item.color || '#0c2b1d' }}></div>
+                <div className="fin-legend-label">{item.label}</div>
+                <div className="fin-legend-pct">{item.percent}%</div>
+              </div>
             ))}
           </div>
         </div>
       </div>
 
-      <div
-        style={{
-          marginTop: '16px',
-          paddingTop: '14px',
-          borderTop: '1px solid rgba(12,24,16,.06)',
-          fontSize: '11px',
-          color: 'var(--db-text-4)',
-          lineHeight: 1.6,
-        }}
-      >
-        Laporan KAS · Masjid Al Ikhlas Cipta Greenville · Bank Syariah Indonesia BSI · No. Rek 1500600069
+      {/* Card 2: Detailed Category Lists */}
+      <div className="fin-breakdown-wrapper" style={{ marginBottom: 0 }}>
+        <div className="fin-breakdown-title">Rekapitulasi Kategori ({periodLabel})</div>
+        <div className="fin-breakdown-subtitle">Rincian nominal kas masuk &amp; keluar</div>
+
+        <div style={{ marginBottom: '24px' }}>
+          <h4 style={{ fontSize: '12px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: '#0c2b1d', borderBottom: '1px solid #E5E5E5', paddingBottom: '6px', marginBottom: '10px' }}>Sumber Masuk</h4>
+          {incomeSources.map((item, idx) => (
+            <div key={idx} style={{ display: 'flex', justifyContent: 'space-between', fontSize: '13px', padding: '5px 0', borderBottom: '1px dashed #F0F0F0' }}>
+              <span style={{ color: '#3a5244' }}>{item.label}</span>
+              <span style={{ fontWeight: 600, color: '#0c1810' }}>{item.amount}</span>
+            </div>
+          ))}
+        </div>
+
+        <div>
+          <h4 style={{ fontSize: '12px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: '#9b2113', borderBottom: '1px solid #E5E5E5', paddingBottom: '6px', marginBottom: '10px' }}>Penggunaan Keluar</h4>
+          {expenseBreakdown.map((item, idx) => (
+            <div key={idx} style={{ display: 'flex', justifyContent: 'space-between', fontSize: '13px', padding: '5px 0', borderBottom: '1px dashed #F0F0F0' }}>
+              <span style={{ color: '#3a5244' }}>{item.label}</span>
+              <span style={{ fontWeight: 600, color: '#0c1810' }}>{item.amount || item.val}</span>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

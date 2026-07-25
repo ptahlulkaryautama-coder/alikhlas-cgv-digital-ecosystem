@@ -1,0 +1,149 @@
+/**
+ * newsAdmin.css
+ * Premium styling for the Warta & Kabar Masjid admin panel (/app/kabar)
+ */
+
+.news-admin-page {
+  color: var(--db-text-1);
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* Page Header */
+.news-header-section {
+  margin-bottom: 24px;
+}
+
+/* Action Bar with Buttons */
+.news-action-bar {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+/* Disabled Action Button */
+.news-btn-disabled {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border-radius: var(--db-r-md, 8px);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--db-text-4, #9aada4);
+  background: #ede9df; /* Matches inset bg */
+  border: 1px dashed rgba(12, 24, 16, 0.15);
+  cursor: not-allowed;
+  position: relative;
+  transition: all 0.2s ease;
+  opacity: 0.8;
+}
+
+.news-btn-disabled:hover {
+  background: #e5e0d3;
+  color: var(--db-text-3);
+  box-shadow: none;
+}
+
+.news-btn-disabled-kicker {
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--db-warn-text, #7a4b0a);
+  background: var(--db-warn-bg, #fdf4e3);
+  padding: 1px 6px;
+  border-radius: 4px;
+  border: 1px solid rgba(122, 75, 10, 0.2);
+  margin-left: 4px;
+}
+
+/* Status Badges */
+.status-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 99px;
+  font-size: 11.5px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.status-badge-draft {
+  background: #f1f1f1;
+  color: #555555;
+  border: 1px solid rgba(80, 80, 80, 0.1);
+}
+
+.status-badge-peninjauan {
+  background: var(--db-warn-bg, #fdf4e3);
+  color: var(--db-warn-text, #7a4b0a);
+  border: 1px solid rgba(122, 75, 10, 0.15);
+}
+
+.status-badge-publik {
+  background: var(--db-up-bg, #e8f5ee);
+  color: var(--db-up-text, #0f6130);
+  border: 1px solid rgba(15, 97, 48, 0.15);
+}
+
+/* Visibility Badges */
+.visibility-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  color: var(--db-text-2);
+  font-weight: 500;
+}
+
+/* Table Enhancements */
+.news-table-card {
+  background: var(--db-bg-card);
+  border: 1px solid rgba(12, 24, 16, 0.07);
+  border-radius: var(--db-r-xl);
+  box-shadow: var(--db-sh-sm);
+  overflow: hidden;
+}
+
+.news-table-header {
+  padding: 20px 24px;
+  border-bottom: 1px solid rgba(12, 24, 16, 0.06);
+  background: var(--db-bg-hover);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.news-table-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--color-forest);
+}
+
+.news-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13.5px;
+}
+
+.news-table th {
+  padding: 14px 24px;
+  background: var(--db-bg-hover);
+  font-weight: 600;
+  color: var(--db-text-3);
+  border-bottom: 1px solid rgba(12, 24, 16, 0.08);
+  text-align: left;
+}
+
+.news-table td {
+  padding: 16px 24px;
+  border-bottom: 1px solid rgba(12, 24, 16, 0.05);
+  color: var(--db-text-1);
+  vertical-align: middle;
+}
+
+.news-table tr:hover td {
+  background: rgba(201, 165, 90, 0.03);
+}

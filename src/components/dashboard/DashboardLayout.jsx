@@ -13,7 +13,7 @@ import { useState } from 'react';
 import Sidebar from './Sidebar.jsx';
 import Topbar from './Topbar.jsx';
 
-export default function DashboardLayout({ children, title, subtitle, activeId }) {
+export default function DashboardLayout({ children, title, subtitle, activeId, period }) {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
@@ -58,6 +58,7 @@ export default function DashboardLayout({ children, title, subtitle, activeId })
           <Topbar
             title={title}
             subtitle={subtitle}
+            period={period}
             onMenuToggle={() => setMobileOpen((v) => !v)}
           />
 

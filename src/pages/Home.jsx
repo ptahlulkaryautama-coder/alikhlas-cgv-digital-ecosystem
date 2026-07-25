@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import CeritaKajian from '../components/website/CeritaKajian.jsx';
+import KabarMasjidPreview from '../components/news/KabarMasjidPreview.jsx';
 import ContactSection from '../components/website/ContactSection.jsx';
 import DigitalEcosystem from '../components/website/DigitalEcosystem.jsx';
 import DonationSection from '../components/website/DonationSection.jsx';
@@ -7,6 +7,7 @@ import Footer from '../components/website/Footer.jsx';
 import FourPillars from '../components/website/FourPillars.jsx';
 import Header from '../components/website/Header.jsx';
 import Hero from '../components/website/Hero.jsx';
+import LiveKajianSection from '../components/website/LiveKajianSection.jsx';
 import OrnamentDivider from '../components/website/OrnamentDivider.jsx';
 import ProgramKegiatan from '../components/website/ProgramKegiatan.jsx';
 import QuranQuote from '../components/website/QuranQuote.jsx';
@@ -64,12 +65,21 @@ export default function Home() {
         <FourPillars />
         <OrnamentDivider />
         <QuranQuote />
-        <ProgramKegiatan />
-        <DonationSection />
+        <OrnamentDivider />
+        <ProgramKegiatan limitPrograms={3} hideAgenda={true} />
+        <OrnamentDivider />
+        <LiveKajianSection showArchiveList={true} />
+        <OrnamentDivider />
+        <ProgramKegiatan limitAgenda={3} hideProgram={true} />
+        <OrnamentDivider />
+        <KabarMasjidPreview />
+        <OrnamentDivider />
         <TransparencyPreview />
         <OrnamentDivider />
-        <CeritaKajian />
+        <DonationSection />
+        <OrnamentDivider />
         <DigitalEcosystem />
+        <OrnamentDivider />
         <ContactSection />
       </main>
       <Footer />

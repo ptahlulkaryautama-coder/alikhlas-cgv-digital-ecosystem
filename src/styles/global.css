@@ -16,6 +16,7 @@
 
 html {
   min-height: 100%;
+  overflow-x: hidden;
 }
 
 body {
@@ -26,7 +27,9 @@ body {
   color: var(--text-primary);
   font-size: var(--font-size-base);
   line-height: var(--line-body);
+  overflow-x: hidden;
 }
+
 
 a {
   color: inherit;
@@ -167,5 +170,17 @@ select {
 
   .route-nav {
     justify-content: flex-start;
+  }
+}
+
+/* Accessibility: Respect prefers-reduced-motion across the application */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }

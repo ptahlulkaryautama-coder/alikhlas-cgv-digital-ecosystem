@@ -37,7 +37,7 @@ export default function FinanceNotice({ source = 'fallback', isLoading = false }
             >
               <span aria-hidden="true">{isFallback ? '⚠' : '✓'}</span>
               {isFallback
-                ? 'Data sementara — belum seluruh transaksi tersambung.'
+                ? 'Data sementara — peninjauan & verifikasi Bendahara DKM sedang berjalan.'
                 : 'Data live dari Google Sheets 02_Keuangan'}
             </div>
           )}

@@ -2,7 +2,7 @@
  * Topbar.jsx — Dashboard sticky top navigation bar
  */
 
-export default function Topbar({ title = 'Dashboard', subtitle, onMenuToggle }) {
+export default function Topbar({ title = 'Dashboard', subtitle, period = 'Mei 2026', onMenuToggle }) {
   return (
     <header className="db-topbar">
       <div className="db-topbar-breadcrumb">
@@ -31,7 +31,7 @@ export default function Topbar({ title = 'Dashboard', subtitle, onMenuToggle }) 
             <rect x="1" y="2.5" width="10" height="8" rx="1.2" stroke="currentColor" strokeWidth="1.2" />
             <path d="M3.5 2.5V1.5M8.5 2.5V1.5M1 5h10" stroke="currentColor" strokeWidth="1.1" strokeLinecap="round" />
           </svg>
-          Jun 2026
+          {period}
         </button>
       </div>
     </header>

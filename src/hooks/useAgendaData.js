@@ -82,10 +82,18 @@ function enrichAgenda(item, index) {
   };
 }
 
+// ── Pre-enriched fallback (module-level, computed once) ──────────────────
+// mockAgenda items already carry displayDay/displayMonth/badgeClass but lack
+// _sortKey. Enriching here ensures the initial useState value is always safe
+// and the .sort() call in the effect never receives undefined _sortKey.
+const enrichedFallback = mockAgenda
+  .map(enrichAgenda)
+  .sort((a, b) => a._sortKey.localeCompare(b._sortKey));
+
 // ── Hook ──────────────────────────────────────────────────────────────────
 
 export default function useAgendaData() {
-  const [agenda, setAgenda]       = useState(mockAgenda);   // already enriched
+  const [agenda, setAgenda]       = useState(enrichedFallback);
   const [source, setSource]       = useState('fallback');
   const [isLoading, setIsLoading] = useState(true);
 
@@ -95,8 +103,11 @@ export default function useAgendaData() {
 
     getPublicAgenda(mockAgenda, { signal: controller.signal }).then((result) => {
       if (!isMounted) return;
-      // result.data is normalizeAgenda() shaped — enrich for display
-      const enriched = result.data.map(enrichAgenda).sort((a, b) => a._sortKey.localeCompare(b._sortKey));
+      // If the fetch was aborted (Strict Mode double-mount cleanup), result.source
+      // will still be 'fallback' with normalizeAgenda-shaped data — enrich it.
+      const enriched = result.data
+        .map(enrichAgenda)
+        .sort((a, b) => a._sortKey.localeCompare(b._sortKey));
       setAgenda(enriched);
       setSource(result.source);
       setIsLoading(false);

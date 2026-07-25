@@ -1,10 +1,15 @@
+import { Link } from 'react-router-dom';
+
 const variants = {
   primary: 'button button-primary',
   gold: 'button button-gold',
   light: 'button button-light',
   outline: 'button button-outline',
-  glass: 'button button-glass',
+  'outline-light': 'button button-outline-light',
+  outlineLight: 'button button-outline-light',
+  glass: 'button button-outline-light',
 };
+
 
 export default function Button({
   children,
@@ -16,10 +21,17 @@ export default function Button({
   const classes = `${variants[variant] || variants.primary} ${className}`.trim();
 
   if (href) {
+    if (href.startsWith('http')) {
+      return (
+        <a className={classes} href={href} {...props}>
+          {children}
+        </a>
+      );
+    }
     return (
-      <a className={classes} href={href} {...props}>
+      <Link className={classes} to={href} {...props}>
         {children}
-      </a>
+      </Link>
     );
   }
 

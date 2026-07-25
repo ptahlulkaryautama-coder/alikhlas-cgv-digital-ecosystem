@@ -63,6 +63,12 @@
   transform: translateY(-1px);
 }
 
+.button:focus-visible {
+  outline: 3px solid var(--color-gold);
+  outline-offset: 3px;
+}
+
+
 .button-primary {
   background: var(--color-forest);
   color: var(--color-white);
@@ -84,6 +90,48 @@
   background: transparent;
   color: var(--color-forest);
 }
+
+/* Reusable secondary button variant for dark backgrounds */
+.button-outline-light {
+  background: transparent;
+  color: var(--color-warm, #FAF6F0);
+  border: 1.5px solid rgba(250, 246, 240, 0.65);
+  font-weight: 700;
+}
+
+.button-outline-light:hover {
+  background: var(--color-gold, #C9A55A);
+  border-color: var(--color-gold, #C9A55A);
+  color: var(--color-forest, #0C2B1D);
+  transform: translateY(-1px);
+}
+
+.button-outline-light:focus-visible {
+  outline: 3px solid var(--color-gold, #C9A55A);
+  outline-offset: 3px;
+}
+
+/* Fallback for legacy dark section selectors */
+.home-hero .button-outline,
+.page-hero .button-outline,
+.transparency-hero .button-outline,
+.dark-section .button-outline {
+  border: 1.5px solid rgba(250, 246, 240, 0.65);
+  background: transparent;
+  color: var(--color-warm, #FAF6F0);
+  font-weight: 700;
+}
+
+.home-hero .button-outline:hover,
+.page-hero .button-outline:hover,
+.transparency-hero .button-outline:hover,
+.dark-section .button-outline:hover {
+  background: var(--color-gold, #C9A55A);
+  border-color: var(--color-gold, #C9A55A);
+  color: var(--color-forest, #0C2B1D);
+}
+
+
 
 .card {
   border: 1px solid var(--border-subtle);

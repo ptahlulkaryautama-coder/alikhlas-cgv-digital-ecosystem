@@ -13,32 +13,34 @@ export const publicWebsiteAssets = {
 };
 
 export const publicNavigation = [
-  { label: 'Program', href: '#program' },
-  { label: 'Transparansi', href: '#transparansi' },
-  { label: 'Donasi', href: '#donasi' },
-  { label: 'Kontak', href: '#kontak' },
+  { label: 'Program', href: '/program' },
+  { label: 'Agenda', href: '/agenda' },
+  { label: 'Kabar', href: '/kabar' },
+  { label: 'Transparansi', href: '/transparansi' },
+  { label: 'Donasi', href: '/donasi' },
+  { label: 'Kontak', href: '/kontak' },
 ];
 
 export const pillars = [
   {
     title: 'Ibadah',
     arabic: 'العبادة',
-    description: 'Salat berjamaah, Jumat, Ramadan, dan ruang spiritual yang dekat dengan warga.',
+    description: 'Salat berjamaah lima waktu, Jumat, Ramadan, dan kegiatan ibadah harian warga.',
   },
   {
     title: 'Ilmu',
     arabic: 'العلم',
-    description: 'TPA, tahsin, kajian keluarga, dan materi yang bisa dipelajari ulang.',
+    description: "Kegiatan belajar TPQ, tahsin Al-Qur'an, kelas Bahasa Arab, dan pengajian rutin.",
   },
   {
     title: 'Keluarga',
     arabic: 'الأسرة',
-    description: 'Anak, remaja, orang tua, dan warga baru memiliki tempat untuk tumbuh bersama.',
+    description: 'Ruang belajar dan silaturahmi untuk anak, remaja, serta orang tua di perumahan.',
   },
   {
     title: 'Amanah',
     arabic: 'الأمانة',
-    description: 'Dana, kegiatan, dan keputusan masjid ditampilkan dengan jelas dan mudah dipahami.',
+    description: 'Pengelolaan kas, kegiatan, dan laporan masjid yang dicatat serta diumumkan secara terbuka.',
   },
 ];
 
@@ -69,7 +71,7 @@ export const programs = [
     category: 'Kajian Keluarga',
     title: "Ad-Daa' Wad-Dawaa'",
     description:
-      'Pembelajaran yang membantu membangun keluarga yang lebih baik berdasarkan tuntunan Islam.',
+      'Kajian bulanan untuk suami, istri, dan orang tua — biar keluarga lebih tenang dan terarah.',
     schedule: "Ahad pekan ke-2 & ke-4 · Ba'da Maghrib",
     location: 'Aula Utama',
   },
@@ -113,21 +115,79 @@ export const agendaItems = [
 export const donationPrograms = [
   {
     title: 'Operasional Masjid',
-    description: 'Listrik, air, kebersihan, sound system, dan kebutuhan ibadah harian.',
+    description: 'Biaya listrik, air, kebersihan, perawatan sound system, dan peralatan shalat.',
   },
   {
     title: 'Pendidikan Anak',
-    description: 'Kegiatan TPA, materi belajar, perlengkapan, dan dukungan pengajar.',
+    description: 'Honor pengajar TPQ, buku materi santri, serta perlengkapan belajar.',
   },
   {
     title: 'Fasilitas Jamaah',
-    description: "Rak Qur'an, karpet, kipas/AC, perlengkapan wudhu, dan ruang belajar.",
+    description: "Pemeliharaan AC, karpet shalat, tempat wudhu, dan rak Al-Qur'an.",
   },
   {
     title: 'Sosial Warga',
-    description: 'Bantuan warga, Jumat Berkah, santunan, dan kegiatan kemasyarakatan.',
+    description: 'Penyaluran bantuan warga, konsumsi kegiatan, dan program Jumat Berkah.',
   },
 ];
+
+export const financePeriods = {
+  mei2026: {
+    label: "Mei 2026",
+    updatedAt: "27 Mei 2026",
+    kasMasuk: "Rp 19.431.000",
+    kasMasukRaw: 19431000,
+    kasMasukHint: "44 transaksi",
+    kasKeluar: "Rp 8.268.292",
+    kasKeluarRaw: 8268292,
+    kasKeluarHint: "20 transaksi",
+    saldoAkhir: "Rp 11.162.708",
+    saldoAkhirRaw: 11162708,
+    saldoAkhirHint: "Surplus bulan ini",
+    status: "Dalam verifikasi",
+    source: "Laporan DKM Mei 2026",
+    transactionCount: "44",
+    incomeBreakdown: [
+      { label: 'Infaq Jumat',   amount: 'Rp 8.785.000',  percent: 45, color: '#0c2b1d' },
+      { label: 'Infaq Event',   amount: 'Rp 4.874.000',  percent: 25, color: '#c9a55a' },
+      { label: 'Infaq Cluster', amount: 'Rp 4.272.000',  percent: 22, color: '#6b7f74' },
+      { label: 'Donasi Khusus', amount: 'Rp 1.500.000',  percent: 8,  color: '#8b5e34' },
+    ],
+    expenseBreakdown: [
+      { label: 'Operasional masjid', amount: 'Rp 4.868.292', percent: 58 },
+      { label: 'Pendidikan dan TPQ', amount: 'Rp 2.150.000', percent: 26 },
+      { label: 'Kebersihan dan fasilitas', amount: 'Rp 1.250.000', percent: 16 },
+    ],
+  },
+  juni2026: {
+    label: "Juni 2026",
+    updatedAt: "2 Juli 2026",
+    kasMasuk: "Rp 12.850.000",
+    kasMasukRaw: 12850000,
+    kasMasukHint: "24 transaksi",
+    kasKeluar: "Rp 7.650.000",
+    kasKeluarRaw: 7650000,
+    kasKeluarHint: "18 transaksi",
+    saldoAkhir: "Rp 5.200.000",
+    saldoAkhirRaw: 5200000,
+    saldoAkhirHint: "Surplus bulan ini",
+    status: "Dalam verifikasi",
+    source: "Laporan DKM Juni 2026",
+    transactionCount: "24",
+    incomeBreakdown: [
+      { label: 'Kotak infaq dan sedekah jamaah', amount: 'Rp 5.400.000', percent: 42, color: '#0c2b1d' },
+      { label: 'Transfer rekening masjid',       amount: 'Rp 4.350.000', percent: 34, color: '#c9a55a' },
+      { label: 'QRIS masjid',                    amount: 'Rp 2.100.000', percent: 16, color: '#6b7f74' },
+      { label: 'Program khusus',                 amount: 'Rp 1.000.000', percent: 8,  color: '#8b5e34' },
+    ],
+    expenseBreakdown: [
+      { label: 'Operasional masjid',        amount: 'Rp 3.250.000', percent: 42 },
+      { label: 'Pendidikan dan TPQ',        amount: 'Rp 1.700.000', percent: 22 },
+      { label: 'Kebersihan dan fasilitas',  amount: 'Rp 1.450.000', percent: 19 },
+      { label: 'Sosial warga dan kegiatan', amount: 'Rp 1.250.000', percent: 17 },
+    ]
+  }
+};
 
 export const transparencyStats = [
   { label: 'Dana Masuk', value: 'Rp 12,85 jt' },
@@ -137,50 +197,41 @@ export const transparencyStats = [
 ];
 
 export const publicFinanceSummary = {
-  period: 'Juni 2026',
-  updatedAt: '2 Juli 2026',
-  totalIn: 'Rp 12.850.000',
-  totalOut: 'Rp 7.650.000',
-  endingBalance: 'Rp 5.200.000',
-  transactionCount: '24',
+  period: financePeriods.juni2026.label,
+  updatedAt: financePeriods.juni2026.updatedAt,
+  totalIn: financePeriods.juni2026.kasMasuk,
+  totalOut: financePeriods.juni2026.kasKeluar,
+  endingBalance: financePeriods.juni2026.saldoAkhir,
+  transactionCount: financePeriods.juni2026.transactionCount,
+  status: financePeriods.juni2026.status,
   donorCount: '',
   activeCampaign: 'Operasional dan pendidikan anak',
   note:
-    'Ringkasan keuangan ini merupakan data sementara. Laporan resmi sedang dalam tahap penyusunan.',
+    'Catatan kas di atas merupakan data berjalan bulan ini. Laporan lengkap diperbarui secara berkala oleh pengurus DKM.',
 };
 
-export const financeBreakdown = [
-  { label: 'Operasional masjid', amount: 'Rp 3.250.000', percent: 42 },
-  { label: 'Pendidikan dan TPQ', amount: 'Rp 1.700.000', percent: 22 },
-  { label: 'Kebersihan dan fasilitas', amount: 'Rp 1.450.000', percent: 19 },
-  { label: 'Sosial warga dan kegiatan', amount: 'Rp 1.250.000', percent: 17 },
-];
+export const financeBreakdown = financePeriods.juni2026.expenseBreakdown;
 
-export const incomeBreakdown = [
-  { label: 'Kotak infaq dan sedekah jamaah', amount: 'Rp 5.400.000', percent: 42 },
-  { label: 'Transfer rekening masjid', amount: 'Rp 4.350.000', percent: 34 },
-  { label: 'QRIS masjid', amount: 'Rp 2.100.000', percent: 16 },
-  { label: 'Program khusus', amount: 'Rp 1.000.000', percent: 8 },
-];
+export const incomeBreakdown = financePeriods.juni2026.incomeBreakdown;
 
 export const monthlyReports = [
   {
-    month: 'Juni 2026',
+    month: financePeriods.juni2026.label,
     title: 'Ringkasan Kas Masjid',
-    status: 'Draft publik',
-    summary: 'Operasional rutin, pendidikan anak, kebersihan, dan kegiatan jamaah.',
+    status: financePeriods.juni2026.status,
+    summary: 'Operasional shalat, honor guru TPQ, perawatan inventaris, dan kegiatan warga.',
   },
   {
-    month: 'Mei 2026',
+    month: financePeriods.mei2026.label,
     title: 'Ringkasan Kas Masjid',
-    status: 'Arsip internal',
-    summary: 'Laporan ringkas disiapkan untuk publik setelah validasi bendahara.',
+    status: financePeriods.mei2026.status,
+    summary: 'Rincian infaq masuk dan pengeluaran masjid bulan ini.',
   },
   {
     month: 'April 2026',
     title: 'Ringkasan Kas Masjid',
     status: 'Arsip internal',
-    summary: 'Rekap amanah bulanan dalam format ringkas, tanpa data pribadi donatur.',
+    summary: 'Catatan kas bulanan tanpa mencantumkan nama atau data pribadi donatur.',
   },
 ];
 
@@ -220,9 +271,10 @@ export const stories = [
 ];
 
 export const ecosystemItems = [
-  { title: 'Public Website', description: 'Identitas, jadwal, program, kontak.' },
-  { title: 'Jamaah Portal', description: 'Profil, keluarga, kelas, donasi.' },
-  { title: 'Transparency', description: 'Dana, laporan, kegiatan.' },
-  { title: 'DKM Dashboard', description: 'Keuangan, jadwal, approval.' },
-  { title: 'Education', description: 'Kelas, materi, absensi.' },
+  { title: 'Website Publik', description: 'Jadwal shalat, program kajian, laporan kas, dan kontak DKM.' },
+  { title: 'Portal Jamaah', description: 'Informasi keluarga, pendaftaran kelas, dan catatan donasi.' },
+  { title: 'Transparansi', description: 'Rincian kas masuk, pengeluaran rutin, dan laporan bulanan.' },
+  { title: 'Manajemen DKM', description: 'Pengelolaan kegiatan, keuangan, dan agenda pengurus.' },
+  { title: 'Pendidikan TPQ', description: 'Jadwal mengaji, materi santri, dan rekap absensi.' },
 ];
+

@@ -16,7 +16,19 @@ import logoUrl from '../../assets/official-logo.png';
 import { logout } from '../../services/auth.js';
 
 // Modules that have been fully implemented and should be navigable
-const ACTIVE_MODULES = new Set(['overview', 'keuangan', 'program', 'agenda', 'donasi']);
+const ACTIVE_MODULES = new Set([
+  'overview',
+  'keuangan',
+  'laporan',
+  'program',
+  'agenda',
+  'donasi',
+  'kabar',
+  'inventaris',
+  'dokumen',
+  'pengaturan',
+  'tpq',
+]);
 
 const NAV_GROUPS = [
   {
@@ -53,6 +65,18 @@ const NAV_GROUPS = [
         ),
       },
       {
+        id: 'laporan',
+        label: 'Laporan & Arsip',
+        route: '/app/laporan',
+        icon: (
+          <svg className="db-sb-ico" viewBox="0 0 16 16" fill="none">
+            <path d="M3 2v12a1 1 0 001 1h8a1 1 0 001-1V4.5L9.5 1H4a1 1 0 00-1 1z" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M9.5 1V4.5H13" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M5.5 8h5M5.5 11h3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
+          </svg>
+        ),
+      },
+      {
         id: 'program',
         label: 'Program & Kegiatan',
         route: '/app/program',
@@ -78,9 +102,20 @@ const NAV_GROUPS = [
         ),
       },
       {
+        id: 'kabar',
+        label: 'Kabar Masjid',
+        route: '/app/kabar',
+        icon: (
+          <svg className="db-sb-ico" viewBox="0 0 16 16" fill="none">
+            <rect x="1.5" y="2" width="13" height="12" rx="1.5" stroke="currentColor" strokeWidth="1.3" />
+            <path d="M4.5 5.5h7M4.5 8.5h7M4.5 11.5h5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
+          </svg>
+        ),
+      },
+      {
         id: 'tpq',
         label: 'TPQ & Pendidikan',
-        pill: 'Belum aktif',
+        route: '/app/tpq',
         icon: (
           <svg className="db-sb-ico" viewBox="0 0 16 16" fill="none">
             <path d="M8 1.5L1.5 5v4.5C1.5 12.5 4.5 14.5 8 15.5c3.5-1 6.5-3 6.5-6V5L8 1.5z" stroke="currentColor" strokeWidth="1.3" strokeLinejoin="round" />
@@ -95,6 +130,46 @@ const NAV_GROUPS = [
           <svg className="db-sb-ico" viewBox="0 0 16 16" fill="none">
             <path d="M8 2a3 3 0 100 6 3 3 0 000-6zM8 4.5V6M7 5.5h2" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
             <path d="M3 11.5c1.2.9 2.9 1.5 5 1.5s3.8-.6 5-1.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
+          </svg>
+        ),
+      },
+    ],
+  },
+  {
+    label: 'Aset & System',
+    items: [
+      {
+        id: 'inventaris',
+        label: 'Inventaris',
+        route: '/app/inventaris',
+        icon: (
+          <svg className="db-sb-ico" viewBox="0 0 16 16" fill="none">
+            <rect x="1.5" y="1.5" width="5" height="5" rx="1" stroke="currentColor" strokeWidth="1.2" />
+            <rect x="9.5" y="1.5" width="5" height="5" rx="1" stroke="currentColor" strokeWidth="1.2" />
+            <rect x="1.5" y="9.5" width="5" height="5" rx="1" stroke="currentColor" strokeWidth="1.2" />
+            <rect x="9.5" y="9.5" width="5" height="5" rx="1" stroke="currentColor" strokeWidth="1.2" />
+          </svg>
+        ),
+      },
+      {
+        id: 'dokumen',
+        label: 'Dokumen & Arsip',
+        route: '/app/dokumen',
+        icon: (
+          <svg className="db-sb-ico" viewBox="0 0 16 16" fill="none">
+            <path d="M4.5 1h7l3 3v10a.5.5 0 01-.5.5h-10A.5.5 0 014 14V1.5a.5.5 0 01.5-.5z" stroke="currentColor" strokeWidth="1.2" />
+            <path d="M11.5 1v3.5H15M6 8h4M6 10.5h3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
+          </svg>
+        ),
+      },
+      {
+        id: 'pengaturan',
+        label: 'Pengaturan',
+        route: '/app/pengaturan',
+        icon: (
+          <svg className="db-sb-ico" viewBox="0 0 16 16" fill="none">
+            <circle cx="8" cy="8" r="2.5" stroke="currentColor" strokeWidth="1.3" />
+            <path d="M8 1.5v2M8 12.5v2M1.5 8h2M12.5 8h2M3.2 3.2l1.4 1.4M11.4 11.4l1.4 1.4M3.2 12.8l1.4-1.4M11.4 4.6l1.4-1.4" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
           </svg>
         ),
       },

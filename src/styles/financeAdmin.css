@@ -1,0 +1,476 @@
+/**
+ * financeAdmin.css
+ * Premium editorial styles for /app/keuangan
+ */
+
+.fin-admin-page {
+  color: #0c1810;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* ── PDF TOP BANNER ─────────────────────────────────────── */
+.fin-top-banner {
+  background-color: #0c2b1d;
+  color: white;
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  border-radius: 6px; 
+  margin-bottom: 32px;
+}
+
+.fin-banner-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 2px;
+  letter-spacing: -0.01em;
+}
+
+.fin-banner-sub {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* ── PDF PAGE HEADER ────────────────────────────────────── */
+.fin-page-header {
+  margin-bottom: 40px;
+}
+
+.fin-eyebrow {
+  color: #c9a55a;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.fin-line {
+  display: inline-block;
+  width: 24px;
+  height: 2px;
+  background-color: #c9a55a;
+}
+
+.fin-title {
+  font-family: 'Georgia', serif;
+  font-size: 36px;
+  font-weight: 700;
+  color: #0c2b1d;
+  margin: 0 0 12px 0;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.fin-title i {
+  font-style: italic;
+  font-weight: 400;
+}
+
+.fin-subtitle {
+  font-size: 14px;
+  color: #6b7f74;
+  margin: 0;
+}
+
+/* ── KPI CARDS (Matches PDF Layout) ─────────────────────── */
+.fin-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.fin-kpi-card {
+  background: white;
+  border: 1px solid #E5E5E5;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+  display: flex;
+  flex-direction: column;
+}
+
+.fin-kpi-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: #6b7f74;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 12px;
+}
+
+.fin-kpi-value {
+  font-family: 'Inter', sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: #0c1810;
+  margin-bottom: 8px;
+  letter-spacing: -0.02em;
+}
+
+.fin-kpi-hint {
+  font-size: 12px;
+  color: #9aada4;
+}
+
+.fin-kpi-highlight {
+  background: #0c2b1d;
+  border: none;
+  box-shadow: 0 8px 24px rgba(12, 43, 29, 0.15);
+}
+
+.fin-kpi-highlight .fin-kpi-label {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.fin-kpi-highlight .fin-kpi-value {
+  color: white;
+}
+
+.fin-kpi-highlight .fin-kpi-hint {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* TRANSAKSI CARD (4th card) */
+.fin-kpi-row-2 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 40px;
+}
+
+/* ── DAILY BALANCE CHART CARD ───────────────────────────── */
+.fin-chart-card {
+  background: white;
+  border: 1px solid #E5E5E5;
+  border-radius: 12px;
+  padding: 32px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+  margin-bottom: 40px;
+}
+
+.fin-chart-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #0c1810;
+  margin-bottom: 4px;
+}
+
+.fin-chart-subtitle {
+  font-size: 13px;
+  color: #6b7f74;
+  margin-bottom: 24px;
+}
+
+.fin-chart-svg-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+/* ── CATEGORY BREAKDOWN ────────────────────────────────── */
+.fin-breakdown-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 40px;
+}
+
+.fin-breakdown-wrapper {
+  background: white;
+  border: 1px solid #E5E5E5;
+  border-radius: 12px;
+  padding: 32px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+}
+
+.fin-breakdown-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #0c1810;
+  margin-bottom: 4px;
+}
+
+.fin-breakdown-subtitle {
+  font-size: 13px;
+  color: #6b7f74;
+  margin-bottom: 32px;
+}
+
+.fin-donut-container {
+  display: flex;
+  align-items: center;
+  gap: 48px;
+}
+
+.fin-donut {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  background: conic-gradient(
+    #0c2b1d 0% 45%, 
+    #c9a55a 45% 70%, 
+    #6b7f74 70% 92%, 
+    #8b5e34 92% 100%
+  );
+  position: relative;
+  flex-shrink: 0;
+}
+
+.fin-donut::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100px;
+  height: 100px;
+  background: white;
+  border-radius: 50%;
+}
+
+.fin-legend-list {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.fin-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.fin-legend-color {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.fin-legend-label {
+  font-size: 14px;
+  color: #0c1810;
+  flex: 1;
+}
+
+.fin-legend-pct {
+  font-size: 14px;
+  font-weight: 700;
+  color: #0c1810;
+}
+
+/* ── TRANSACTION TABLE ─────────────────────────────────── */
+.fin-table-container {
+  background: white;
+  border: 1px solid #E5E5E5;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+  margin-bottom: 40px;
+  overflow: hidden;
+}
+
+.fin-table-header-block {
+  padding: 24px;
+  border-bottom: 1px solid #E5E5E5;
+}
+
+.fin-table-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #0c1810;
+}
+
+.fin-table-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.fin-btn {
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: not-allowed;
+  opacity: 0.5;
+  border: 1px solid #E5E5E5;
+  background: #FAFAFA;
+  color: #3a5244;
+}
+
+.fin-btn-primary {
+  background: #0c2b1d;
+  color: white;
+  border: none;
+}
+
+.fin-table-wrapper {
+  overflow-x: auto;
+}
+
+.fin-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.fin-table th {
+  text-align: left;
+  padding: 16px 24px;
+  font-size: 10px;
+  font-weight: 700;
+  color: #9aada4;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  background: #FAFAFA;
+  border-bottom: 1px solid #E5E5E5;
+}
+
+.fin-table td {
+  padding: 16px 24px;
+  border-bottom: 1px solid #F0F0F0;
+  color: #3a5244;
+  vertical-align: middle;
+}
+
+.fin-table tr:hover td {
+  background: #FAFAFA;
+}
+
+.fin-pill {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 99px;
+  font-size: 11px;
+  font-weight: 600;
+}
+.fin-pill-green { background: #e8f5ee; color: #0f6130; }
+.fin-pill-red { background: #fdecea; color: #9b2113; }
+.fin-pill-blue { background: #e0eeff; color: #1034a6; }
+
+.fin-text-right {
+  text-align: right !important;
+}
+
+/* ── MONTHLY REPORTS ───────────────────────────────────── */
+.fin-reports-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 40px;
+}
+
+.fin-report-card {
+  background: white;
+  border: 1px solid #E5E5E5;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+}
+
+.fin-report-month {
+  font-family: 'Georgia', serif;
+  font-size: 18px;
+  color: #0c1810;
+  margin-bottom: 8px;
+}
+
+.fin-report-desc {
+  font-size: 12px;
+  color: #6b7f74;
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+
+.fin-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 99px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.fin-badge-draft { background: #fdf4e3; color: #7a4b0a; }
+.fin-badge-public { background: #e8f5ee; color: #0f6130; }
+.fin-badge-archive { background: #e8eef8; color: #1b3a7a; }
+
+/* ── PRINT INFO GRID (Page 6 DKM Style) ─────────────────── */
+.fin-info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 40px;
+}
+
+.fin-info-card {
+  background: white;
+  border: 1px solid #E5E5E5;
+  border-radius: 12px;
+  padding: 28px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+}
+
+.fin-info-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: #9aada4;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 12px;
+}
+
+.fin-info-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #0c2b1d;
+  margin-bottom: 8px;
+}
+
+.fin-info-value {
+  font-size: 14px;
+  color: #3a5244;
+  line-height: 1.6;
+}
+
+/* ── PRINT / OFFICIAL FOOTER ────────────────────────────── */
+.fin-print-footer {
+  text-align: center;
+  border-top: 1px solid #E5E5E5;
+  padding-top: 32px;
+  margin-top: 48px;
+  font-size: 11.5px;
+  color: #6b7f74;
+  line-height: 1.8;
+}
+
+.fin-print-quote {
+  font-style: italic;
+  font-family: 'Georgia', serif;
+  font-size: 13.5px;
+  color: #3a5244;
+  margin: 12px 0;
+}
+
+/* ── RESPONSIVE ────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .fin-kpi-grid, .fin-kpi-row-2 {
+    grid-template-columns: 1fr;
+  }
+  .fin-donut-container {
+    flex-direction: column;
+    gap: 24px;
+    align-items: flex-start;
+  }
+  .fin-breakdown-grid, .fin-info-grid {
+    grid-template-columns: 1fr;
+  }
+  .fin-reports-grid {
+    grid-template-columns: 1fr;
+  }
+}
