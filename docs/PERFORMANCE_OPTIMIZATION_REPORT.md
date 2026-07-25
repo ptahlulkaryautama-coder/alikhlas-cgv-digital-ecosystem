@@ -6,7 +6,7 @@ Dokumen ini mencatat hasil evaluasi, penerapan, serta pengukuran optimasi perfor
 
 ## 🟢 1. Ringkasan Hasil Optimasi & Alat Konversi
 
-- **Metode & Alat Konversi Gambar**: Menggunakan **Python 3 `zlib` & `struct` binary stream filter** bawaan sistem untuk menghasilkan varian gambar hero responsif terkompresi tanpa dependensi eksternal.
+- **Metode & Alat Konversi Gambar**: The source image was resized into responsive dimensions and then saved using lossless PNG compression. PNG encoding is lossless, while resizing necessarily reduces pixel-level detail.
 - **Ukuran JavaScript Awal (Eager Home Balance)**: `270.03 kB` (raw) / `82.21 kB` (gzip) — **Penurunan 49.6%** dari baseline monolitik `535.22 kB`.
 - **Penghematan Data Seluler (Mobile Bytes Avoided)**: Pengunjung perangkat seluler menghemat **`2,937.27 kB` (2.93 MB)** transfer data per muatan halaman (hanya mengunduh `163.79 kB` alih-alih `3,101.06 kB`).
 - **Penghematan Gambar Desktop**: Menghemat **`617.72 kB` (19.9%)** transfer data pada tampilan desktop tanpa mengorbankan kualitas visual sunset masjid.
@@ -100,6 +100,13 @@ Sesuai standar audit teknis yang diperbarui pada `docs/PROJECT_RELEASE_QA.md`:
 
 ---
 
-## 📋 8. Backlog Performa Mendatang (Future Backlog)
+## 📋 8. Status Pemblokir Rilis & Limitation Log
 
-- Integrasi otomatis generator WebP/AVIF pada pipeline CI build saat pustaka C-native tersedia di lingkungan server.
+No unresolved technical release blocker remains.
+
+### Catatan Keterbatasan yang Ditetapkan (Intentional Limitations):
+- **Verifikasi Keuangan**: Angka keuangan resmi ditahan hingga verifikasi fisik Bendahara DKM selesai.
+- **Otentikasi PIN**: Otentikasi pengurus DKM berjalan dalam mode prototipe lokal.
+- **Skrip Lint / Test**: Skrip otomatis `lint` dan `test` tidak dikonfigurasi di `package.json`.
+- **Aksi Admin**: Tindakan edit/tulis pada area admin diset ke mode *read-only* / disabled.
+- **Backlog Performa Desktop**: Kompresi WebP untuk aset hero desktop dipertahankan sebagai backlog non-pemblokir rilis.
