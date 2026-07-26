@@ -18,23 +18,24 @@
   justify-content: space-between;
   gap: var(--space-5);
   margin-top: var(--space-4);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: var(--radius-pill);
-  padding: 0.65rem 0.9rem;
-  background: rgba(12, 24, 16, 0.34);
+  padding: 0.65rem 1rem;
+  background: rgba(12, 24, 16, 0.45);
   color: var(--color-white);
-  box-shadow: 0 18px 70px rgba(12, 24, 16, 0.18);
-  backdrop-filter: blur(22px);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
   pointer-events: auto;
   transition: margin-top 0.3s cubic-bezier(0.4, 0, 0.2, 1), padding 0.3s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .site-header.scrolled .site-nav {
   margin-top: var(--space-2);
-  padding: 0.45rem 0.8rem;
-  background: rgba(12, 24, 16, 0.78);
-  border-color: rgba(255, 255, 255, 0.12);
-  box-shadow: 0 12px 40px rgba(12, 24, 16, 0.3);
+  padding: 0.45rem 0.85rem;
+  background: rgba(10, 20, 14, 0.85);
+  border-color: rgba(201, 165, 90, 0.25);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
 .site-brand {
@@ -457,7 +458,16 @@
   position: relative;
   border-radius: var(--radius-2xl);
   padding: var(--space-7, 1.75rem);
-  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  background: var(--surface-card);
+  border: 1px solid var(--border-subtle);
+  box-shadow: 0 12px 36px rgba(12, 24, 16, 0.05);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease;
+}
+
+.pillar-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 50px rgba(12, 24, 16, 0.1);
+  border-color: rgba(201, 165, 90, 0.35);
 }
 
 .pillar-card-ibadah {
