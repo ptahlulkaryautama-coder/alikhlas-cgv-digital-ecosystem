@@ -1,8 +1,9 @@
 import React from 'react';
 
 const mockReportsList = [
-  { id: 'DKM-2026-005', periode: 'Mei 2026', tanggal: '25 Mei 2026', nama: 'Laporan Keuangan Bulanan Mei 2026', kategori: 'Keuangan', status: 'Dalam verifikasi', akses: 'Pengurus' },
-  { id: 'DKM-2026-004', periode: 'Juni 2026', tanggal: '14 Jun 2026', nama: 'Laporan Keuangan Bulanan Juni 2026', kategori: 'Keuangan', status: 'Dalam verifikasi', akses: 'Pengurus' },
+  { id: 'DKM-2026-006', periode: 'Agustus 2026', tanggal: '15 Ags 2026', nama: 'Laporan Keuangan Kas Masjid (1–15 Ags 2026)', kategori: 'Keuangan', status: 'Siap publik', akses: 'Publik' },
+  { id: 'DKM-2026-005', periode: 'Mei 2026', tanggal: '25 Mei 2026', nama: 'Laporan Keuangan Bulanan Mei 2026', kategori: 'Keuangan', status: 'Arsip internal', akses: 'Pengurus' },
+  { id: 'DKM-2026-004', periode: 'Juni 2026', tanggal: '14 Jun 2026', nama: 'Laporan Keuangan Bulanan Juni 2026', kategori: 'Keuangan', status: 'Arsip internal', akses: 'Pengurus' },
   { id: 'DKM-2026-003', periode: 'April 2026', tanggal: '10 Mei 2026', nama: 'Laporan LPJ Kegiatan Ramadhan 1447 H', kategori: 'Kegiatan DKM', status: 'Arsip internal', akses: 'Pengurus' },
   { id: 'DKM-2026-002', periode: 'April 2026', tanggal: '28 Apr 2026', nama: 'Laporan Keuangan Bulanan April 2026', kategori: 'Keuangan', status: 'Arsip internal', akses: 'Pengurus' },
   { id: 'DKM-2026-001', periode: 'Jan 2026', tanggal: '10 Jan 2026', nama: 'SK Pengesahan Pengurus DKM Al Ikhlas', kategori: 'SK & Surat', status: 'Siap publik', akses: 'Publik' }

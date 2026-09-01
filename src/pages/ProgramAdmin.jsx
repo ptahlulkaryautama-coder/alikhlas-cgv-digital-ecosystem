@@ -19,11 +19,14 @@ import ProgramNotice from '../components/program/ProgramNotice.jsx';
 import ProgramSummaryCards from '../components/program/ProgramSummaryCards.jsx';
 import ProgramTable from '../components/program/ProgramTable.jsx';
 import ProgramSchedulePreview from '../components/program/ProgramSchedulePreview.jsx';
+import ProgramWorkflowPanel from '../components/program/ProgramWorkflowPanel.jsx';
 import usePrograms from '../hooks/usePrograms.js';
 import '../styles/dashboard.css';
+import '../styles/newsAdmin.css';
+import '../styles/financeAdmin.css';
 
 export default function ProgramAdmin() {
-  const { programs, isLoading, source } = usePrograms();
+  const { programs, isLoading, source, sourceStatus, retry } = usePrograms({ scope: 'admin' });
 
   return (
     <DashboardLayout
@@ -52,27 +55,12 @@ export default function ProgramAdmin() {
           <p className="db-pg-desc">
             {isLoading
               ? 'Memuat daftar program dari Google Sheets…'
-              : `${programs.length} program · Sheet 01_Program_Kajian · Read-only prototype`}
+              : `${programs.length} program · ${sourceStatus.label} · Read-only`}
           </p>
         </div>
 
         {/* Sheet badge */}
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '6px',
-            fontSize: '11px',
-            fontWeight: 500,
-            color: 'var(--db-text-4)',
-            background: 'var(--db-bg-inset)',
-            border: '1px solid rgba(12,24,16,.08)',
-            borderRadius: '10px',
-            padding: '6px 12px',
-            flexShrink: 0,
-            alignSelf: 'flex-start',
-          }}
-        >
+        <div className="db-source-badge">
           <svg width="11" height="11" viewBox="0 0 11 11" fill="none" aria-hidden="true">
             <rect x="1" y="1" width="9" height="9" rx="1.5" stroke="currentColor" strokeWidth="1.2" />
             <path d="M3.5 4h4M3.5 6h2.5" stroke="currentColor" strokeWidth="1.1" strokeLinecap="round" />
@@ -84,6 +72,8 @@ export default function ProgramAdmin() {
       {/* ── Notice: data source + disabled action ─────────────────── */}
       <ProgramNotice source={source} isLoading={isLoading} total={programs.length} />
 
+      <ProgramWorkflowPanel programs={programs} onRefresh={retry} />
+
       {/* ── KPI summary + pilar breakdown ────────────────────────── */}
       <ProgramSummaryCards programs={programs} isLoading={isLoading} />
 
@@ -94,7 +84,7 @@ export default function ProgramAdmin() {
       <ProgramSchedulePreview programs={programs} isLoading={isLoading} />
 
       {/* ── Context links ──────────────────────────────────────────── */}
-      <div className="db-sec-eyebrow" style={{ marginTop: '4px' }}>
+      <div className="db-sec-eyebrow db-sec-eyebrow-spaced">
         Tautan Cepat
       </div>
       <div className="db-quick-link-grid">

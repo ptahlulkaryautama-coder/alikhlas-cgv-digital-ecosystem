@@ -193,8 +193,8 @@ export default function ProgramTable({ programs = [], isLoading = false }) {
                   <tr>
                     <td colSpan={6} style={{ padding: '32px', textAlign: 'center', color: 'var(--db-text-4)', fontSize: '13px' }}>
                       {searchQuery || activeFilter !== 'Semua'
-                        ? 'Tidak ada program sesuai filter.'
-                        : 'Belum ada data program.'}
+                        ? 'Tidak ada program sesuai filter. Coba ubah pencarian atau pilih pilar lain.'
+                        : 'Belum ada data program kegiatan. Klik tombol Tambah Program untuk membuat agenda kajian baru.'}
                     </td>
                   </tr>
                 )}

@@ -8,12 +8,13 @@
  *   Placeholder: program, agenda, tpq, donasi
  * - User area with logout button
  *
- * Logout uses the existing auth.js logout() helper from Phase 2.
+ * Logout closes the active Supabase session.
  */
 
 import { useNavigate } from 'react-router-dom';
 import logoUrl from '../../assets/official-logo.png';
-import { logout } from '../../services/auth.js';
+import { useAuth } from '../../context/AuthContext.jsx';
+import { hasPermission, ROUTE_PERMISSIONS } from '../../services/accessPolicy.js';
 
 // Modules that have been fully implemented and should be navigable
 const ACTIVE_MODULES = new Set([
@@ -28,6 +29,7 @@ const ACTIVE_MODULES = new Set([
   'dokumen',
   'pengaturan',
   'tpq',
+  'tpqPengampu',
 ]);
 
 const NAV_GROUPS = [
@@ -123,6 +125,20 @@ const NAV_GROUPS = [
         ),
       },
       {
+        id: 'tpqPengampu',
+        label: 'App Pengampu',
+        route: '/app/tpq/pengampu',
+        pill: 'Baru',
+        icon: (
+          <svg className="db-sb-ico" viewBox="0 0 16 16" fill="none">
+            <rect x="2" y="1.5" width="12" height="13" rx="2" fill="currentColor" opacity=".95" />
+            <rect x="4" y="4" width="8" height="1.4" rx=".7" fill="#0c2b1d" opacity=".9" />
+            <rect x="4" y="7.2" width="6.5" height="1.4" rx=".7" fill="#0c2b1d" opacity=".9" />
+            <rect x="4" y="10.4" width="5" height="1.4" rx=".7" fill="#0c2b1d" opacity=".9" />
+          </svg>
+        ),
+      },
+      {
         id: 'donasi',
         label: 'Donasi & Infaq',
         route: '/app/donasi',
@@ -179,9 +195,10 @@ const NAV_GROUPS = [
 
 export default function Sidebar({ activeId = 'overview', isMobileOpen, onClose }) {
   const navigate = useNavigate();
+  const { profile, roles, permissions, signOut } = useAuth();
 
-  function handleLogout() {
-    logout();
+  async function handleLogout() {
+    await signOut();
     navigate('/login', { replace: true });
   }
 
@@ -207,29 +224,33 @@ export default function Sidebar({ activeId = 'overview', isMobileOpen, onClose }
 
       {/* Nav groups */}
       <nav className="db-sb-nav">
-        {NAV_GROUPS.map((group) => (
+        {NAV_GROUPS.map((group) => {
+          const visibleItems = group.items.filter((item) => hasPermission(permissions, ROUTE_PERMISSIONS[item.route]));
+          if (visibleItems.length === 0) return null;
+          return (
           <div key={group.label}>
             <div className="db-sb-group-label">{group.label}</div>
-            {group.items.map((item) => {
+            {visibleItems.map((item) => {
               const isActive = ACTIVE_MODULES.has(item.id);
               return (
                 <button
                   key={item.id}
-                  className={`db-sb-item${item.id === activeId ? ' active' : ''}`}
+                  className={`db-sb-item${item.id === activeId ? ' active' : ''}${item.id === 'tpqPengampu' ? ' db-sb-item-featured' : ''}`}
                   onClick={() => handleNavClick(item)}
                   aria-current={item.id === activeId ? 'page' : undefined}
                   disabled={!isActive}
                   title={!isActive ? 'Modul ini akan tersedia di fase berikutnya' : undefined}
                 >
-                  {item.icon}
-                  {item.label}
+                  <span className="db-sb-icon-wrap" aria-hidden="true">{item.icon}</span>
+                  <span className="db-sb-label">{item.label}</span>
                   {item.pill && <span className="db-sb-pill">{item.pill}</span>}
                 </button>
               );
             })}
             <div className="db-sb-divider" />
           </div>
-        ))}
+          );
+        })}
       </nav>
 
       {/* User / logout */}
@@ -237,8 +258,8 @@ export default function Sidebar({ activeId = 'overview', isMobileOpen, onClose }
         <div className="db-sb-user">
           <div className="db-sb-avatar" aria-hidden="true">DK</div>
           <div>
-            <div className="db-sb-user-name">Admin DKM</div>
-            <div className="db-sb-user-role">Prototype Session</div>
+            <div className="db-sb-user-name">{profile?.display_name || 'Pengurus DKM'}</div>
+            <div className="db-sb-user-role">{roles.join(', ').replaceAll('_', ' ')}</div>
           </div>
         </div>
 

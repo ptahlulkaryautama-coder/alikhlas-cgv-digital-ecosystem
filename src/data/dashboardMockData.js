@@ -15,51 +15,50 @@ import { financePeriods } from './siteContent.js';
 
 export { financePeriods };
 
-export const mockPeriod = 'Juni 2026';
+export const mockPeriod = 'Agustus 2026';
 
 export const mockFinanceSummary = {
-  period: 'Juni 2026',
-  updatedAt: '2 Juli 2026',
-  totalIn: 'Rp 12.850.000',
-  totalOut: 'Rp 7.650.000',
-  endingBalance: 'Rp 5.200.000',
-  transactionCount: '24',
+  period: 'Agustus 2026',
+  periodRange: '1–15 Agustus 2026',
+  updatedAt: '15 Agustus 2026',
+  saldoAwal: 'Rp 18.386.130',
+  totalIn: 'Rp 4.300.000',
+  totalOut: 'Rp 1.560.000',
+  endingBalance: 'Rp 21.126.130',
+  transactionCount: '12',
   donorCount: '',
-  activeCampaign: 'Operasional dan pendidikan anak',
-  note: 'Data Buku Kas DKM Masjid Al Ikhlas CGV periode Juni 2026.',
+  activeCampaign: 'Operasional, tahsin, dan kajian dakwah',
+  note: 'Laporan Keuangan Kas Masjid DKM Al Ikhlas CGV periode 1–15 Agustus 2026 telah disahkan oleh Ketua DKM (Karya HP), Sekretaris (Zulhendy M), dan Bendahara (Bambang S).',
 };
 
-// ── KPI (Exact values from the PDF Page 1) ──────────────────────────────────
+// ── KPI (Exact values from Verified August 2026 Signed BKU) ──────────────────
 export const mockKpi = {
-  kasMasuk: { value: '12.850.000', hint: '24 transaksi', raw: 12850000 },
-  kasKeluar: { value: '7.650.000', hint: '18 transaksi', raw: 7650000 },
-  saldoAkhir: { value: '5.200.000', hint: 'Surplus bulan ini', raw: 5200000 },
+  kasMasuk: { value: '4.300.000', hint: '1–15 Ags (5 transaksi)', raw: 4300000 },
+  kasKeluar: { value: '1.560.000', hint: '1–15 Ags (7 transaksi)', raw: 1560000 },
+  saldoAkhir: { value: '21.126.130', hint: 'Saldo per 15 Ags 2026', raw: 21126130 },
   programAktif: { value: '6', hint: '6 kajian aktif', raw: 6 },
   agendaBulanIni: { value: '4', hint: '4 agenda aktif', raw: 4 },
   donasiAktif: { value: '4', hint: 'Kampanye sedang berjalan', raw: 4 },
 };
 
-// ── Kas bulanan chart (Jan–Jun 2026) ──────────────────────────────────────
+// ── Kas bulanan chart (Jan–Ags 2026) ──────────────────────────────────────
 export const mockBulananChart = {
-  labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun'],
-  masuk:  [8400000, 9200000, 11500000, 12000000, 19431000, 12850000],
-  keluar: [4200000, 5100000, 6800000,  7200000,  8268292,  7650000],
+  labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Ags'],
+  masuk:  [8400000, 9200000, 11500000, 12000000, 19431000, 12850000, 14200000, 4300000],
+  keluar: [4200000, 5100000, 6800000,  7200000,  8268292,  7650000,  8100000, 1560000],
 };
 
-// ── Income source breakdown (donut) ───────────────────────────────────────
+// ── Income source breakdown (donut - Agustus 2026) ─────────────────────────
 export const mockIncomeSources = [
-  { label: 'Kotak Infaq',      amount: 'Rp 5.400.000',  percent: 42, color: '#0c2b1d' },
-  { label: 'Transfer Rekening', amount: 'Rp 4.350.000',  percent: 34, color: '#c9a55a' },
-  { label: 'QRIS Masjid',      amount: 'Rp 2.100.000',  percent: 16, color: '#6b7f74' },
-  { label: 'Program Khusus',   amount: 'Rp 1.000.000',  percent: 8,  color: '#8b5e34' },
+  { label: 'Infaq Jumat',                             amount: 'Rp 3.203.000', percent: 74, color: '#0c2b1d' },
+  { label: 'Infaq Majelis Taklim & Ummahat',          amount: 'Rp 797.000',   percent: 19, color: '#c9a55a' },
+  { label: 'Infaq Operasional (Hamba Allah M07)',     amount: 'Rp 300.000',   percent: 7,  color: '#6b7f74' },
 ];
 
-// ── Budget realization progress bars ─────────────────────────────────────
+// ── Budget realization progress bars (Agustus 2026) ───────────────────────
 export const mockAnggaran = [
-  { label: 'Operasional Masjid',     pct: 42, realisasi: 'Rp 3.250.000', target: 'Rp 7,8 jt', color: 'g' },
-  { label: 'Pendidikan & TPQ',       pct: 22, realisasi: 'Rp 1.700.000', target: 'Rp 7,5 jt', color: 'o' },
-  { label: 'Kebersihan & Fasilitas', pct: 19, realisasi: 'Rp 1.450.000', target: 'Rp 7,8 jt', color: 'g' },
-  { label: 'Sosial & Kegiatan',      pct: 17, realisasi: 'Rp 1.250.000', target: 'Rp 7,2 jt', color: 'o' },
+  { label: 'Bisyaroh (Tahsin, Khotib, Pengajar)', pct: 90, realisasi: 'Rp 1.400.000', target: 'Rp 1,5 jt', color: 'g' },
+  { label: 'Operasional & Air Galon',             pct: 10, realisasi: 'Rp 160.000',   target: 'Rp 1,0 jt', color: 'g' },
 ];
 
 // ── Program list ────────────────────────────────────────────────────────────
@@ -151,32 +150,49 @@ export const mockAgenda = [
   },
 ];
 
-// ── Recent activity ─────────────────────────────────────────────────────────
+// ── Recent activity (Agustus 2026) ─────────────────────────────────────────
 export const mockActivity = [
   {
     id: 1,
     dotClass: 'g',
     emoji: '↑',
-    text: 'Infaq Sholat Idul Adha diterima',
-    sub: 'Kas masuk kategori Infaq Event',
-    time: '2 hari lalu',
+    text: 'Infaq Jumat 15 Ags diterima (Rp 1.503.000)',
+    sub: 'Kas masuk kategori Infaq Jumat',
+    time: '15 Agustus 2026',
   },
   {
     id: 2,
-    dotClass: 'b',
-    emoji: '📰',
-    text: 'Warta Sedekah Jumat diterbitkan',
-    sub: 'Oleh DKM Al Ikhlas - Kategori Sosial',
-    time: '4 hari lalu',
+    dotClass: 'g',
+    emoji: '↑',
+    text: 'Infaq Kajian Ummahat diterima (Rp 400.000)',
+    sub: 'Kas masuk kategori Penerimaan Kegiatan',
+    time: '09 Agustus 2026',
   },
   {
     id: 3,
     dotClass: 'b',
-    emoji: '📰',
-    text: 'Dokumentasi TPQ Al Ikhlas diunggah',
-    sub: 'Oleh Ustadzah Aminah - Kategori TPQ',
-    time: '1 minggu lalu',
+    emoji: '📋',
+    text: 'Laporan Kas 1–15 Ags 2026 disahkan',
+    sub: 'Ditandatangani Ketua DKM, Sekretaris & Bendahara',
+    time: '15 Agustus 2026',
   },
+];
+
+// ── Read-only Transaction List: Periode 1–15 Agustus 2026 (Disahkan Bendahara) ──
+export const mockTransactionsAgustus = [
+  { id: '1', tanggal: '01 Ags', kategori: 'Saldo Awal', keterangan: 'Saldo Akhir Periode Juli 2026', masuk: 'Rp 18.386.130', keluar: '-', saldo: 'Rp 18.386.130' },
+  { id: '2', tanggal: '01 Ags', kategori: 'Bisyaroh', keterangan: 'Pembayaran Bisyaroh Tahsin', masuk: '-', keluar: 'Rp 300.000', saldo: 'Rp 18.086.130' },
+  { id: '3', tanggal: '01 Ags', kategori: 'Operasional', keterangan: 'Pembayaran Air (22 Galon)', masuk: '-', keluar: 'Rp 110.000', saldo: 'Rp 17.976.130' },
+  { id: '4', tanggal: '04 Ags', kategori: 'Infaq Operasional', keterangan: 'Infaq Operasional Masjid - Hamba Allah Mandeville 07', masuk: 'Rp 300.000', keluar: '-', saldo: 'Rp 18.276.130' },
+  { id: '5', tanggal: '07 Ags', kategori: 'Infaq Jumat', keterangan: 'Infaq Jumat', masuk: 'Rp 1.700.000', keluar: '-', saldo: 'Rp 19.976.130' },
+  { id: '6', tanggal: '07 Ags', kategori: 'Bisyaroh', keterangan: 'Bisyaroh Khotib Jumat', masuk: '-', keluar: 'Rp 250.000', saldo: 'Rp 19.726.130' },
+  { id: '7', tanggal: '08 Ags', kategori: 'Penerimaan Kegiatan', keterangan: 'Infaq kajian majelis taklim ibu muslimah cgv', masuk: 'Rp 397.000', keluar: '-', saldo: 'Rp 20.123.130' },
+  { id: '8', tanggal: '08 Ags', kategori: 'Bisyaroh', keterangan: 'Pembayaran Bisyaroh kajian majelis taklim ibu muslimah cgv', masuk: '-', keluar: 'Rp 300.000', saldo: 'Rp 19.823.130' },
+  { id: '9', tanggal: '09 Ags', kategori: 'Penerimaan Kegiatan', keterangan: 'Infaq kajian ummahat sekitaran cgv', masuk: 'Rp 400.000', keluar: '-', saldo: 'Rp 20.223.130' },
+  { id: '10', tanggal: '09 Ags', kategori: 'Bisyaroh', keterangan: 'Pembayaran Bisyaroh kajian ummahat sekitaran cgv', masuk: '-', keluar: 'Rp 300.000', saldo: 'Rp 19.923.130' },
+  { id: '11', tanggal: '15 Ags', kategori: 'Infaq Jumat', keterangan: 'Infaq Jumat', masuk: 'Rp 1.503.000', keluar: '-', saldo: 'Rp 21.426.130' },
+  { id: '12', tanggal: '15 Ags', kategori: 'Bisyaroh', keterangan: 'Bisyaroh Khotib Jumat', masuk: '-', keluar: 'Rp 250.000', saldo: 'Rp 21.176.130' },
+  { id: '13', tanggal: '15 Ags', kategori: 'Operasional', keterangan: 'Operasional Masjid (Sunlight, Super pell)', masuk: '-', keluar: 'Rp 50.000', saldo: 'Rp 21.126.130' },
 ];
 
 // ── Read-only Transaction List (Exact 44 transactions from PDF) ──────────────
@@ -215,7 +231,7 @@ export const mockTransactionsJuni = [
   { id: '32', tanggal: '1 Jun', kategori: 'Infaq Jumat', keterangan: 'Infaq Jumat', masuk: 'Rp 2.241.000', keluar: '-', saldo: 'Rp 4.882.104' },
   { id: '33', tanggal: '1 Jun', kategori: 'Jumber', keterangan: 'Pembayaran Jumber Meteora 62', masuk: '-', keluar: 'Rp 300.000', saldo: 'Rp 2.641.104' },
   { id: '34', tanggal: '1 Jun', kategori: 'Infaq Cluster', keterangan: 'Infaq Jumber Meteora 62 TF ke rekening', masuk: 'Rp 150.000', keluar: '-', saldo: 'Rp 2.941.104' },
-  { id: '35', tanggal: '1 Jun', kategori: 'Infaq Cluster', keterangan: 'Infaq Jumber Meteora 62 TF ke rekening', masuk: 'Rp 300.000', keluar: '-', saldo: 'Rp 2.791.104' },
+  { id: '35', tanggal: '1 Jun', kategori: 'Infaq Cluster', keterangan: 'Infaq Jumber Meteora 62 TF ke rekening', masuk: 'Rp 300.000', saldo: 'Rp 2.791.104' },
   { id: '36', tanggal: '1 Jun', kategori: 'Infaq Cluster', keterangan: 'Infaq Masjid dr Meteora 25 TF ke rekening', masuk: 'Rp 500.000', keluar: '-', saldo: 'Rp 2.491.104' },
   { id: '37', tanggal: '1 Jun', kategori: 'Bisyaroh', keterangan: 'Pembayaran Bisyaroh Imam', masuk: '-', keluar: 'Rp 250.000', saldo: 'Rp 1.991.104' },
   { id: '38', tanggal: '1 Jun', kategori: 'Infaq Jumat', keterangan: 'Infaq Jumat', masuk: 'Rp 2.241.000', keluar: '-', saldo: 'Rp 2.241.104' },
@@ -270,4 +286,4 @@ export const mockTransactionsMei = [
   { id: '42', tanggal: '1 Mei', kategori: 'Infaq Cluster', keterangan: 'Infaq Jumber Meteora 62 TF ke rekening', stroke: 'none', masuk: 'Rp 300.000', keluar: '-', saldo: 'Rp 300.000' },
 ];
 
-export const mockTransactions = mockTransactionsJuni;
+export const mockTransactions = mockTransactionsAgustus;

@@ -1,0 +1,2 @@
+import test from'node:test';import assert from'node:assert/strict';import{readFile}from'node:fs/promises';
+test('Agenda single-account evidence is read-only and proves audit plus public isolation',async()=>{const sql=await readFile('supabase/rehearsal/content_agenda_single_account_evidence.sql','utf8');for(const token of ['single_account_release','excluded_from_public_projection','audit_event_count','writes_enabled','test_mode_enabled'])assert.match(sql,new RegExp(token));assert.doesNotMatch(sql,/^\s*(insert|update|delete|alter|drop|create|truncate)\b/im);});

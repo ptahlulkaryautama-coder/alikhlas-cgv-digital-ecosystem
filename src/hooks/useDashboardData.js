@@ -12,7 +12,7 @@
  *
  * Safety guarantees:
  *   - Never throws to the caller — every branch catches internally.
- *   - Falls back silently when VITE_GAS_URL is unset or any fetch fails.
+ *   - Local mode returns fallback without a request; proxy failures also fall back.
  *   - console.warn only in DEV (handled inside api.js logApiFallback).
  *   - No donor / jemaah / TPQ child data is fetched or surfaced here.
  *   - No POST calls are made.

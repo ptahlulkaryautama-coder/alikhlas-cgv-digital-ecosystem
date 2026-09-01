@@ -1,4 +1,4 @@
-import heroUrl from '../../assets/al-ikhlas-townhouse-hero.png';
+import heroUrl from '../../assets/hero-desktop.png';
 import storyMalamUrl from '../../assets/cerita-kajian-malam.jpg';
 import storyRutinUrl from '../../assets/cerita-kajian-rutin.jpg';
 import { stories } from '../../data/siteContent.js';

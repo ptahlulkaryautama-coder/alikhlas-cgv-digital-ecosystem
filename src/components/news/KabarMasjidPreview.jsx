@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { newsArticles } from '../../data/newsData.js';
+import { kabarRepository } from '../../repositories/kabarRepository.js';
+import { tpqRepository } from '../../repositories/tpqRepository.js';
 import Container from '../common/Container.jsx';
 import Button from '../common/Button.jsx';
 
@@ -31,8 +32,9 @@ export default function KabarMasjidPreview() {
       return new Date(year, month, day);
     };
 
-    return [...newsArticles]
-      .filter((a) => a.visibility === 'Publik' && a.status === 'Siap publik')
+    const tpqSlugs = new Set(tpqRepository.getPublicNews().map((article) => article.slug));
+    return [...kabarRepository.getPublic()]
+      .filter((article) => article.category !== 'TPQ' || tpqSlugs.has(article.slug))
       .sort((a, b) => parseIndoDate(b.date) - parseIndoDate(a.date))
       .slice(0, 3);
   }, []);
@@ -41,7 +43,7 @@ export default function KabarMasjidPreview() {
     <section id="kabar" className="kabar-section" aria-labelledby="kabar-title">
       <Container>
         <div className="section-kicker-block wide">
-          <p className="label">Warta &amp; Aktivitas</p>
+          <p className="label">Warta dan Aktivitas</p>
           <h2 id="kabar-title" className="section-title">
             Kabar Terbaru
           </h2>
@@ -49,12 +51,14 @@ export default function KabarMasjidPreview() {
             Cerita kegiatan warga, catatan pengajian, dan pengumuman DKM Masjid Al Ikhlas Cipta Greenville.
           </p>
         </div>
-        <div className="kabar-grid">
-          {latestArticles.map((artikel, idx) => {
+        <div className="kabar-layout">
+          {latestArticles[0] && (() => {
+            const artikel = latestArticles[0];
             const catStyle = CAT_COLORS[artikel.category];
+            const imageUrl = artikel.coverImage || artikel.image;
             return (
               <article 
-                className={`kabar-card ${idx === 0 ? 'kabar-card-featured' : ''}`} 
+                className="kabar-card kabar-card-featured"
                 key={artikel.id}
                 onClick={() => navigate(`/kabar/${artikel.slug}`)}
                 tabIndex={0}
@@ -68,12 +72,15 @@ export default function KabarMasjidPreview() {
                 aria-label={`Baca artikel: ${artikel.title}`}
               >
                 <div className="kabar-card-body">
-                  <img 
-                    className="kabar-card-image"
-                    src={artikel.coverImage || artikel.image} 
-                    alt={artikel.title} 
-                    loading="lazy"
-                  />
+                  {imageUrl && (
+                    <img
+                      className="kabar-card-image"
+                      src={imageUrl}
+                      alt=""
+                      loading="eager"
+                      onError={(event) => { event.currentTarget.hidden = true; }}
+                    />
+                  )}
                   <div className="kabar-card-meta">
                     <span 
                       className="kabar-card-category"
@@ -101,7 +108,66 @@ export default function KabarMasjidPreview() {
                 </span>
               </article>
             );
-          })}
+          })()}
+
+          <div className="kabar-secondary-list">
+            {latestArticles.slice(1, 3).map((artikel) => {
+              const catStyle = CAT_COLORS[artikel.category];
+              const imageUrl = artikel.coverImage || artikel.image;
+              return (
+                <article
+                  className="kabar-card kabar-card-secondary"
+                  key={artikel.id}
+                  onClick={() => navigate(`/kabar/${artikel.slug}`)}
+                  tabIndex={0}
+                  role="button"
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      navigate(`/kabar/${artikel.slug}`);
+                    }
+                  }}
+                  aria-label={`Baca artikel: ${artikel.title}`}
+                >
+                  <div className="kabar-card-body">
+                    {imageUrl && (
+                      <img
+                        className="kabar-card-image kabar-card-image-secondary"
+                        src={imageUrl}
+                        alt=""
+                        loading="eager"
+                        onError={(event) => { event.currentTarget.hidden = true; }}
+                      />
+                    )}
+                    <div className="kabar-card-meta">
+                      <span
+                        className="kabar-card-category"
+                        style={{
+                          background: catStyle?.bg ?? '#E8F5EE',
+                          color: catStyle?.text ?? '#1A7A50',
+                          padding: '3px 10px',
+                          borderRadius: '999px',
+                          fontWeight: 700
+                        }}
+                      >
+                        {artikel.category}
+                      </span>
+                      <span className="kabar-card-date">{artikel.date}</span>
+                    </div>
+                    <h3 className="kabar-card-title">
+                      {artikel.title}
+                    </h3>
+                    <p className="kabar-card-excerpt">
+                      {artikel.excerpt}
+                    </p>
+                  </div>
+                  <span className="kabar-card-link">
+                    Baca selengkapnya <span aria-hidden="true">→</span>
+                  </span>
+                </article>
+              );
+            })}
+          </div>
         </div>
         <div className="kabar-section-footer">
           <Button href="/kabar" variant="primary">
@@ -112,4 +178,3 @@ export default function KabarMasjidPreview() {
     </section>
   );
 }
-

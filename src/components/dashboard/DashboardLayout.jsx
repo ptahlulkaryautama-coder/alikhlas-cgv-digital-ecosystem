@@ -12,12 +12,14 @@
 import { useState } from 'react';
 import Sidebar from './Sidebar.jsx';
 import Topbar from './Topbar.jsx';
+import '../../styles/dashboardPremium.css';
 
 export default function DashboardLayout({ children, title, subtitle, activeId, period }) {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
     <>
+      <a className="db-skip-link" href="#dashboard-main-content">Lewati ke konten utama</a>
       {/* ── Prototype warning banner ─────────────────────────────────── */}
       <div className="db-proto-banner" role="alert" aria-live="polite">
         <span className="db-proto-dot" aria-hidden="true" />
@@ -29,15 +31,11 @@ export default function DashboardLayout({ children, title, subtitle, activeId, p
       <div className="dashboard-root has-proto-banner">
         {/* Mobile overlay */}
         {mobileOpen && (
-          <div
-            style={{
-              position: 'fixed',
-              inset: 0,
-              background: 'rgba(8,25,18,.45)',
-              zIndex: 99,
-            }}
+          <button
+            type="button"
+            className="db-mobile-scrim"
             onClick={() => setMobileOpen(false)}
-            aria-hidden="true"
+            aria-label="Tutup menu navigasi"
           />
         )}
 
@@ -47,7 +45,7 @@ export default function DashboardLayout({ children, title, subtitle, activeId, p
           onClose={() => setMobileOpen(false)}
         />
 
-        <main className="db-main">
+        <main className="db-main" id="dashboard-main-content" tabIndex="-1">
           {/* Bismillah strip */}
           <div className="db-bismillah" aria-hidden="true">
             <span className="db-bismillah-ornament" />

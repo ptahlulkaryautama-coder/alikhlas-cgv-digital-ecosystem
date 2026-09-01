@@ -10,6 +10,7 @@ import '../../styles/youtubeLive.css';
 
 export default function YouTubeLiveKajian() {
   const [activeTab, setActiveTab] = useState('live'); // 'live' | 'archive' | 'schedule'
+  const [isPlayingVideo, setIsPlayingVideo] = useState(false);
   const [activeVideo, setActiveVideo] = useState({
     videoId: currentLiveStream.videoId,
     title: currentLiveStream.title,
@@ -45,7 +46,7 @@ export default function YouTubeLiveKajian() {
             <span className="kicker-arabic">البث المباشر</span>
           </div>
           <h2 id="yt-live-heading" className="yt-live-title">
-            YouTube Live &amp; Rekaman Kajian
+            Siaran dan Rekaman Kajian
           </h2>
           <p className="yt-live-subtitle">
             Simak kajian ilmu syar'i secara langsung dari Masjid Al Ikhlas Cipta Greenville, kapan saja dan di mana saja.
@@ -57,13 +58,43 @@ export default function YouTubeLiveKajian() {
           {/* Left Column: Embedded YouTube Video Player */}
           <div className="yt-player-card">
             <div className="yt-player-wrapper">
-              <iframe
-                src={`https://www.youtube-nocookie.com/embed/${activeVideo.videoId}?autoplay=0&rel=0`}
-                title={activeVideo.title}
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-                className="yt-iframe"
-              />
+              {isPlayingVideo ? (
+                <iframe
+                  src={`https://www.youtube-nocookie.com/embed/${activeVideo.videoId}?autoplay=1&rel=0`}
+                  title={activeVideo.title}
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  className="yt-iframe"
+                />
+              ) : (
+                <div
+                  className="yt-facade-container"
+                  onClick={() => setIsPlayingVideo(true)}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      setIsPlayingVideo(true);
+                    }
+                  }}
+                  aria-label={`Putar video: ${activeVideo.title}`}
+                >
+                  <img
+                    src={`https://img.youtube.com/vi/${activeVideo.videoId}/hqdefault.jpg`}
+                    alt={activeVideo.title}
+                    className="yt-facade-poster"
+                  />
+                  <div className="yt-facade-overlay">
+                    <div className="yt-play-button" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" width="32" height="32" fill="currentColor">
+                        <polygon points="5 3 19 12 5 21 5 3" />
+                      </svg>
+                    </div>
+                    <span className="yt-facade-label">Klik untuk memutar siaran</span>
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* Video Info Bar */}

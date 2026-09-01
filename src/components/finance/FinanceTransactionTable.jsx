@@ -1,16 +1,18 @@
-import { mockTransactionsMei, mockTransactionsJuni, mockFinanceSummary, financePeriods } from '../../data/dashboardMockData.js';
+import { mockTransactionsAgustus, mockTransactionsMei, mockTransactionsJuni, mockFinanceSummary, financePeriods } from '../../data/dashboardMockData.js';
 import '../../styles/financeAdmin.css';
 
 function getPillClass(kategori) {
-  const cat = kategori.toLowerCase();
-  if (cat.includes('infaq') || cat.includes('donasi')) return 'fin-pill-green';
+  const cat = (kategori || '').toLowerCase();
+  if (cat.includes('infaq') || cat.includes('donasi') || cat.includes('penerimaan')) return 'fin-pill-green';
   if (cat.includes('operasional') || cat.includes('bisyaroh') || cat.includes('jumber')) return 'fin-pill-red';
   return 'fin-pill-blue';
 }
 
-export default function FinanceTransactionTable({ selectedPeriod = 'juni2026' }) {
-  const activePeriod = financePeriods[selectedPeriod];
-  const list = selectedPeriod === 'mei2026' ? mockTransactionsMei : mockTransactionsJuni;
+export default function FinanceTransactionTable({ selectedPeriod = 'agustus2026', data = null, source = 'fallback' }) {
+  const activePeriod = financePeriods[selectedPeriod] || financePeriods.agustus2026;
+  const money = (value) => new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(value);
+  const list = data ? data.transactions.map((row) => ({ id: row.id, tanggal: row.date, keterangan: row.description, kategori: row.category, masuk: row.direction === 'income' ? money(row.amount) : '-', keluar: row.direction === 'expense' ? money(row.amount) : '-', saldo: money(row.runningBalance) })) : selectedPeriod === 'agustus2026' ? mockTransactionsAgustus : selectedPeriod === 'mei2026' ? mockTransactionsMei : mockTransactionsJuni;
+  const periodLabel = data?.period || (activePeriod.periodRange ? `${activePeriod.label} (${activePeriod.periodRange})` : activePeriod.label);
 
   return (
     <div className="fin-table-container">
@@ -19,9 +21,9 @@ export default function FinanceTransactionTable({ selectedPeriod = 'juni2026' })
           <div>
             <div className="fin-table-title">Riwayat Transaksi (Read-only)</div>
             <div style={{ fontSize: '12px', color: '#6b7f74', marginTop: '4px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <span>Transaksi periode {activePeriod.label}</span>
-              <span style={{ fontSize: '11px', fontWeight: 600, padding: '2px 8px', borderRadius: '12px', background: '#FFF3CD', color: '#856404', border: '1px solid #FFEEBA' }}>
-                Dalam Peninjauan (Data Mock)
+              <span>Transaksi periode {periodLabel}</span>
+              <span style={{ fontSize: '11px', fontWeight: 600, padding: '2px 8px', borderRadius: '12px', background: activePeriod.status === 'Terverifikasi' ? '#E8F5EE' : '#FFF3CD', color: activePeriod.status === 'Terverifikasi' ? '#0F6130' : '#856404', border: activePeriod.status === 'Terverifikasi' ? '1px solid rgba(15,97,48,.2)' : '1px solid #FFEEBA' }}>
+                {source === 'supabase' ? 'Data Uji Supabase' : activePeriod.status === 'Terverifikasi' ? 'Terverifikasi DKM' : 'Dalam Peninjauan'}
               </span>
             </div>
           </div>

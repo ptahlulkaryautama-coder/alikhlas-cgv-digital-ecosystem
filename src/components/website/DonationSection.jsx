@@ -35,7 +35,7 @@ export default function DonationSection({ hideCta }) {
     <section id="donasi" className="donation-section" aria-labelledby="donation-title">
       <Container>
         <div className="section-kicker-block wide">
-          <p className="label">Kanal Donasi &amp; Infaq</p>
+          <p className="label">Kanal Donasi dan Infaq</p>
           <h2 id="donation-title" className="section-title">
             Penggunaan Infaq Jamaah
           </h2>
@@ -43,20 +43,17 @@ export default function DonationSection({ hideCta }) {
             Setiap rupiah digunakan untuk kebutuhan harian masjid: dari operasional shalat, guru TPQ, sampai peralatan dan kebersihan.
           </p>
         </div>
-        <div className="donation-grid">
+        <div className="donation-grid-compact" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '16px', maxWidth: '800px', marginInline: 'auto' }}>
           {donationPrograms.map((item) => (
-            <article className="donation-card" key={item.title}>
-              <span className="card-icon" aria-hidden="true">
+            <div className="donation-row-compact" key={item.title} style={{ display: 'flex', alignItems: 'flex-start', gap: '12px', padding: '14px 16px', background: 'rgba(12, 43, 29, 0.03)', borderRadius: '12px', border: '1px solid rgba(12, 43, 29, 0.08)' }}>
+              <span className="card-icon-mini" aria-hidden="true" style={{ color: '#0c2b1d', flexShrink: 0, marginTop: '2px' }}>
                 {donationIcons[item.title] || item.title.slice(0, 1)}
               </span>
-              <h3>{item.title}</h3>
-              <p>{item.description}</p>
-              {!hideCta && (
-                <Button href="/donasi" variant="primary" className="donation-card-cta">
-                  Dukung
-                </Button>
-              )}
-            </article>
+              <div>
+                <h4 style={{ margin: '0 0 4px 0', fontSize: '14px', fontWeight: 700, color: '#0c2b1d' }}>{item.title}</h4>
+                <p style={{ margin: 0, fontSize: '12.5px', color: '#4a5d53', lineHeight: 1.5 }}>{item.description}</p>
+              </div>
+            </div>
           ))}
         </div>
         {!hideCta && (

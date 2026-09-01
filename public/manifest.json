@@ -1,0 +1,33 @@
+{
+  "name": "Masjid Al Ikhlas Cipta Greenville Batam",
+  "short_name": "Al Ikhlas CGV",
+  "description": "Pusat Informasi, Jadwal Sholat, Kajian Rutin, & Pelayanan Umat Masjid Al Ikhlas CGV Batam",
+  "start_url": "/",
+  "id": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#0c2b1d",
+  "theme_color": "#0c2b1d",
+  "scope": "/",
+  "lang": "id",
+  "icons": [
+    {
+      "src": "/pwa-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/pwa-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ],
+  "categories": ["education", "lifestyle", "utilities"]
+}

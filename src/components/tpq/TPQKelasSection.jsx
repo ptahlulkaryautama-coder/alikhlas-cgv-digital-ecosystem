@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
-import { CLASS_GROUPS } from '../../data/tpqData.js';
-
-export default function TPQKelasSection() {
+export default function TPQKelasSection({ classes = [] }) {
   const [dayFilter, setDayFilter] = useState('semua');
 
   // Determine current day of week (1-4 = Senin-Kamis, 5-6 = Jumat-Sabtu)
@@ -10,7 +8,7 @@ export default function TPQKelasSection() {
   const isWeekday = dayNum >= 1 && dayNum <= 4;
   const isWeekendClass = dayNum === 5 || dayNum === 6;
 
-  const filteredClasses = CLASS_GROUPS.filter((cls) => {
+  const filteredClasses = classes.filter((cls) => {
     if (dayFilter === 'senin-kamis') return cls.day.includes('Senin');
     if (dayFilter === 'jumat-sabtu') return cls.day.includes('Jumat');
     return true;

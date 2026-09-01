@@ -78,10 +78,12 @@ export default function PublicAgenda() {
                 <span className="kicker-sep" aria-hidden="true">·</span>
                 <span className="kicker-arabic">جدول الفعاليات</span>
               </div>
-              <h1 id="agenda-page-title">Agenda &amp; Event Mendatang</h1>
+              <h1 id="agenda-page-title">
+                {stats.upcoming > 0 ? 'Agenda dan Kegiatan Mendatang' : 'Jadwal Agenda dan Kegiatan Masjid'}
+              </h1>
               <p>
-                Catat tanggal gotong royong perumahan, shalat Id, dan jadwal kumpul
-                pengurus DKM Al Ikhlas—semuanya diperbarui langsung oleh pengurus.
+                Catat tanggal gotong royong perumahan, shalat Id, dan kegiatan warga
+                di Masjid Al Ikhlas Cipta Greenville.
               </p>
 
               {/* Inline quick-stats strip */}
@@ -97,7 +99,7 @@ export default function PublicAgenda() {
                   <span className="program-hero-stat-value">
                     {isLoading ? '…' : stats.upcoming}
                   </span>
-                  <span className="program-hero-stat-label">Mendatang</span>
+                  <span className="program-hero-stat-label">Agenda Mendatang</span>
                 </div>
                 {stats.nearestLabel && (
                   <>
@@ -167,35 +169,7 @@ export default function PublicAgenda() {
           <ProgramKegiatan hideProgram={true} />
         </div>
 
-        {/* ── How the calendar works — contextual info ── */}
-        <section className="agenda-how-it-works">
-          <Container>
-            <div className="agenda-howto-grid">
-              <div className="agenda-howto-card">
-                <span className="agenda-howto-icon" aria-hidden="true">📅</span>
-                <h3>Tampilan Grid</h3>
-                <p>
-                   Semua agenda dalam satu daftar. Cocok kalau mau pantau jadwal sebulan ke depan sekaligus.
-                </p>
-              </div>
-              <div className="agenda-howto-card">
-                <span className="agenda-howto-icon" aria-hidden="true">🗓️</span>
-                <h3>Tampilan Kalender</h3>
-                <p>
-                  Klik tanggal di kalender untuk lihat detail kegiatan hari itu.
-                  Tanggal berbintang emas berarti ada kegiatan terjadwal.
-                </p>
-              </div>
-              <div className="agenda-howto-card">
-                <span className="agenda-howto-icon" aria-hidden="true">🔔</span>
-                <h3>Update Berkala</h3>
-                <p>
-                   Agenda diperbarui langsung oleh pengurus. Cek lagi sebelum hari-H.
-                </p>
-              </div>
-            </div>
-          </Container>
-        </section>
+
 
         {/* ── Page CTA Block ── */}
         <section style={{ paddingBottom: '80px' }}>

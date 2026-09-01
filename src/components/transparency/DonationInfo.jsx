@@ -20,14 +20,23 @@ export default function DonationInfo({ donation, compact = false }) {
       <Container className="transparency-donation-grid">
         <div className="donation-info-copy">
           <div className="transparency-hero-label" style={{ color: '#0c2b1d', marginBottom: '8px' }}>
-            <span className="fin-line" style={{ background: '#0c2b1d' }} aria-hidden="true"></span> KANAL DONASI &amp; INFAQ
+            <span className="fin-line" style={{ background: '#0c2b1d' }} aria-hidden="true"></span> KANAL DONASI DAN INFAQ
           </div>
           <h2 id="donation-info-title">
-            Rekening &amp; QRIS Resmi DKM
+            Rekening dan QRIS Resmi DKM
           </h2>
           <p>
             Transfer donasi ke rekening atau QRIS resmi DKM. Setelah transfer, kabari kami via WhatsApp supaya bisa langsung dimasukkan ke laporan bulanan.
           </p>
+          <div className="donation-steps-mini" style={{ marginBlock: '20px', padding: '16px', background: 'rgba(12, 43, 29, 0.04)', borderRadius: '12px', border: '1px solid rgba(12, 43, 29, 0.08)' }}>
+            <strong style={{ display: 'block', fontSize: '13px', color: '#0c2b1d', marginBottom: '10px' }}>Panduan Ringkas Berinfaq:</strong>
+            <ol style={{ margin: 0, paddingLeft: '18px', fontSize: '13px', color: '#3a5244', lineHeight: 1.6 }}>
+              <li>Pilih rekening BSI atau scan kode QRIS resmi DKM.</li>
+              <li>Lakukan transfer sesuai nominal infaq sukarela Anda.</li>
+              <li>Konfirmasi via WhatsApp agar dicatat di buku kas bulanan.</li>
+            </ol>
+          </div>
+
           <div className="donation-copy-actions">
             <a 
               href={donation.confirmationUrl} 
@@ -107,6 +116,9 @@ export default function DonationInfo({ donation, compact = false }) {
               </div>
               <span className="qris-meta">NMID: <strong>{donation.nmid}</strong></span>
               <span className="qris-bank-label">Bank Syariah Indonesia (BSI)</span>
+              <p className="qris-helper-text" style={{ fontSize: '12px', color: '#6b7f74', marginTop: '8px', marginBottom: 0, lineHeight: 1.4 }}>
+                Scan QRIS melalui aplikasi mobile banking atau dompet digital.
+              </p>
             </figcaption>
           </figure>
         </div>

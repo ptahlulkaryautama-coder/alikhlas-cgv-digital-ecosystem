@@ -143,35 +143,7 @@ export default function PublicProgram() {
         {/* ── YouTube Live & Rekaman Kajian Feature Section ── */}
         <YouTubeLiveKajian />
 
-        {/* ── How to Join — contextual info block ── */}
-        <section className="program-how-to-join">
-          <Container>
-            <div className="how-to-join-grid">
-              <div className="htj-card">
-                <span className="htj-icon" aria-hidden="true">🕌</span>
-                <h3>Datang Langsung</h3>
-                <p>
-                  Semua kajian terbuka untuk warga Cipta Greenville. Tidak perlu daftar
-                  khusus — cukup datang ke masjid sesuai jadwal.
-                </p>
-              </div>
-              <div className="htj-card">
-                <span className="htj-icon" aria-hidden="true">📝</span>
-                <h3>Kelas Tahsin &amp; Bahasa Arab</h3>
-                <p>
-                   Untuk kelas yang perlu daftar dulu, hubungi pengurus DKM — biar kursinya bisa disiapkan.
-                </p>
-              </div>
-              <div className="htj-card">
-                <span className="htj-icon" aria-hidden="true">👦</span>
-                <h3>TPQ Anak-anak</h3>
-                <p>
-                   Orang tua bisa daftarkan anak langsung ke ustadz/ustadzah TPQ, atau tanya dulu di grup WhatsApp warga CGV.
-                </p>
-              </div>
-            </div>
-          </Container>
-        </section>
+
 
         {/* ── Page CTA Block ── */}
         <section style={{ paddingBottom: '80px' }}>

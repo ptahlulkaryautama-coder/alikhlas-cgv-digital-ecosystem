@@ -1,9 +1,7 @@
 import React from 'react';
-import { KURIKULUM_ROADMAP } from '../../data/tpqData.js';
-
-export default function TPQKurikulumSection() {
+export default function TPQKurikulumSection({ learningFocus = [] }) {
   // Guard: if data is empty or missing, render informative fallback rather than an empty grid.
-  if (!KURIKULUM_ROADMAP || KURIKULUM_ROADMAP.length === 0) {
+  if (learningFocus.length === 0) {
     return (
       <div className="tpq-sec-wrapper">
         <div className="db-sec-eyebrow" style={{ marginBottom: '14px' }}>
@@ -61,7 +59,7 @@ export default function TPQKurikulumSection() {
 
       <div className="tpq-roadmap-box">
         <div className="tpq-roadmap-grid">
-          {KURIKULUM_ROADMAP.map((item) => (
+          {learningFocus.map((item) => (
             <div className="tpq-roadmap-item" key={item.name}>
               <div>
                 <span className="tpq-roadmap-badge">{item.category}</span>

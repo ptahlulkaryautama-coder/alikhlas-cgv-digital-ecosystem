@@ -3,20 +3,30 @@ import DashboardLayout from '../components/dashboard/DashboardLayout.jsx';
 import FinanceCategoryBreakdown from '../components/finance/FinanceCategoryBreakdown.jsx';
 import FinanceDailyBalanceChart from '../components/finance/FinanceDailyBalanceChart.jsx';
 import FinanceKpiSummary from '../components/finance/FinanceKpiSummary.jsx';
+import FinanceCashFlowRatio from '../components/finance/FinanceCashFlowRatio.jsx';
 import FinanceMonthlyReport from '../components/finance/FinanceMonthlyReport.jsx';
 import FinanceTransactionTable from '../components/finance/FinanceTransactionTable.jsx';
+import FinanceImportPanel from '../components/finance/FinanceImportPanel.jsx';
+import FinanceApprovalPanel from '../components/finance/FinanceApprovalPanel.jsx';
+import FinanceBatchHistory from '../components/finance/FinanceBatchHistory.jsx';
+import FinancePilotGuide from '../components/finance/FinancePilotGuide.jsx';
+import FinanceManualEntryPanel from '../components/finance/FinanceManualEntryPanel.jsx';
+import FinanceCorrectionPanel from '../components/finance/FinanceCorrectionPanel.jsx';
 import useFinanceData from '../hooks/useFinanceData.js';
+import useSupabaseFinanceReadModel from '../hooks/useSupabaseFinanceReadModel.js';
 import { financePeriods } from '../data/siteContent.js';
 import qrisUrl from '../assets/qris-alikhlas.png';
 import '../styles/dashboard.css';
 import '../styles/financeAdmin.css';
 
 export default function Finance() {
-  const [selectedPeriodKey, setSelectedPeriodKey] = useState('juni2026');
+  const [selectedPeriodKey, setSelectedPeriodKey] = useState('agustus2026');
   const { data: apiData, isLoading: isApiLoading } = useFinanceData();
+  const periodIso = selectedPeriodKey === 'agustus2026' ? '2026-08-01' : selectedPeriodKey === 'mei2026' ? '2026-05-01' : '2026-06-01';
+  const financeLive = useSupabaseFinanceReadModel('dkm', periodIso);
 
   const activePeriod = financePeriods[selectedPeriodKey];
-  const displayData = {
+  const fallbackData = {
     period: activePeriod.label,
     totalIn: activePeriod.kasMasuk,
     totalOut: activePeriod.kasKeluar,
@@ -28,6 +38,13 @@ export default function Finance() {
       saldoAkhir: { value: activePeriod.saldoAkhir.replace('Rp ', ''), hint: activePeriod.saldoAkhirHint },
     }
   };
+  const displayData = financeLive.data ? {
+    period: new Intl.DateTimeFormat('id-ID', { month: 'long', year: 'numeric' }).format(new Date(`${financeLive.data.period}T00:00:00`)),
+    totalIn: financeLive.data.totalIncome,
+    totalOut: financeLive.data.totalExpense,
+    endingBalance: financeLive.data.endingBalance,
+    transactionCount: financeLive.data.transactionCount,
+  } : fallbackData;
 
   const period = displayData.period;
 
@@ -54,6 +71,10 @@ export default function Finance() {
       period={period}
     >
       <div className="db-page-container">
+        <div className={`fin-source-strip ${financeLive.source === 'supabase' ? 'is-supabase' : ''}`} role="status">
+          <span>{financeLive.source === 'supabase' ? `Data Uji Supabase · ${financeLive.data.workflowStatus}` : financeLive.error || 'Sumber saat ini: repository/fallback'}</span>
+          {financeLive.error && <button className="fin-btn" onClick={financeLive.retry}>Coba lagi</button>}
+        </div>
         {/* ── Prototype Warning Banner ──────────────────────────────────── */}
         <div style={{ background: '#FFF3CD', border: '1px solid #FFEEBA', borderRadius: '12px', padding: '14px 20px', color: '#856404', fontSize: '13.5px', fontWeight: 600, marginBottom: '20px', display: 'flex', alignItems: 'center', gap: '10px' }} role="status">
           <span style={{ fontSize: '18px' }} aria-hidden="true">⚠️</span>
@@ -104,23 +125,34 @@ export default function Finance() {
                 boxShadow: 'var(--db-sh-sm)',
               }}
             >
-              <option value="juni2026">Juni 2026 (Dalam peninjauan)</option>
-              <option value="mei2026">Mei 2026 (Dalam peninjauan)</option>
+              <option value="agustus2026">Agustus 2026 (Disahkan Bendahara DKM)</option>
+              <option value="juni2026">Juni 2026 (Arsip Internal)</option>
+              <option value="mei2026">Mei 2026 (Arsip Internal)</option>
             </select>
           </div>
         </div>
 
         {/* ── KPI cards ────────────────────────────────────────────────── */}
-        <FinanceKpiSummary data={displayData} isLoading={false} />
+        <FinanceKpiSummary data={displayData} isLoading={financeLive.isLoading} />
+
+        {/* ── Visual Cash Flow Waterfall & Ratio ───────────────────────── */}
+        <FinanceCashFlowRatio data={displayData} isLoading={financeLive.isLoading} />
 
         {/* ── Saldo Harian (Line Chart) ────────────────────────────────── */}
-        <FinanceDailyBalanceChart selectedPeriod={selectedPeriodKey} />
+        <FinanceDailyBalanceChart selectedPeriod={selectedPeriodKey} data={financeLive.data} />
 
         {/* ── Category breakdown (Donut chart & list) ───────────────── */}
-        <FinanceCategoryBreakdown selectedPeriod={selectedPeriodKey} />
+        <FinanceCategoryBreakdown selectedPeriod={selectedPeriodKey} data={financeLive.data} />
 
         {/* ── Transaction list ──────────────────────────────────────── */}
-        <FinanceTransactionTable selectedPeriod={selectedPeriodKey} />
+        <FinanceTransactionTable selectedPeriod={selectedPeriodKey} data={financeLive.data} source={financeLive.source} />
+
+        <FinanceManualEntryPanel scope="dkm" />
+        <FinanceCorrectionPanel scope="dkm" />
+        <FinanceImportPanel scope="dkm" />
+        <FinanceApprovalPanel scope="dkm" />
+        <FinanceBatchHistory scope="dkm" />
+        <FinancePilotGuide scope="dkm" />
 
         {/* ── Monthly report list ───────────────────────────────────── */}
         <FinanceMonthlyReport />

@@ -1,5 +1,7 @@
 import React from 'react';
-import { TPQ_PORTAL_INFO } from '../../data/tpqData.js';
+import { tpqRepository } from '../../repositories/tpqRepository.js';
+
+const TPQ_PORTAL_INFO = tpqRepository.getAll().portalInfo;
 
 export default function TPQHeaderBanner() {
   return (

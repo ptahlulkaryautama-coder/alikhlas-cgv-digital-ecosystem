@@ -17,47 +17,27 @@ export default function PublicDonation() {
           <Container>
             <div className="page-hero-content animate-fade-in">
               <div className="page-hero-kicker">
-                <span>Kanal Donasi &amp; Infaq</span>
+                <span>Kanal Donasi dan Infaq</span>
                 <span className="kicker-sep" aria-hidden="true">·</span>
                 <span className="kicker-arabic">الصدقة والأمانة</span>
               </div>
-              <h1>Kanal Donasi &amp; Infaq</h1>
+              <h1>Kanal Donasi dan Infaq</h1>
               <p>
                 Infaq jamaah membantu membiayai operasional masjid, kegiatan belajar TPQ, kajian rutin, dan kebutuhan sosial warga.
               </p>
-
             </div>
           </Container>
         </section>
 
-        {/* Content Sections */}
-        <div style={{ paddingBlock: '60px 20px' }}>
-          <DonationSection hideCta={true} />
-        </div>
-
-        <div id="donasi-transparansi" style={{ paddingBottom: '60px' }}>
+        {/* 1. Payment Channels (Action First: Bank & QRIS) */}
+        <div id="donasi-transparansi" style={{ paddingBlock: '40px 20px' }}>
           <DonationInfo donation={donationInfo} />
         </div>
 
-        {/* Page CTA Section */}
-        <section style={{ paddingBottom: '80px' }}>
-          <Container>
-            <div className="page-cta-block animate-fade-in">
-              <h3>Konfirmasi Donasi</h3>
-              <p>
-                Kabari pengurus DKM setelah berinfaq agar pencatatan kas bulanan dapat langsung diperbarui.
-              </p>
-              <a 
-                href={donationInfo.confirmationUrl} 
-                className="button button-gold"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Konfirmasi Donasi
-              </a>
-            </div>
-          </Container>
-        </section>
+        {/* 2. Usage Cards (Secondary Context) */}
+        <div style={{ paddingBottom: '60px' }}>
+          <DonationSection hideCta={true} />
+        </div>
 
       </main>
       <Footer />

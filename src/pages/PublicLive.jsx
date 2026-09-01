@@ -5,7 +5,6 @@ import Footer from '../components/website/Footer.jsx';
 import Container from '../components/common/Container.jsx';
 import YouTubeEmbed from '../components/website/YouTubeEmbed.jsx';
 import {
-  currentLiveStream,
   upcomingLiveStreams,
   endedLiveStreams,
 } from '../data/liveStreamData.js';
@@ -13,211 +12,191 @@ import '../styles/home.css';
 import '../styles/liveKajian.css';
 
 export default function PublicLive() {
-  const stream = currentLiveStream;
-  const isLiveNow = stream && stream.status === 'live' && stream.isPublic === true;
-  const nextSchedule = upcomingLiveStreams && upcomingLiveStreams.length > 0 ? upcomingLiveStreams[0] : null;
+  // Live broadcast status is temporarily taken out as requested.
+  const isLiveNow = false; 
+  const featuredVideo = endedLiveStreams && endedLiveStreams.length > 0 ? endedLiveStreams[0] : null;
 
   return (
-    <div className="home-page">
+    <div className="home-page luxury-live-page">
       <Header />
-      <main>
-        {/* ── 1. Editorial Hero ── */}
-        <section className="page-hero page-hero--live" aria-labelledby="live-page-title">
+      <main className="luxury-live-main">
+        {/* ── 1. Luxury Hero Section ── */}
+        <section className="luxury-live-hero" aria-labelledby="live-page-title">
+          <div className="luxury-hero-bg-aura" aria-hidden="true" />
           <Container>
-            <div className="page-hero-content animate-fade-in">
-              <div className="page-hero-kicker">
-                {isLiveNow ? (
-                  <>
-                    <span className="live-pulse-dot-hero" aria-hidden="true" />
-                    <span>SIARAN LANGSUNG (LIVE)</span>
-                  </>
-                ) : (
-                  <span>KANAL DAKWAH DIGITAL</span>
-                )}
-                <span className="kicker-sep" aria-hidden="true">·</span>
-                <span className="kicker-arabic">البث المباشر</span>
+            <div className="luxury-hero-content">
+              <div className="luxury-hero-kicker">
+                <span className="luxury-kicker-badge">
+                  <span className="luxury-kicker-dot" />
+                  MEDIA &amp; DAKWAH DIGITAL
+                </span>
+                <span className="luxury-kicker-sep">·</span>
+                <span className="luxury-kicker-arabic">البث المباشر والقناة الرقمية</span>
               </div>
 
-              <h1 id="live-page-title">Kajian Live &amp; Rekaman Video</h1>
-              <p>
-                Menyimak siaran langsung pengajian rutin dan rekaman video kajian dari mimbar utama Masjid Al Ikhlas Cipta Greenville Batam.
+              <h1 id="live-page-title" className="luxury-hero-title">
+                Kanal Kajian &amp; Video Digital<br />
+                <span className="luxury-hero-gold-text">Masjid Al Ikhlas CGV Batam</span>
+              </h1>
+
+              <p className="luxury-hero-subtitle">
+                Menyimak rekaman kajian rutin, ceramah hikmah, dan video pembelajaran Islam dari mimbar utama Masjid Al Ikhlas Cipta Greenville Batam.
               </p>
             </div>
           </Container>
         </section>
 
-        {/* ── Main Stream Container ── */}
-        <section style={{ padding: '48px 0', background: 'var(--color-warm-bg, #f3efe6)' }}>
+        {/* ── 2. Main Cinema Video Section ── */}
+        <section className="luxury-main-video-section">
           <Container>
-            {isLiveNow ? (
-              /* ACTIVE LIVE STREAM LAYOUT */
-              <div className="live-sec-card live-sec-card--active" style={{ maxWidth: '1000px', margin: '0 auto' }}>
-                <div style={{ padding: '24px 24px 0 24px' }}>
-                  {/* 2. Live/status badge */}
-                  <div className="live-info-badge-row" style={{ marginBottom: '16px' }}>
-                    <span className="live-badge-red">
-                      <span className="live-pulse-dot" aria-hidden="true" />
-                      <span>LIVE KAJIAN</span>
-                    </span>
-                    <span className="live-info-schedule">{stream.scheduleLabel}</span>
-                  </div>
+            {/* Featured Video Showcase Card (16:9 ratio preservation) */}
+            {featuredVideo && (
+              <div className="luxury-video-card">
+                <div className="luxury-video-badge-row">
+                  <span className="luxury-chip-gold">
+                    <span>📺 DAKWAH PILIHAN</span>
+                  </span>
+                  <span className="luxury-video-schedule">{featuredVideo.scheduleLabel}</span>
+                </div>
 
-                  {/* 3. Responsive 16:9 video player */}
-                  <div style={{ borderRadius: '12px', overflow: 'hidden', marginBottom: '24px', boxShadow: '0 8px 24px rgba(0,0,0,0.1)' }}>
-                    <YouTubeEmbed
-                      youtubeUrl={stream.youtubeUrl}
-                      videoId={stream.videoId}
-                      title={stream.title}
-                      channelUrl={stream.channelUrl}
-                      isLive={true}
-                      status="live"
-                    />
-                  </div>
+                {/* 16:9 Aspect Ratio Cinema Player Frame */}
+                <div className="luxury-player-frame">
+                  <YouTubeEmbed
+                    youtubeUrl={featuredVideo.youtubeUrl}
+                    videoId={featuredVideo.videoId}
+                    title={featuredVideo.title}
+                    channelUrl={featuredVideo.channelUrl}
+                    isLive={false}
+                  />
+                </div>
 
-                  {/* 4. Kajian title */}
-                  <h2 className="live-info-title" style={{ fontSize: '26px', marginBottom: '12px' }}>
-                    {stream.title}
-                  </h2>
-
-                  {/* 5. Speaker */}
-                  {stream.speaker && (
-                    <div className="live-info-speaker" style={{ fontSize: '15px', marginBottom: '10px' }}>
-                      <span className="live-icon" aria-hidden="true">🎙️</span>
-                      <span><strong>Pemateri:</strong> {stream.speaker}</span>
+                {/* Video Meta & Actions */}
+                <div className="luxury-video-meta">
+                  <h2 className="luxury-video-title">{featuredVideo.title}</h2>
+                  
+                  {featuredVideo.speaker && (
+                    <div className="luxury-video-speaker">
+                      <span aria-hidden="true">🎙️</span>
+                      <span><strong>Pemateri:</strong> {featuredVideo.speaker}</span>
                     </div>
                   )}
 
-                  {/* 6. Schedule */}
-                  {stream.scheduleLabel && (
-                    <div className="live-info-speaker" style={{ fontSize: '14px', marginBottom: '16px', color: '#556b5e' }}>
-                      <span className="live-icon" aria-hidden="true">🕒</span>
-                      <span><strong>Jadwal:</strong> {stream.scheduleLabel}</span>
-                    </div>
+                  {featuredVideo.description && (
+                    <p className="luxury-video-desc">{featuredVideo.description}</p>
                   )}
 
-                  {/* 7. Description */}
-                  {stream.description && (
-                    <p className="live-info-desc" style={{ fontSize: '14px', lineHeight: 1.65, marginBottom: '24px' }}>
-                      {stream.description}
-                    </p>
-                  )}
-
-                  {/* 8. Direct YouTube link */}
-                  <div className="live-info-actions" style={{ marginBottom: '24px' }}>
-                    {stream.youtubeUrl && (
+                  <div className="luxury-video-actions">
+                    {featuredVideo.youtubeUrl && (
                       <a
-                        href={stream.youtubeUrl}
+                        href={featuredVideo.youtubeUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="button button-gold"
+                        className="luxury-btn-gold"
                       >
                         <span>Tonton di YouTube</span>
                         <span aria-hidden="true">↗</span>
                       </a>
                     )}
-                    {stream.channelUrl && (
+                    {featuredVideo.channelUrl && (
                       <a
-                        href={stream.channelUrl}
+                        href={featuredVideo.channelUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="button button-outline"
+                        className="luxury-btn-glass"
                       >
-                        Subscribe Channel DKM ↗
+                        <span>Kanal YouTube DKM ↗</span>
                       </a>
                     )}
                   </div>
-
-                  {/* 9. Related links */}
-                  <div className="live-related-links" style={{ padding: '20px 0', borderTop: '1px solid rgba(12,43,29,0.1)' }}>
-                    <span className="live-rel-label" style={{ fontWeight: 700, color: 'var(--color-forest)' }}>Tautan Terkait:</span>
-                    <Link to="/program" className="button button-outline" style={{ padding: '6px 14px', fontSize: '12px' }}>
-                      📚 Program Kajian
-                    </Link>
-                    <Link to="/agenda" className="button button-outline" style={{ padding: '6px 14px', fontSize: '12px' }}>
-                      📅 Agenda Masjid
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            ) : (
-              /* NO ACTIVE PUBLIC LIVE STREAM FALLBACK LAYOUT */
-              <div className="live-sec-card" style={{ maxWidth: '900px', margin: '0 auto', padding: '40px 28px', textAlign: 'center' }}>
-                <div style={{ fontSize: '42px', marginBottom: '12px' }} aria-hidden="true">📡</div>
-                <div className="live-badge-ended" style={{ display: 'inline-block', marginBottom: '16px' }}>
-                  SIARAN NONAKTIF (OFF-AIR)
-                </div>
-
-                <h2 style={{ fontFamily: 'DM Serif Display, Georgia, serif', fontSize: '24px', color: 'var(--color-forest)', marginBottom: '12px' }}>
-                  Belum ada siaran kajian yang sedang berlangsung.
-                </h2>
-                
-                <p style={{ fontSize: '14px', color: '#4a5d52', maxWidth: '600px', margin: '0 auto 24px auto', lineHeight: 1.6 }}>
-                  Siaran langsung kajian ilmu rutin diadakan sesuai jadwal pekanan. Anda dapat menyimak siaran mendatang atau membuka rekaman video kajian sebelumnya di kanal YouTube DKM.
-                </p>
-
-                {/* Show Next Schedule if available */}
-                {nextSchedule && (
-                  <div style={{ background: '#f7f5ef', border: '1px solid rgba(12,43,29,0.08)', borderRadius: '12px', padding: '20px', maxWidth: '640px', margin: '0 auto 28px auto', textAlign: 'left' }}>
-                    <div style={{ fontSize: '11px', fontWeight: 800, color: '#8A6200', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '6px' }}>
-                      📅 JADWAL KAJIAN MENDATANG
-                    </div>
-                    <div style={{ fontSize: '16px', fontWeight: 700, color: '#0c2b1d', marginBottom: '4px' }}>
-                      {nextSchedule.title}
-                    </div>
-                    <div style={{ fontSize: '13px', color: '#3b5044', marginBottom: '4px' }}>
-                      🎙️ <strong>Pemateri:</strong> {nextSchedule.speaker}
-                    </div>
-                    <div style={{ fontSize: '13px', color: '#556b5e' }}>
-                      🕒 <strong>Jadwal:</strong> {nextSchedule.scheduleLabel}
-                    </div>
-                  </div>
-                )}
-
-                {/* YouTube Channel CTA & Related Links */}
-                <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap', marginBottom: '24px' }}>
-                  <a
-                    href={stream?.channelUrl || 'https://www.youtube.com/@alikhlascgv'}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="button button-gold"
-                  >
-                    <span>Buka Kanal YouTube</span>
-                    <span aria-hidden="true">↗</span>
-                  </a>
-                  <Link to="/program" className="button button-outline">
-                    Program Kajian
-                  </Link>
-                  <Link to="/agenda" className="button button-outline">
-                    Agenda Masjid
-                  </Link>
                 </div>
               </div>
             )}
 
-            {/* Rekaman Kajian Past Stream Cards */}
-            {endedLiveStreams && endedLiveStreams.length > 0 && (
-              <div style={{ maxWidth: '1000px', margin: '40px auto 0 auto' }}>
-                <h3 style={{ fontFamily: 'DM Serif Display, Georgia, serif', fontSize: '20px', color: 'var(--color-forest)', marginBottom: '16px' }}>
-                  Rekaman Kajian Terbaru
-                </h3>
+            {/* ── 3. Upcoming Schedule Section ── */}
+            {upcomingLiveStreams && upcomingLiveStreams.length > 0 && (
+              <div className="luxury-schedule-section">
+                <div className="luxury-section-header">
+                  <div>
+                    <span className="luxury-kicker-gold">JADWAL DA'WAH</span>
+                    <h3>Kajian &amp; Kegiatan Mendatang</h3>
+                  </div>
+                  <Link to="/agenda" className="luxury-link-gold">
+                    Lihat Seluruh Agenda →
+                  </Link>
+                </div>
 
-                <div className="live-archive-cards-grid">
+                <div className="luxury-schedule-grid">
+                  {upcomingLiveStreams.map((sched) => (
+                    <div className="luxury-schedule-card" key={sched.id}>
+                      <span className="luxury-tag-gold">📅 Mendatang</span>
+                      <h4>{sched.title}</h4>
+                      <div className="sched-meta-item">
+                        <span aria-hidden="true">🎙️</span>
+                        <span>{sched.speaker}</span>
+                      </div>
+                      <div className="sched-meta-item">
+                        <span aria-hidden="true">🕒</span>
+                        <span>{sched.scheduleLabel}</span>
+                      </div>
+                      {sched.description && <p className="sched-desc">{sched.description}</p>}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* ── 4. Video Archive Grid Section ── */}
+            {endedLiveStreams && endedLiveStreams.length > 0 && (
+              <div className="luxury-archive-section">
+                <div className="luxury-section-header">
+                  <div>
+                    <span className="luxury-kicker-gold">ARSIP DAKWAH</span>
+                    <h3>Rekaman Video Kajian</h3>
+                  </div>
+                  <a
+                    href="https://www.youtube.com/@alikhlascgv"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="luxury-link-gold"
+                  >
+                    Buka YouTube DKM ↗
+                  </a>
+                </div>
+
+                <div className="luxury-archive-grid">
                   {endedLiveStreams.map((rec) => (
-                    <div className="live-archive-card" key={rec.id}>
-                      <span className="archive-card-badge ended">📺 Rekaman</span>
-                      <h4 className="archive-card-title">{rec.title}</h4>
-                      <div className="archive-card-speaker">🎙️ {rec.speaker}</div>
-                      <div className="archive-card-time">🕒 {rec.scheduleLabel}</div>
-                      {rec.youtubeUrl && (
-                        <a
-                          href={rec.youtubeUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          style={{ display: 'inline-block', marginTop: '10px', fontSize: '12px', fontWeight: 700, color: '#0c2b1d', textDecoration: 'none' }}
-                        >
-                          Tonton Rekaman ↗
-                        </a>
-                      )}
+                    <div className="luxury-archive-card" key={rec.id}>
+                      <div className="luxury-archive-thumb-wrap">
+                        <img
+                          src={`https://img.youtube.com/vi/${rec.videoId}/hqdefault.jpg`}
+                          alt={rec.title}
+                          className="luxury-archive-thumb"
+                          loading="lazy"
+                          onError={(e) => {
+                            e.currentTarget.style.display = 'none';
+                          }}
+                        />
+                        <div className="luxury-play-overlay" aria-hidden="true">
+                          <div className="luxury-play-btn">▶</div>
+                        </div>
+                        <span className="luxury-thumb-tag">📺 Rekaman</span>
+                      </div>
+
+                      <div className="luxury-archive-body">
+                        <h4>{rec.title}</h4>
+                        <div className="archive-speaker">🎙️ {rec.speaker}</div>
+                        <div className="archive-date">🕒 {rec.scheduleLabel}</div>
+                        {rec.youtubeUrl && (
+                          <a
+                            href={rec.youtubeUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="luxury-card-link"
+                          >
+                            Tonton Video ↗
+                          </a>
+                        )}
+                      </div>
                     </div>
                   ))}
                 </div>

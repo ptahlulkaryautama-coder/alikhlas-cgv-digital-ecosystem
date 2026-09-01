@@ -17,15 +17,19 @@
 
 import React, { useState, useMemo } from 'react';
 import DashboardLayout from '../components/dashboard/DashboardLayout.jsx';
-import NewsNotice from '../components/newsAdmin/NewsNotice.jsx';
 import NewsActionButtons from '../components/newsAdmin/NewsActionButtons.jsx';
 import NewsTable from '../components/newsAdmin/NewsTable.jsx';
-import { newsArticles } from '../data/newsData.js';
+import ArticleEditor from '../components/newsAdmin/ArticleEditor.jsx';
+import ArticleWorkflowActions from '../components/newsAdmin/ArticleWorkflowActions.jsx';
+import useArticlesAdmin from '../hooks/useArticlesAdmin.js';
 import '../styles/dashboard.css';
 import '../styles/newsAdmin.css';
 
 export default function NewsAdmin() {
   const [selectedArticle, setSelectedArticle] = useState(null);
+  const [editorArticle, setEditorArticle] = useState(undefined);
+  const { articles: newsArticles, source, error: sourceError, retry } = useArticlesAdmin();
+  const sourceStatus = { label: source === 'supabase' ? 'Supabase terhubung' : 'Repository lokal' };
 
   // Status counts
   const totalCount = newsArticles.length;
@@ -61,7 +65,7 @@ export default function NewsAdmin() {
               <em>Masjid Al Ikhlas</em>
             </h1>
             <p className="db-pg-desc">
-              Manajemen artikel berita, dokumentasi kegiatan, dan informasi publik.
+              Manajemen artikel berita, dokumentasi kegiatan, dan informasi publik. · {sourceStatus.label}
             </p>
           </div>
           
@@ -70,7 +74,7 @@ export default function NewsAdmin() {
               className="db-chip o" 
               style={{ fontSize: '11px', fontWeight: 700, padding: '4px 12px', textTransform: 'uppercase', letterSpacing: '0.05em' }}
             >
-              🔒 Read-only
+              Workspace aktif
             </span>
           </div>
         </div>
@@ -134,14 +138,14 @@ export default function NewsAdmin() {
         </div>
 
         {/* ── Read-Only Notice ─────────────────────────────────────────── */}
-        <NewsNotice />
 
         {/* ── Disabled Action Buttons ──────────────────────────────────── */}
         <div className="db-sec-eyebrow">Aksi Penerbitan</div>
-        <NewsActionButtons />
+        <NewsActionButtons onCreate={() => setEditorArticle(null)} />
+        {sourceError && <p className="fin-import-message" role="status">{sourceError}</p>}
 
         {/* ── Articles Table with Filters ──────────────────────────────── */}
-        <div className="db-sec-eyebrow" style={{ marginTop: '28px' }}>Daftar Artikel Warta (Read-Only)</div>
+        <div className="db-sec-eyebrow" style={{ marginTop: '28px' }}>Ruang Editorial</div>
         <NewsTable articles={newsArticles} onReviewArticle={setSelectedArticle} />
 
         {/* ── Context Navigation / Quick Links ─────────────────────────── */}
@@ -183,6 +187,7 @@ export default function NewsAdmin() {
       </div>
 
       {/* ── Read-Only Article Preview Panel Modal ────────────────────── */}
+      {editorArticle !== undefined && <ArticleEditor article={editorArticle} onClose={() => setEditorArticle(undefined)} onSaved={retry} />}
       {selectedArticle && (
         <div
           onClick={() => setSelectedArticle(null)}
@@ -341,6 +346,7 @@ export default function NewsAdmin() {
               </div>
             </div>
 
+            <ArticleWorkflowActions article={selectedArticle} onEdit={() => { setEditorArticle(selectedArticle); setSelectedArticle(null); }} onChanged={async () => { setSelectedArticle(null); await retry(); }} />
             {/* Read-only Footer */}
             <div
               style={{
@@ -360,7 +366,7 @@ export default function NewsAdmin() {
               </span>
 
               <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
-                {selectedArticle.status === 'Siap publik' ? (
+                {selectedArticle.status === 'Siap publik' && selectedArticle.environment === 'production' ? (
                   <a
                     href={`/kabar/${selectedArticle.slug}`}
                     target="_blank"
@@ -370,6 +376,10 @@ export default function NewsAdmin() {
                   >
                     🌐 Lihat Artikel di Website Utama →
                   </a>
+                ) : selectedArticle.environment === 'test' ? (
+                  <span style={{ fontSize: '11.5px', color: 'var(--db-warn-text)', background: 'var(--db-warn-bg)', padding: '4px 10px', borderRadius: '6px' }}>
+                    Data uji — tidak tampil di website
+                  </span>
                 ) : (
                   <span style={{ fontSize: '11.5px', color: 'var(--db-warn-text)', background: 'var(--db-warn-bg)', padding: '4px 10px', borderRadius: '6px' }}>
                     🔒 Artikel Draf/Internal — Tidak tampil di publik
@@ -399,7 +409,7 @@ export default function NewsAdmin() {
       {/* ── Page Footer ──────────────────────────────────────────────── */}
       <div className="db-pg-footer">
         <div className="db-pg-footer-id">
-          <strong>DKM Masjid Al Ikhlas Cipta Greenville</strong> · Kabar Masjid · Read-only
+          <strong>DKM Masjid Al Ikhlas Cipta Greenville</strong> · Kabar Masjid · Editorial Workflow
         </div>
         <div className="db-pg-footer-quote">
           "Waktu bagaikan pedang; jika engkau tidak memanfaatkannya, ia akan memotongmu." — Imam Syafi'i

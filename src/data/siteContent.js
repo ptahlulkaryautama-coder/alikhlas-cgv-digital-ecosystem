@@ -7,7 +7,7 @@ export const siteBrand = {
 export const publicWebsiteAssets = {
   logo: 'official-logo.png',
   qris: 'qris-alikhlas.png',
-  hero: 'al-ikhlas-townhouse-hero.png',
+  hero: 'hero-desktop.png',
   storyKajianMalam: 'cerita-kajian-malam.jpg',
   storyKajianRutin: 'cerita-kajian-rutin.jpg',
 };
@@ -15,6 +15,7 @@ export const publicWebsiteAssets = {
 export const publicNavigation = [
   { label: 'Program', href: '/program' },
   { label: 'Agenda', href: '/agenda' },
+  { label: 'TPQ', href: '/tpq' },
   { label: 'Kabar', href: '/kabar' },
   { label: 'Transparansi', href: '/transparansi' },
   { label: 'Donasi', href: '/donasi' },
@@ -132,31 +133,33 @@ export const donationPrograms = [
 ];
 
 export const financePeriods = {
-  mei2026: {
-    label: "Mei 2026",
-    updatedAt: "27 Mei 2026",
-    kasMasuk: "Rp 19.431.000",
-    kasMasukRaw: 19431000,
-    kasMasukHint: "44 transaksi",
-    kasKeluar: "Rp 8.268.292",
-    kasKeluarRaw: 8268292,
-    kasKeluarHint: "20 transaksi",
-    saldoAkhir: "Rp 11.162.708",
-    saldoAkhirRaw: 11162708,
-    saldoAkhirHint: "Surplus bulan ini",
-    status: "Dalam verifikasi",
-    source: "Laporan DKM Mei 2026",
-    transactionCount: "44",
+  agustus2026: {
+    label: "Agustus 2026",
+    periodRange: "1–15 Agustus 2026",
+    updatedAt: "15 Agustus 2026",
+    saldoAwal: "Rp 18.386.130",
+    saldoAwalRaw: 18386130,
+    kasMasuk: "Rp 4.300.000",
+    kasMasukRaw: 4300000,
+    kasMasukHint: "5 transaksi masuk (1–15 Ags)",
+    kasKeluar: "Rp 1.560.000",
+    kasKeluarRaw: 1560000,
+    kasKeluarHint: "7 transaksi keluar (1–15 Ags)",
+    saldoAkhir: "Rp 21.126.130",
+    saldoAkhirRaw: 21126130,
+    saldoAkhirHint: "Saldo per 15 Ags 2026",
+    totalKas: "Rp 22.686.130",
+    status: "Terverifikasi",
+    source: "Laporan Kas DKM Periode Agustus 2026 (Disahkan Bendahara Bambang S, Ketua DKM Karya HP, & Sekretaris Zulhendy M)",
+    transactionCount: "12",
     incomeBreakdown: [
-      { label: 'Infaq Jumat',   amount: 'Rp 8.785.000',  percent: 45, color: '#0c2b1d' },
-      { label: 'Infaq Event',   amount: 'Rp 4.874.000',  percent: 25, color: '#c9a55a' },
-      { label: 'Infaq Cluster', amount: 'Rp 4.272.000',  percent: 22, color: '#6b7f74' },
-      { label: 'Donasi Khusus', amount: 'Rp 1.500.000',  percent: 8,  color: '#8b5e34' },
+      { label: 'Infaq Jumat', amount: 'Rp 3.203.000', percent: 74, color: '#0c2b1d' },
+      { label: 'Infaq Majelis Taklim & Ummahat', amount: 'Rp 797.000', percent: 19, color: '#c9a55a' },
+      { label: 'Infaq Operasional (Hamba Allah M07)', amount: 'Rp 300.000', percent: 7, color: '#6b7f74' },
     ],
     expenseBreakdown: [
-      { label: 'Operasional masjid', amount: 'Rp 4.868.292', percent: 58 },
-      { label: 'Pendidikan dan TPQ', amount: 'Rp 2.150.000', percent: 26 },
-      { label: 'Kebersihan dan fasilitas', amount: 'Rp 1.250.000', percent: 16 },
+      { label: 'Bisyaroh (Tahsin, Khotib & Ustadzah Kajian)', amount: 'Rp 1.400.000', percent: 90 },
+      { label: 'Operasional Masjid (Air Galon & Kebersihan)', amount: 'Rp 160.000', percent: 10 },
     ],
   },
   juni2026: {
@@ -171,7 +174,7 @@ export const financePeriods = {
     saldoAkhir: "Rp 5.200.000",
     saldoAkhirRaw: 5200000,
     saldoAkhirHint: "Surplus bulan ini",
-    status: "Dalam verifikasi",
+    status: "Arsip internal",
     source: "Laporan DKM Juni 2026",
     transactionCount: "24",
     incomeBreakdown: [
@@ -186,35 +189,70 @@ export const financePeriods = {
       { label: 'Kebersihan dan fasilitas',  amount: 'Rp 1.450.000', percent: 19 },
       { label: 'Sosial warga dan kegiatan', amount: 'Rp 1.250.000', percent: 17 },
     ]
+  },
+  mei2026: {
+    label: "Mei 2026",
+    updatedAt: "27 Mei 2026",
+    kasMasuk: "Rp 19.431.000",
+    kasMasukRaw: 19431000,
+    kasMasukHint: "44 transaksi",
+    kasKeluar: "Rp 8.268.292",
+    kasKeluarRaw: 8268292,
+    kasKeluarHint: "20 transaksi",
+    saldoAkhir: "Rp 11.162.708",
+    saldoAkhirRaw: 11162708,
+    saldoAkhirHint: "Surplus bulan ini",
+    status: "Arsip internal",
+    source: "Laporan DKM Mei 2026",
+    transactionCount: "44",
+    incomeBreakdown: [
+      { label: 'Infaq Jumat',   amount: 'Rp 8.785.000',  percent: 45, color: '#0c2b1d' },
+      { label: 'Infaq Event',   amount: 'Rp 4.874.000',  percent: 25, color: '#c9a55a' },
+      { label: 'Infaq Cluster', amount: 'Rp 4.272.000',  percent: 22, color: '#6b7f74' },
+      { label: 'Donasi Khusus', amount: 'Rp 1.500.000',  percent: 8,  color: '#8b5e34' },
+    ],
+    expenseBreakdown: [
+      { label: 'Operasional masjid', amount: 'Rp 4.868.292', percent: 58 },
+      { label: 'Pendidikan dan TPQ', amount: 'Rp 2.150.000', percent: 26 },
+      { label: 'Kebersihan dan fasilitas', amount: 'Rp 1.250.000', percent: 16 },
+    ],
   }
 };
 
 export const transparencyStats = [
-  { label: 'Dana Masuk', value: 'Rp 12,85 jt' },
-  { label: 'Dana Terpakai', value: 'Rp 7,65 jt' },
-  { label: 'Kegiatan', value: '18' },
-  { label: 'Relawan', value: '34' },
+  { label: 'Dana Masuk (1–15 Ags)', value: 'Rp 4,30 jt' },
+  { label: 'Dana Terpakai', value: 'Rp 1,56 jt' },
+  { label: 'Saldo Kas Terverifikasi', value: 'Rp 21,13 jt' },
+  { label: 'Transaksi', value: '12' },
 ];
 
 export const publicFinanceSummary = {
-  period: financePeriods.juni2026.label,
-  updatedAt: financePeriods.juni2026.updatedAt,
-  totalIn: financePeriods.juni2026.kasMasuk,
-  totalOut: financePeriods.juni2026.kasKeluar,
-  endingBalance: financePeriods.juni2026.saldoAkhir,
-  transactionCount: financePeriods.juni2026.transactionCount,
-  status: financePeriods.juni2026.status,
+  period: financePeriods.agustus2026.label,
+  periodRange: financePeriods.agustus2026.periodRange,
+  updatedAt: financePeriods.agustus2026.updatedAt,
+  saldoAwal: financePeriods.agustus2026.saldoAwal,
+  totalIn: financePeriods.agustus2026.kasMasuk,
+  totalOut: financePeriods.agustus2026.kasKeluar,
+  endingBalance: financePeriods.agustus2026.saldoAkhir,
+  transactionCount: financePeriods.agustus2026.transactionCount,
+  status: financePeriods.agustus2026.status,
   donorCount: '',
-  activeCampaign: 'Operasional dan pendidikan anak',
+  activeCampaign: 'Operasional, tahsin, dan kajian dakwah',
   note:
-    'Catatan kas di atas merupakan data berjalan bulan ini. Laporan lengkap diperbarui secara berkala oleh pengurus DKM.',
+    'Laporan Keuangan Kas Masjid periode 1–15 Agustus 2026 telah disahkan oleh Ketua DKM (Karya HP), Sekretaris (Zulhendy M), dan Bendahara (Bambang S) Masjid Al Ikhlas CGV.',
 };
 
-export const financeBreakdown = financePeriods.juni2026.expenseBreakdown;
+export const financeBreakdown = financePeriods.agustus2026.expenseBreakdown;
 
-export const incomeBreakdown = financePeriods.juni2026.incomeBreakdown;
+export const incomeBreakdown = financePeriods.agustus2026.incomeBreakdown;
 
 export const monthlyReports = [
+  {
+    month: 'Agustus 2026 (1–15 Ags)',
+    title: 'Laporan Kas Masjid Al Ikhlas',
+    status: 'Terverifikasi',
+    summary: 'Bisyaroh tahsin & khotib, infaq Jumat, infaq kajian majelis taklim, dan operasional masjid.',
+  },
   {
     month: financePeriods.juni2026.label,
     title: 'Ringkasan Kas Masjid',
@@ -277,4 +315,3 @@ export const ecosystemItems = [
   { title: 'Manajemen DKM', description: 'Pengelolaan kegiatan, keuangan, dan agenda pengurus.' },
   { title: 'Pendidikan TPQ', description: 'Jadwal mengaji, materi santri, dan rekap absensi.' },
 ];
-

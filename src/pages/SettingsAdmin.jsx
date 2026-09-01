@@ -7,12 +7,21 @@
  * - Theme palette switcher (Default Emerald, Toska Teal, Midnight Navy, Earth Brown, Professional Slate, Soft Sage)
  * - Typography customization (Font family, Base font size, Line height)
  * - Layout density & corner radius controls
- * - System diagnostics & Google Apps Script (GAS) API status
+ * - Privacy-safe same-origin integration health status
  * - Persistent configuration in localStorage ('dkm_appear_v1')
  */
 
 import React, { useState, useEffect } from 'react';
 import DashboardLayout from '../components/dashboard/DashboardLayout.jsx';
+import { getAdminIntegrationHealth, getServerAdminSession } from '../services/adminSession.js';
+import FinancePermissionAdminPanel from '../components/settings/FinancePermissionAdminPanel.jsx';
+import ContentPermissionAdminPanel from '../components/settings/ContentPermissionAdminPanel.jsx';
+import ContentProductionReleasePanel from '../components/settings/ContentProductionReleasePanel.jsx';
+import OperationalRoleAdminPanel from '../components/settings/OperationalRoleAdminPanel.jsx';
+import IntegrationReadinessPanel from '../components/settings/IntegrationReadinessPanel.jsx';
+import ProductionReadinessGate from '../components/settings/ProductionReadinessGate.jsx';
+import OperatorWorkflowGuide from '../components/settings/OperatorWorkflowGuide.jsx';
+import ProjectCompletionPhasesPanel from '../components/settings/ProjectCompletionPhasesPanel.jsx';
 import '../styles/dashboard.css';
 import '../styles/financeAdmin.css';
 
@@ -83,6 +92,7 @@ const DEFAULT_SETTINGS = {
 export default function SettingsAdmin() {
   const [settings, setSettings] = useState(DEFAULT_SETTINGS);
   const [savedSuccess, setSavedSuccess] = useState(false);
+  const [integrationHealth, setIntegrationHealth] = useState({ status: 'loading' });
 
   // Load saved settings from localStorage
   useEffect(() => {
@@ -94,6 +104,27 @@ export default function SettingsAdmin() {
     } catch (e) {
       console.error('Failed to load appearance settings', e);
     }
+  }, []);
+
+  useEffect(() => {
+    const controller = new AbortController();
+    let active = true;
+
+    getServerAdminSession({ signal: controller.signal })
+      .then(async (session) => {
+        const health = await getAdminIntegrationHealth({ signal: controller.signal });
+        if (active) setIntegrationHealth({ status: 'ready', session, ...health });
+      })
+      .catch((error) => {
+        if (active) setIntegrationHealth({
+          status: error?.status === 401 ? 'signed-out' : 'error',
+        });
+      });
+
+    return () => {
+      active = false;
+      controller.abort();
+    };
   }, []);
 
   // Apply custom CSS dynamically to document
@@ -155,7 +186,25 @@ export default function SettingsAdmin() {
     setTimeout(() => setSavedSuccess(false), 3000);
   };
 
-  const gasUrl = import.meta.env.VITE_GAS_URL || 'Tidak dikonfigurasi (Menggunakan data lokal)';
+  const integrationLabel = integrationHealth.status === 'loading'
+    ? 'Memeriksa sesi server…'
+    : integrationHealth.status === 'ready'
+      ? integrationHealth.readProxyConfigured
+        ? 'Proxy baca dikonfigurasi'
+        : 'Proxy baca belum dikonfigurasi'
+      : 'Integrasi belum diverifikasi';
+
+  const sessionLabel = integrationHealth.status === 'ready' ? 'Aktif' : 'Belum login server';
+  const safeModeLabel = integrationHealth.status === 'ready'
+    ? 'Kill-switch aktif saat idle'
+    : 'Menunggu sesi server';
+  const testEnvironmentLabel = integrationHealth.status === 'ready'
+    ? integrationHealth.testSheetProvisioned === true
+      ? 'Tersedia untuk uji terbatas'
+      : integrationHealth.testSheetProvisioned === false
+        ? 'Belum diprovision'
+        : 'Tidak digunakan untuk modul Supabase'
+    : 'Belum diverifikasi';
 
   return (
     <DashboardLayout
@@ -175,7 +224,7 @@ export default function SettingsAdmin() {
         </div>
 
         {/* ── Page Header ────────────────────────────────────────────── */}
-        <div className="db-pg-header" style={{ flexWrap: 'wrap', gap: '16px' }}>
+        <div className="db-pg-header settings-page-header">
           <div>
             <div className="db-pg-eyebrow">Kustomisasi Dashboard</div>
             <h1 className="db-pg-title">
@@ -187,14 +236,14 @@ export default function SettingsAdmin() {
             </p>
           </div>
 
-          <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', alignItems: 'center' }}>
+          <div className="settings-actions">
             <button className="fin-btn" onClick={handleReset}>
               🔄 Reset Default
             </button>
             <button 
               className="fin-btn" 
               onClick={handleSave}
-              style={{ background: 'var(--db-forest-mid)', color: '#fff', border: 'none', fontWeight: 700 }}
+              data-variant="primary"
             >
               💾 Terapkan Pengaturan
             </button>
@@ -202,70 +251,36 @@ export default function SettingsAdmin() {
         </div>
 
         {savedSuccess && (
-          <div 
-            style={{
-              padding: '12px 16px',
-              background: 'var(--db-up-bg)',
-              color: 'var(--db-up-text)',
-              borderRadius: '10px',
-              border: '1px solid rgba(15,97,48,.2)',
-              marginBottom: '20px',
-              fontWeight: 600,
-              fontSize: '13px',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '8px',
-            }}
-          >
+          <div className="settings-save-notice" role="status">
             <span>✓</span> Pengaturan tampilan berhasil disimpan dan diterapkan!
           </div>
         )}
 
         {/* ── Theme Palette Swatches ───────────────────────────────────── */}
         <div className="db-sec-eyebrow">1. Tema Warna Dashboard</div>
-        <div className="db-grid-3" style={{ gap: '14px', marginBottom: '28px' }}>
+        <div className="db-grid-3 settings-theme-grid">
           {Object.entries(THEMES).map(([key, theme]) => {
             const isSelected = settings.theme === key;
             return (
               <div
                 key={key}
                 onClick={() => setSettings({ ...settings, theme: key })}
-                style={{
-                  background: theme.bgCard,
-                  border: isSelected ? `2px solid ${theme.forestMid}` : '1px solid rgba(12,24,16,.12)',
-                  borderRadius: '12px',
-                  padding: '16px',
-                  cursor: 'pointer',
-                  boxShadow: isSelected ? 'var(--db-sh-md)' : 'var(--db-sh-sm)',
-                  transition: 'all 0.2s ease',
-                  position: 'relative',
-                }}
+                className={`settings-theme-card${isSelected ? ' is-selected' : ''}`}
+                style={{ '--settings-theme-card': theme.bgCard, '--settings-theme-accent': theme.forestMid }}
               >
                 {isSelected && (
-                  <span 
-                    style={{ 
-                      position: 'absolute', 
-                      top: '10px', 
-                      right: '12px', 
-                      background: theme.forestMid, 
-                      color: '#fff', 
-                      fontSize: '10px', 
-                      fontWeight: 700, 
-                      padding: '2px 8px', 
-                      borderRadius: '99px' 
-                    }}
-                  >
+                  <span className="settings-theme-active">
                     Aktif
                   </span>
                 )}
-                <div style={{ fontSize: '13.5px', fontWeight: 700, color: 'var(--db-text-1)', marginBottom: '10px' }}>
+                <div className="settings-theme-name">
                   {theme.name}
                 </div>
-                <div style={{ display: 'flex', gap: '6px' }}>
-                  <div style={{ width: '28px', height: '28px', borderRadius: '6px', background: theme.forest }} title="Forest Base" />
-                  <div style={{ width: '28px', height: '28px', borderRadius: '6px', background: theme.forestMid }} title="Forest Mid" />
-                  <div style={{ width: '28px', height: '28px', borderRadius: '6px', background: theme.gold }} title="Gold Accent" />
-                  <div style={{ width: '28px', height: '28px', borderRadius: '6px', background: theme.bg, border: '1px solid rgba(0,0,0,.1)' }} title="Background" />
+                <div className="settings-swatch-row">
+                  <div className="settings-swatch" style={{ background: theme.forest }} title="Forest Base" />
+                  <div className="settings-swatch" style={{ background: theme.forestMid }} title="Forest Mid" />
+                  <div className="settings-swatch" style={{ background: theme.gold }} title="Gold Accent" />
+                  <div className="settings-swatch is-background" style={{ background: theme.bg }} title="Background" />
                 </div>
               </div>
             );
@@ -274,16 +289,16 @@ export default function SettingsAdmin() {
 
         {/* ── Typography & Layout Options ───────────────────────────────── */}
         <div className="db-sec-eyebrow">2. Tipografi &amp; Kepadatan Layout</div>
-        <div className="db-card" style={{ padding: '24px', marginBottom: '28px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-              <label style={{ fontSize: '12px', fontWeight: 700, color: 'var(--db-text-2)', textTransform: 'uppercase', letterSpacing: '0.02em' }}>
+        <div className="db-card settings-form-card">
+          <div className="settings-form-grid settings-form-grid-2">
+            <div className="settings-field">
+              <label className="settings-label">
                 Font Body (Teks Umum)
               </label>
               <select
                 value={settings.fontBody}
                 onChange={(e) => setSettings({ ...settings, fontBody: e.target.value })}
-                style={{ padding: '10px 14px', borderRadius: '8px', border: '1px solid rgba(12,24,16,.15)', fontSize: '13.5px', fontFamily: 'inherit', outline: 'none', background: 'var(--db-bg-card)', color: 'var(--db-text-1)' }}
+                className="settings-select"
               >
                 <option value="'DM Sans', 'Inter', system-ui, sans-serif">DM Sans (Default Modern)</option>
                 <option value="'Inter', system-ui, sans-serif">Inter (Bersih &amp; Geometris)</option>
@@ -291,14 +306,14 @@ export default function SettingsAdmin() {
               </select>
             </div>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-              <label style={{ fontSize: '12px', fontWeight: 700, color: 'var(--db-text-2)', textTransform: 'uppercase', letterSpacing: '0.02em' }}>
+            <div className="settings-field">
+              <label className="settings-label">
                 Font Heading (Judul Halaman &amp; Angka)
               </label>
               <select
                 value={settings.fontHeading}
                 onChange={(e) => setSettings({ ...settings, fontHeading: e.target.value })}
-                style={{ padding: '10px 14px', borderRadius: '8px', border: '1px solid rgba(12,24,16,.15)', fontSize: '13.5px', fontFamily: 'inherit', outline: 'none', background: 'var(--db-bg-card)', color: 'var(--db-text-1)' }}
+                className="settings-select"
               >
                 <option value="'DM Serif Display', Georgia, serif">DM Serif Display (Klasik &amp; Elegan)</option>
                 <option value="Georgia, serif">Georgia Editorial</option>
@@ -307,15 +322,15 @@ export default function SettingsAdmin() {
             </div>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '20px' }}>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-              <label style={{ fontSize: '12px', fontWeight: 700, color: 'var(--db-text-2)', textTransform: 'uppercase', letterSpacing: '0.02em' }}>
+          <div className="settings-form-grid settings-form-grid-3">
+            <div className="settings-field">
+              <label className="settings-label">
                 Ukuran Teks Utama
               </label>
               <select
                 value={settings.fontSize}
                 onChange={(e) => setSettings({ ...settings, fontSize: e.target.value })}
-                style={{ padding: '10px 14px', borderRadius: '8px', border: '1px solid rgba(12,24,16,.15)', fontSize: '13.5px', fontFamily: 'inherit', outline: 'none', background: 'var(--db-bg-card)', color: 'var(--db-text-1)' }}
+                className="settings-select"
               >
                 <option value="13px">Kecil (13px)</option>
                 <option value="14px">Sedang (14px - Default)</option>
@@ -323,14 +338,14 @@ export default function SettingsAdmin() {
               </select>
             </div>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-              <label style={{ fontSize: '12px', fontWeight: 700, color: 'var(--db-text-2)', textTransform: 'uppercase', letterSpacing: '0.02em' }}>
+            <div className="settings-field">
+              <label className="settings-label">
                 Kelengkungan Sudut (Radius)
               </label>
               <select
                 value={settings.radius}
                 onChange={(e) => setSettings({ ...settings, radius: e.target.value })}
-                style={{ padding: '10px 14px', borderRadius: '8px', border: '1px solid rgba(12,24,16,.15)', fontSize: '13.5px', fontFamily: 'inherit', outline: 'none', background: 'var(--db-bg-card)', color: 'var(--db-text-1)' }}
+                className="settings-select"
               >
                 <option value="sharp">Tajam (4px - Corporate)</option>
                 <option value="normal">Standar (10px - Presisi)</option>
@@ -338,14 +353,14 @@ export default function SettingsAdmin() {
               </select>
             </div>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-              <label style={{ fontSize: '12px', fontWeight: 700, color: 'var(--db-text-2)', textTransform: 'uppercase', letterSpacing: '0.02em' }}>
+            <div className="settings-field">
+              <label className="settings-label">
                 Lebar Sidebar Navigasi
               </label>
               <select
                 value={settings.sidebarWidth}
                 onChange={(e) => setSettings({ ...settings, sidebarWidth: e.target.value })}
-                style={{ padding: '10px 14px', borderRadius: '8px', border: '1px solid rgba(12,24,16,.15)', fontSize: '13.5px', fontFamily: 'inherit', outline: 'none', background: 'var(--db-bg-card)', color: 'var(--db-text-1)' }}
+                className="settings-select"
               >
                 <option value="240px">Ringkas (240px)</option>
                 <option value="252px">Standar (252px)</option>
@@ -357,29 +372,72 @@ export default function SettingsAdmin() {
 
         {/* ── System Info & Diagnostics ────────────────────────────────── */}
         <div className="db-sec-eyebrow">3. Informasi &amp; Status Sistem</div>
-        <div className="db-card" style={{ padding: '24px', marginBottom: '28px' }}>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid rgba(12,24,16,.06)', paddingBottom: '10px', fontSize: '13px' }}>
-              <span style={{ color: 'var(--db-text-3)', fontWeight: 600 }}>Google Apps Script (GAS) API URL</span>
-              <span style={{ fontFamily: 'monospace', color: 'var(--db-text-1)', fontWeight: 500 }}>{gasUrl}</span>
+        <div className="db-card settings-system-card">
+          <div className="settings-info-list">
+            <div className="settings-info-row">
+              <span className="settings-info-label">Prototype navigation gate</span>
+              <span className="settings-info-value">Terpisah dari autentikasi server</span>
             </div>
 
-            <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid rgba(12,24,16,.06)', paddingBottom: '10px', fontSize: '13px' }}>
-              <span style={{ color: 'var(--db-text-3)', fontWeight: 600 }}>Status Koneksi Database</span>
-              <span className="fin-pill fin-pill-green">Tersambung / Live Cache</span>
+            <div className="settings-info-row">
+              <span className="settings-info-label">Server session</span>
+              <span className="fin-pill">{sessionLabel}</span>
             </div>
 
-            <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid rgba(12,24,16,.06)', paddingBottom: '10px', fontSize: '13px' }}>
-              <span style={{ color: 'var(--db-text-3)', fontWeight: 600 }}>Versi Sistem Dashboard</span>
-              <span style={{ fontWeight: 600, color: 'var(--db-text-1)' }}>v2.4.0 (Batch 1 Parity Complete)</span>
+            <div className="settings-info-row">
+              <span className="settings-info-label">Role</span>
+              <span className="settings-info-value">{integrationHealth.role ?? '—'}</span>
             </div>
 
-            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '13px' }}>
-              <span style={{ color: 'var(--db-text-3)', fontWeight: 600 }}>Penyimpanan Lokal (localStorage)</span>
-              <span style={{ fontWeight: 500, color: 'var(--db-text-2)' }}>Key: {LOCAL_STORAGE_KEY}</span>
+            <div className="settings-info-row">
+              <span className="settings-info-label">Status Integrasi Data</span>
+              <span className="fin-pill">{integrationLabel}</span>
+            </div>
+
+            <div className="settings-info-row">
+              <span className="settings-info-label">Mode aman penulisan</span>
+              <span className="settings-info-value is-warning">{safeModeLabel}</span>
+            </div>
+
+            <div className="settings-info-row">
+              <span className="settings-info-label">Lingkungan uji lama</span>
+              <span className="settings-info-value">
+                {testEnvironmentLabel}
+              </span>
+            </div>
+
+            <div className="settings-info-row">
+              <span className="settings-info-label">Mode Lingkungan</span>
+              <span className="settings-info-value">
+                {integrationHealth.environment ?? 'local'}
+              </span>
+            </div>
+
+            <div className="settings-info-row">
+              <span className="settings-info-label">Peta integrasi</span>
+              <span className="settings-info-value">Gunakan panel di bawah untuk status Web · Dashboard · TPQ</span>
+            </div>
+
+            <div className="settings-info-row">
+              <span className="settings-info-label">Gate production</span>
+              <span className="settings-info-value">Validasi otomatis sebelum rilis publik</span>
+            </div>
+
+            <div className="settings-info-row is-last">
+              <span className="settings-info-label">Versi Sistem Dashboard</span>
+              <span className="settings-info-value">v2.5.0 (Supabase Integration Control)</span>
             </div>
           </div>
         </div>
+
+        <IntegrationReadinessPanel />
+        <ProductionReadinessGate />
+        <OperatorWorkflowGuide />
+        <ProjectCompletionPhasesPanel />
+        <OperationalRoleAdminPanel />
+        <FinancePermissionAdminPanel />
+        <ContentPermissionAdminPanel />
+        <ContentProductionReleasePanel />
 
         {/* ── Context Navigation / Quick Links ─────────────────────────── */}
         <div className="db-sec-eyebrow">Tautan Cepat</div>

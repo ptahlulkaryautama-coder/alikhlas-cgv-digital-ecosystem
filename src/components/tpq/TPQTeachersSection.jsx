@@ -1,5 +1,7 @@
 import React from 'react';
-import { TPQ_TEACHING_TEAM } from '../../data/tpqData.js';
+import { tpqRepository } from '../../repositories/tpqRepository.js';
+
+const TPQ_TEACHING_TEAM = tpqRepository.getAll().teachingTeam;
 
 /**
  * TPQTeachersSection — General Tim Pengajar overview.

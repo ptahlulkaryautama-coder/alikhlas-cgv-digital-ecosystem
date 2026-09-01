@@ -161,6 +161,6 @@ If any data update causes customer-facing discrepancies or user confusion:
 1. **Immediate Reversion**:  
    Revert `src/data/siteContent.js` and `src/data/dashboardMockData.js` to git commit hash prior to data update using standard git revert.
 2. **Fallback Lock**:  
-   Set `VITE_GAS_URL` to empty string in netlify deployment settings to force app back into static fallback mode.
+   Disable the server-side read integration or build with local data-source mode; never move a backend URL into frontend configuration.
 3. **Audit Log Inspection**:  
    Inspect `docs/FINANCE_SOURCE_AUDIT.md` to verify baseline values.

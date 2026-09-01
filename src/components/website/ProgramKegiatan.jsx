@@ -2,6 +2,8 @@ import { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import usePrograms from '../../hooks/usePrograms.js';
 import useAgendaData from '../../hooks/useAgendaData.js';
+import { programRepository } from '../../repositories/programRepository.js';
+import { agendaRepository } from '../../repositories/agendaRepository.js';
 import Container from '../common/Container.jsx';
 import Button from '../common/Button.jsx';
 
@@ -26,14 +28,22 @@ export default function ProgramKegiatan({ limitPrograms, limitAgenda, hideProgra
   const [selectedDateStr, setSelectedDateStr] = useState('2026-06-07'); // Default to first event
 
   // ── Program Categories and Filters ──────────────────────────────────────────
-  const uniqueProgramCategories = useMemo(() => {
-    if (!programs) return ['Semua'];
-    const cats = new Set(programs.map((p) => p.kategori));
-    return ['Semua', ...Array.from(cats)];
+  const activeProgramsPool = useMemo(() => {
+    return (programs && programs.length > 0) ? programs : programRepository.getInitialPublic();
   }, [programs]);
 
+  const activeAgendaPool = useMemo(() => {
+    return (agenda && agenda.length > 0) ? agenda : agendaRepository.getInitialPublic();
+  }, [agenda]);
+
+  const uniqueProgramCategories = useMemo(() => {
+    if (!activeProgramsPool) return ['Semua'];
+    const cats = new Set(activeProgramsPool.map((p) => p.kategori));
+    return ['Semua', ...Array.from(cats)];
+  }, [activeProgramsPool]);
+
   const filteredPrograms = useMemo(() => {
-    let result = programs || [];
+    let result = activeProgramsPool || [];
 
     if (selectedKategori !== 'Semua') {
       result = result.filter((p) => p.kategori === selectedKategori);
@@ -43,19 +53,19 @@ export default function ProgramKegiatan({ limitPrograms, limitAgenda, hideProgra
       const q = progSearch.toLowerCase();
       result = result.filter(
         (p) =>
-          p.nama.toLowerCase().includes(q) ||
-          p.deskripsi.toLowerCase().includes(q) ||
+          (p.nama && p.nama.toLowerCase().includes(q)) ||
+          (p.deskripsi && p.deskripsi.toLowerCase().includes(q)) ||
           (p.pemateri && p.pemateri.toLowerCase().includes(q))
       );
     }
 
     return limitPrograms ? result.slice(0, limitPrograms) : result;
-  }, [programs, selectedKategori, progSearch, limitPrograms]);
+  }, [activeProgramsPool, selectedKategori, progSearch, limitPrograms]);
 
   // ── Agenda Filtering ────────────────────────────────────────────────────────
   const filteredAgendas = useMemo(() => {
-    return limitAgenda ? agenda.slice(0, limitAgenda) : agenda;
-  }, [agenda, limitAgenda]);
+    return limitAgenda ? activeAgendaPool.slice(0, limitAgenda) : activeAgendaPool;
+  }, [activeAgendaPool, limitAgenda]);
 
   // ── Calendar Calculations ──────────────────────────────────────────────────
   const daysInMonth = useMemo(() => {
@@ -151,12 +161,12 @@ export default function ProgramKegiatan({ limitPrograms, limitAgenda, hideProgra
     return 'Jamaah Umum & Warga CGV';
   };
 
-  // Helper to derive category-based CTA text
+  // Helper to derive category-based CTA text (all kajian are open public without registration)
   const getCategoryCTALabel = (cat = '') => {
     const c = cat.toLowerCase();
-    if (c.includes('tematik') || c.includes('event')) return 'Hubungi Pengurus';
-    if (c.includes('kitab')) return 'Daftar Kajian Kitab';
-    if (c.includes('tahsin') || c.includes('bahasa')) return 'Daftar Kelas Belajar';
+    if (c.includes('tematik') || c.includes('event')) return 'Lihat Detail Program';
+    if (c.includes('kitab')) return 'Lihat Detail Kajian';
+    if (c.includes('tahsin') || c.includes('bahasa')) return 'Lihat Detail Kelas';
     return 'Lihat Detail Kajian';
   };
 
@@ -174,8 +184,8 @@ export default function ProgramKegiatan({ limitPrograms, limitAgenda, hideProgra
         <section id="program" className="program-section" aria-labelledby="program-title">
           <Container>
             <div className="program-header">
-              <p className="label">Program &amp; Kegiatan <span>البرامج والأنشطة</span></p>
-              <h2 id="program-title" className="section-title">PROGRAM &amp; KELAS KAJIAN</h2>
+              <p className="label">Program dan Kegiatan <span>البرامج والأنشطة</span></p>
+              <h2 id="program-title" className="section-title">PROGRAM DAN KELAS KAJIAN</h2>
               <div className="program-summary-pill-bar">
                 <span className="program-status-pill" aria-live="polite">
                   Total Program Aktif: <strong>{isProgramsLoading ? '...' : programs?.length || 0} Program</strong>
@@ -234,17 +244,19 @@ export default function ProgramKegiatan({ limitPrograms, limitAgenda, hideProgra
               </div>
             ) : filteredPrograms.length === 0 ? (
               <div className="empty-programs-state">
-                <p>Belum ada program kajian yang sesuai dengan kata kunci atau filter ini.</p>
-                <button
-                  onClick={() => {
-                    setProgSearch('');
-                    setSelectedKategori('Semua');
-                  }}
-                  className="button button-gold"
-                  style={{ marginTop: '16px' }}
-                >
-                  Atur Ulang Pencarian
-                </button>
+                <p>{limitPrograms ? 'Jadwal program sedang diperbarui.' : 'Belum ada program yang sesuai dengan pencarian.'}</p>
+                {!limitPrograms && (
+                  <button
+                    onClick={() => {
+                      setProgSearch('');
+                      setSelectedKategori('Semua');
+                    }}
+                    className="button button-gold"
+                    style={{ marginTop: '16px' }}
+                  >
+                    Atur Ulang Pencarian
+                  </button>
+                )}
               </div>
             ) : (
               <div className="program-grid">
@@ -335,7 +347,13 @@ export default function ProgramKegiatan({ limitPrograms, limitAgenda, hideProgra
             <div className="program-header agenda-header">
               <div>
                 <p className="label">Agenda Masjid <span>جدول الفعاليات</span></p>
-                <h2 id="agenda-title" className="section-title">AGENDA &amp; EVENT MENDATANG</h2>
+                <h2 id="agenda-title" className="section-title">
+                  {filteredAgendas.some((a) => {
+                    if (!a._sortKey || a._sortKey.startsWith('9999')) return false;
+                    const [y, m, d] = a._sortKey.split('-').map(Number);
+                    return new Date(y, m - 1, d) >= new Date();
+                  }) ? 'AGENDA BEBERAPA WAKTU MENDATANG' : 'ARSIP KEGIATAN & AGENDA MASJID'}
+                </h2>
               </div>
               
               {/* Active Toggle Switch */}

@@ -1,78 +1,111 @@
+import React from 'react';
 import Container from '../common/Container.jsx';
+import { incomeBreakdown, financeBreakdown } from '../../data/siteContent.js';
 
-export default function FinanceBreakdown() {
-  const steps = [
-    {
-      step: '01',
-      title: 'Pencocokan Buku Kas',
-      desc: 'Verifikasi seluruh pencatatan infaq Jumat, donasi khusus, infaq cluster, serta bukti fisik pengeluaran operasional.',
-    },
-    {
-      step: '02',
-      title: 'Rekonsiliasi Rekening Bank',
-      desc: 'Penyelarasan catatan kas internal dengan mutasi rekening resmi BSI (No. Rek 1500600069) a.n. Masjid Al Ikhlas.',
-    },
-    {
-      step: '03',
-      title: 'Penetapan Laporan Resmi',
-      desc: 'Penerbitan berita acara penetapan saldo resmi Mei–Juni 2026 yang ditandatangani oleh Bendahara & Ketua DKM.',
-    },
-  ];
-
+export default function FinanceBreakdown({ incomeItems = incomeBreakdown, expenseItems = financeBreakdown }) {
   return (
-    <section className="finance-breakdown-section" aria-labelledby="breakdown-title">
+    <section className="finance-breakdown-section" id="alokasi-dana" aria-labelledby="breakdown-title">
       <Container>
-        <div style={{ marginBottom: '32px' }}>
-          <div className="transparency-hero-label" style={{ color: '#0c2b1d', marginBottom: '8px' }}>
-            <span className="fin-line" style={{ background: '#0c2b1d' }}></span> Tahapan Verifikasi
-          </div>
-          <h2 id="breakdown-title" style={{ fontFamily: 'Georgia, serif', fontSize: '26px', color: '#0c2b1d', margin: '0 0 8px 0' }}>
-            Proses Audit & Rekonsiliasi Kas
-          </h2>
-          <p style={{ margin: 0, fontSize: '14px', color: '#6b7f74', lineHeight: 1.6, maxWidth: '680px' }}>
-            Pengurus DKM berkomitmen menyajikan data keuangan yang akurat dan dapat dipertanggungjawabkan. Berikut adalah langkah verifikasi yang sedang berlangsung:
-          </p>
-        </div>
-
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '20px' }}>
-          {steps.map((item) => (
-            <div
-              key={item.step}
-              style={{
-                background: '#FFFFFF',
-                border: '1px solid rgba(12, 43, 29, 0.08)',
-                borderRadius: '16px',
-                padding: '24px',
-                boxShadow: '0 2px 10px rgba(0,0,0,0.02)',
-              }}
-            >
-              <span style={{ fontSize: '12px', fontWeight: 800, color: '#c9a55a', background: 'rgba(201, 165, 90, 0.1)', padding: '4px 10px', borderRadius: '8px', display: 'inline-block', marginBottom: '12px' }}>
-                Langkah {item.step}
-              </span>
-              <h3 style={{ fontSize: '16px', fontWeight: 700, color: '#0c2b1d', margin: '0 0 8px 0' }}>
-                {item.title}
-              </h3>
-              <p style={{ fontSize: '13px', color: '#3a5244', margin: 0, lineHeight: 1.6 }}>
-                {item.desc}
-              </p>
+        <div className="finance-breakdown-head">
+          <div>
+            <div className="transparency-hero-label" style={{ color: '#0c2b1d', marginBottom: '8px' }}>
+              <span className="fin-line" style={{ background: '#0c2b1d' }}></span> ALOKASI &amp; SUMBER KAS
             </div>
-          ))}
+            <h2 id="breakdown-title" className="finance-breakdown-heading">
+              Komposisi Kas Masuk &amp; Realisasi Pengeluaran
+            </h2>
+            <p className="finance-breakdown-sub">
+              Rincian persentase penerimaan infaq jamaah dan realisasi operasional dakwah periode 1–15 Agustus 2026.
+            </p>
+          </div>
         </div>
 
-        <div style={{ marginTop: '32px', background: '#F8F9FA', borderRadius: '12px', padding: '18px 24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
-          <span style={{ fontSize: '13px', color: '#3a5244', fontWeight: 500 }}>
-            Membutuhkan informasi donasi atau konfirmasi pencatatan kas?
-          </span>
-          <a
-            href="https://wa.me/6281375410997"
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{ fontSize: '13px', fontWeight: 700, color: '#0c2b1d', textDecoration: 'none', background: '#FFFFFF', border: '1px solid rgba(12, 43, 29, 0.2)', padding: '8px 18px', borderRadius: '8px' }}
-          >
-            Hubungi Pengurus DKM →
-          </a>
+        <div className="finance-breakdown-grid">
+          {/* Card 1: Sumber Kas Masuk */}
+          <div className="breakdown-card breakdown-card--income">
+            <div className="breakdown-card-head">
+              <div>
+                <span className="card-kicker text-forest">SUMBER PENERIMAAN (1–15 AGS)</span>
+                <h3 className="card-title">Kas Masuk: Rp 4.300.000</h3>
+              </div>
+              <span className="card-badge card-badge--forest">3 Kategori Infaq</span>
+            </div>
+
+            <div className="breakdown-items-list">
+              {incomeItems.map((item, idx) => (
+                <div className="breakdown-row" key={idx}>
+                  <div className="breakdown-row-meta">
+                    <span className="breakdown-row-label">
+                      <span className="breakdown-dot" style={{ background: item.color || '#0c2b1d' }}></span>
+                      {item.label}
+                    </span>
+                    <div className="breakdown-row-values">
+                      <strong className="breakdown-row-amount">{item.amount}</strong>
+                      <span className="breakdown-row-pct">({item.percent}%)</span>
+                    </div>
+                  </div>
+                  <div className="breakdown-track">
+                    <div
+                      className="breakdown-fill breakdown-fill--forest"
+                      style={{ width: `${item.percent}%`, background: item.color || '#0c2b1d' }}
+                    ></div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="breakdown-card-footer">
+              <div className="footer-highlight-pill">
+                💡 <strong>Pilar Utama:</strong> Infaq Jumat jamaah menopang 74% dari total penerimaan kas masjid.
+              </div>
+            </div>
+          </div>
+
+          {/* Card 2: Penggunaan Kas Keluar */}
+          <div className="breakdown-card breakdown-card--expense">
+            <div className="breakdown-card-head">
+              <div>
+                <span className="card-kicker text-crimson">PENGGUNAAN DANA (1–15 AGS)</span>
+                <h3 className="card-title">Kas Keluar: Rp 1.560.000</h3>
+              </div>
+              <span className="card-badge card-badge--crimson">Amanah &amp; Operasional</span>
+            </div>
+
+            <div className="breakdown-items-list">
+              {expenseItems.map((item, idx) => (
+                <div className="breakdown-row" key={idx}>
+                  <div className="breakdown-row-meta">
+                    <span className="breakdown-row-label">
+                      <span className="breakdown-dot" style={{ background: idx === 0 ? '#9b2113' : '#b45309' }}></span>
+                      {item.label}
+                    </span>
+                    <div className="breakdown-row-values">
+                      <strong className="breakdown-row-amount text-crimson">{item.amount}</strong>
+                      <span className="breakdown-row-pct">({item.percent}%)</span>
+                    </div>
+                  </div>
+                  <div className="breakdown-track">
+                    <div
+                      className="breakdown-fill breakdown-fill--crimson"
+                      style={{
+                        width: `${item.percent}%`,
+                        background: idx === 0 ? '#9b2113' : '#b45309',
+                      }}
+                    ></div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="breakdown-card-footer">
+              <div className="footer-highlight-pill">
+                📖 <strong>Amanah Keumatan:</strong> Alokasi terbesar disalurkan untuk bisyaroh tahsin, khotib Jumat, dan ustadzah kajian.
+              </div>
+            </div>
+          </div>
         </div>
       </Container>
     </section>
   );
 }
+

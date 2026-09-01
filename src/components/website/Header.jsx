@@ -4,11 +4,12 @@ import logoUrl from '../../assets/official-logo.png';
 import Button from '../common/Button.jsx';
 import Container from '../common/Container.jsx';
 import LiveKajianBanner from './LiveKajianBanner.jsx';
+import '../../styles/liveKajian.css';
 
 const defaultNavItems = [
-  { label: 'Live', href: '/live' },
   { label: 'Program', href: '/program' },
   { label: 'Agenda', href: '/agenda' },
+  { label: 'TPQ', href: '/tpq' },
   { label: 'Kabar', href: '/kabar' },
   { label: 'Transparansi', href: '/transparansi' },
   { label: 'Donasi', href: '/donasi' },
@@ -51,6 +52,7 @@ export default function Header({ navItems = defaultNavItems, ctaHref = '/donasi'
 
   return (
     <>
+      <LiveKajianBanner />
       <header className={`site-header ${isScrolled ? 'scrolled' : ''}`}>
         <Container as="nav" size="xl" className="site-nav" aria-label="Navigasi utama">
           <Link className="site-brand focus-ring" to="/" aria-label="Masjid Al Ikhlas Beranda">
@@ -155,9 +157,6 @@ export default function Header({ navItems = defaultNavItems, ctaHref = '/donasi'
           </Button>
         </div>
       </header>
-
-      {/* Conditional Live Announcement Banner directly below header */}
-      <LiveKajianBanner />
     </>
   );
 }

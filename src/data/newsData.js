@@ -1,6 +1,8 @@
-import storyMalamUrl from '../assets/cerita-kajian-malam.jpg';
-import storyRutinUrl from '../assets/cerita-kajian-rutin.jpg';
-import heroUrl from '../assets/hero-desktop.png';
+const storyMalamUrl = new URL('../assets/cerita-kajian-malam.jpg', import.meta.url).href;
+const storyRutinUrl = new URL('../assets/cerita-kajian-rutin.jpg', import.meta.url).href;
+// The news preview uses the lightweight portrait crop; the 2.5 MB desktop hero
+// is reserved for the page hero and is too slow for below-the-fold cards.
+const heroUrl = new URL('../assets/hero-mobile.png', import.meta.url).href;
 
 export const newsArticles = [
   {
@@ -68,9 +70,9 @@ export const newsArticles = [
     category: 'Kajian',
     date: '12 Juli 2026',
     author: 'Humas DKM',
-    image: heroUrl,
-    coverImage: heroUrl,
-    galleryImages: [],
+    image: storyMalamUrl,
+    coverImage: storyMalamUrl,
+    galleryImages: [storyMalamUrl, storyRutinUrl],
     status: 'Siap publik',
     visibility: 'Publik',
     excerpt: 'Kajian bulanan keluarga membahas keteladanan orang tua dalam membimbing anak di era digital.',

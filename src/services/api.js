@@ -9,10 +9,9 @@
  *   GET ?sheet=SHEET_NAME  →  { ok, sheet, count, data: [...] }
  *   GET ?sheet=02_Keuangan →  { ok, sheet, count, ringkasan: {...}, data: [...] }
  *
- * Environment:
- *   VITE_GAS_URL — full Google Apps Script web app deployment URL.
- *                  If omitted, all fetches are skipped and fallback data
- *                  is returned immediately (useful for local dev without secrets).
+ * Data source mode:
+ *   local — return approved repository fallback without a network request.
+ *   proxy — GET the same-origin Netlify read proxy only.
  *
  * Sheet names (as defined in Code_v1_7.gs SHEET_CONFIG):
  *   01_Program_Kajian   — public kajian / program listings
@@ -30,10 +29,23 @@
 // ─── Configuration ────────────────────────────────────────────────────────────
 
 /**
- * The GAS deployment URL, read from the VITE_GAS_URL environment variable.
- * Undefined / empty string means live API calls are disabled.
+ * Public sheet connector.
+ * Backend deployment URLs and credentials are server-side only.
  */
-export const GAS_BASE_URL = import.meta.env.VITE_GAS_URL ?? '';
+import {
+  DATA_SOURCE_LOCAL,
+  DATA_SOURCE_PROXY,
+  readByDataSource,
+  requestProxyJson,
+  resolveDataSourceMode,
+} from './dataSource.js';
+
+const runtimeEnv = import.meta.env ?? {};
+
+export const DATA_SOURCE_MODE = resolveDataSourceMode({
+  configuredMode: runtimeEnv.VITE_DATA_SOURCE,
+  isDevelopment: runtimeEnv.DEV === true,
+});
 
 /** GAS sheet names as registered in SHEET_CONFIG of Code_v1_7.gs */
 const SHEETS = {
@@ -47,8 +59,12 @@ const SHEETS = {
 const SAFE_TEXT_FALLBACK = '-';
 
 function logApiFallback(sheetName, error) {
-  if (import.meta.env.DEV) {
-    console.warn(`[api] Sheet "${sheetName}" unavailable — using fallback:`, error?.message ?? error);
+  if (error?.name === 'AbortError') {
+    return; // Aborted signals are neutral — do not log
+  }
+  if (runtimeEnv.DEV && !loggedSheets.has(sheetName)) {
+    loggedSheets.add(sheetName);
+    console.info(`[api] Sheet "${sheetName}" using local fallback data (run \`netlify dev\` for live remote integration).`);
   }
 }
 
@@ -86,38 +102,36 @@ function splitSchedule(schedule = '') {
   };
 }
 
-// ─── Core fetch ───────────────────────────────────────────────────────────────
+// In-flight request cache to deduplicate simultaneous requests per sheet
+const pendingRequests = new Map();
+const loggedSheets = new Set();
 
 /**
- * Performs a GET request to the GAS endpoint for the given sheet name.
- * Throws if the URL is not configured, the network request fails,
- * or the GAS response indicates an error.
+ * Performs a GET request to the same-origin /api/sheets endpoint for the given sheet name.
+ * Proxy responses must be JSON. HTML indicates a routing/configuration error.
  *
  * @param {string} sheetName  — one of the SHEETS constants
  * @param {{ signal?: AbortSignal }} [options]
- * @returns {Promise<object>}  — raw GAS response payload
+ * @returns {Promise<object>}  — raw response payload
  */
 async function fetchSheet(sheetName, { signal } = {}) {
-  if (!GAS_BASE_URL) {
-    throw new Error('VITE_GAS_URL is not configured — live API calls disabled');
+  // If in-flight request already exists for this sheet, reuse it
+  if (pendingRequests.has(sheetName)) {
+    return pendingRequests.get(sheetName);
   }
 
-  const url = new URL(GAS_BASE_URL);
-  url.searchParams.set('sheet', sheetName);
+  const fetchPromise = (async () => {
+    try {
+      const params = new URLSearchParams({ sheet: sheetName });
+      return requestProxyJson({ path: `/api/sheets?${params}`, signal });
+    } finally {
+      // Clear in-flight cache when request finishes
+      pendingRequests.delete(sheetName);
+    }
+  })();
 
-  const response = await fetch(url.toString(), { method: 'GET', signal });
-
-  if (!response.ok) {
-    throw new Error(`GAS responded with HTTP ${response.status} for sheet "${sheetName}"`);
-  }
-
-  const payload = await response.json();
-
-  if (payload?.ok === false) {
-    throw new Error(payload?.error ?? `GAS returned ok:false for sheet "${sheetName}"`);
-  }
-
-  return payload;
+  pendingRequests.set(sheetName, fetchPromise);
+  return fetchPromise;
 }
 
 // ─── Program (01_Program_Kajian) ──────────────────────────────────────────────
@@ -147,6 +161,14 @@ export function normalizeProgram(item, index = 0) {
     lokasi: getText(item?.lokasi ?? item?.location, 'Masjid Al Ikhlas'),
     pemateri: getText(item?.pemateri, ''),
     poster: getSafeUrl(item?.poster),
+    status: getText(item?.status, 'Siap publik'),
+    visibility: getText(item?.visibility ?? item?.website, 'Publik'),
+    version: Number(item?.version ?? 1),
+    createdBy: item?.createdBy ?? null,
+    reviewedBy: item?.reviewedBy ?? null,
+    rejectionReason: getText(item?.rejectionReason, ''),
+    environment: getText(item?.environment, 'production'),
+    source: item?.source ?? 'repository',
     // Internal fields intentionally excluded: jemaah, kitab, muqaddimah, audio
   };
 }
@@ -160,25 +182,25 @@ export function normalizeProgram(item, index = 0) {
  * @returns {Promise<{ data: object[], source: 'api'|'fallback' }>}
  */
 export async function getPublicPrograms(fallbackPrograms, options) {
-  try {
-    const payload = await fetchSheet(SHEETS.PROGRAM, options);
-    const rows = Array.isArray(payload?.data) ? payload.data : [];
-
-    if (!rows.length) {
-      throw new Error('01_Program_Kajian payload contained no data rows');
-    }
-
-    return {
-      data: rows.map(normalizeProgram),
-      source: 'api',
-    };
-  } catch (error) {
-    logApiFallback(SHEETS.PROGRAM, error);
-    return {
-      data: fallbackPrograms.map(normalizeProgram),
-      source: 'fallback',
-    };
-  }
+  const fallback = () => ({
+    data: fallbackPrograms.map(normalizeProgram),
+    source: 'fallback',
+  });
+  return readByDataSource({
+    mode: options?.dataSourceMode ?? DATA_SOURCE_MODE,
+    local: fallback,
+    proxy: async () => {
+      try {
+        const payload = await fetchSheet(SHEETS.PROGRAM, options);
+        const rows = Array.isArray(payload?.data) ? payload.data : [];
+        if (!rows.length) throw new Error('01_Program_Kajian payload contained no data rows');
+        return { data: rows.map(normalizeProgram), source: 'api' };
+      } catch (error) {
+        logApiFallback(SHEETS.PROGRAM, error);
+        return fallback();
+      }
+    },
+  });
 }
 
 // ─── Finance Summary (02_Keuangan) ────────────────────────────────────────────
@@ -238,26 +260,12 @@ export function normalizeFinanceSummaryPayload(payload, fallbackSummary) {
  * @param {{ signal?: AbortSignal }} [options]
  * @returns {Promise<{ data: object, source: 'api'|'fallback' }>}
  */
-export async function getPublicFinanceSummary(fallbackSummary, options) {
-  try {
-    const payload = await fetchSheet(SHEETS.KEUANGAN, options);
-    const ringkasan = payload?.ringkasan ?? {};
-
-    if (!hasRingkasanFields(ringkasan)) {
-      throw new Error('02_Keuangan payload did not include a usable ringkasan object');
-    }
-
-    return {
-      data: normalizeFinanceSummaryPayload(payload, fallbackSummary),
-      source: 'api',
-    };
-  } catch (error) {
-    logApiFallback(SHEETS.KEUANGAN, error);
-    return {
-      data: fallbackSummary,
-      source: 'fallback',
-    };
-  }
+export async function getPublicFinanceSummary(fallbackSummary) {
+  // Finance is in verification mode — 02_Keuangan fetches are intentionally skipped.
+  return {
+    data: fallbackSummary,
+    source: 'fallback',
+  };
 }
 
 // ─── Agenda (09_Agenda_Kalender) ──────────────────────────────────────────────
@@ -280,6 +288,15 @@ export function normalizeAgenda(item, index = 0) {
     deskripsi: getText(item?.deskripsi ?? item?.description, ''),
     // galeri URL sanitised — only http/https allowed
     galeri: getSafeUrl(item?.galeri),
+    status: getText(item?.status, 'Siap publik'),
+    visibility: getText(item?.visibility ?? item?.website, 'Publik'),
+    version: Number(item?.version ?? 1),
+    createdBy: getText(item?.createdBy, ''),
+    reviewedBy: getText(item?.reviewedBy, ''),
+    rejectionReason: getText(item?.rejectionReason, ''),
+    cancellationReason: getText(item?.cancellationReason, ''),
+    environment: getText(item?.environment, 'production'),
+    source: getText(item?.source, ''),
   };
 }
 
@@ -292,25 +309,25 @@ export function normalizeAgenda(item, index = 0) {
  * @returns {Promise<{ data: object[], source: 'api'|'fallback' }>}
  */
 export async function getPublicAgenda(fallbackAgenda, options) {
-  try {
-    const payload = await fetchSheet(SHEETS.AGENDA, options);
-    const rows = Array.isArray(payload?.data) ? payload.data : [];
-
-    if (!rows.length) {
-      throw new Error('09_Agenda_Kalender payload contained no data rows');
-    }
-
-    return {
-      data: rows.map(normalizeAgenda),
-      source: 'api',
-    };
-  } catch (error) {
-    logApiFallback(SHEETS.AGENDA, error);
-    return {
-      data: fallbackAgenda.map(normalizeAgenda),
-      source: 'fallback',
-    };
-  }
+  const fallback = () => ({
+    data: fallbackAgenda.map(normalizeAgenda),
+    source: 'fallback',
+  });
+  return readByDataSource({
+    mode: options?.dataSourceMode ?? DATA_SOURCE_MODE,
+    local: fallback,
+    proxy: async () => {
+      try {
+        const payload = await fetchSheet(SHEETS.AGENDA, options);
+        const rows = Array.isArray(payload?.data) ? payload.data : [];
+        if (!rows.length) throw new Error('09_Agenda_Kalender payload contained no data rows');
+        return { data: rows.map(normalizeAgenda), source: 'api' };
+      } catch (error) {
+        logApiFallback(SHEETS.AGENDA, error);
+        return fallback();
+      }
+    },
+  });
 }
 
 // ─── Legacy compatibility exports ─────────────────────────────────────────────
@@ -330,3 +347,23 @@ export function normalizeProgramsPayload(payload, fallbackPrograms) {
  * @deprecated Alias kept for backwards compatibility with useFinanceSummary.js
  */
 export { getPublicFinanceSummary as default };
+
+export async function getIntegrationHealth(options = {}) {
+  if ((options.dataSourceMode ?? DATA_SOURCE_MODE) === DATA_SOURCE_LOCAL) {
+    return {
+      ok: true,
+      configured: false,
+      programReadAvailable: false,
+      agendaReadAvailable: false,
+      environment: 'local',
+      timestamp: new Date().toISOString(),
+      source: DATA_SOURCE_LOCAL,
+    };
+  }
+
+  const payload = await requestProxyJson({
+    path: '/api/integration/health',
+    signal: options.signal,
+  });
+  return { ...payload, source: DATA_SOURCE_PROXY };
+}

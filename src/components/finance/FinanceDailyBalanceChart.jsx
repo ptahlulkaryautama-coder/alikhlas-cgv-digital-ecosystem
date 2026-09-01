@@ -1,6 +1,16 @@
 import '../../styles/financeAdmin.css';
 
-export default function FinanceDailyBalanceChart({ selectedPeriod = 'juni2026' }) {
+export default function FinanceDailyBalanceChart({ selectedPeriod = 'agustus2026', data = null }) {
+  const pointsAgustus = [
+    { label: '1 Ags (Awal)', x: 50, y: 130, value: 'Rp 18.386.130' },
+    { label: '1 Ags', x: 120, y: 145, value: 'Rp 17.976.130' },
+    { label: '4 Ags', x: 230, y: 134, value: 'Rp 18.276.130' },
+    { label: '7 Ags', x: 370, y: 80, value: 'Rp 19.726.130' },
+    { label: '8 Ags', x: 480, y: 77, value: 'Rp 19.823.130' },
+    { label: '9 Ags', x: 590, y: 73, value: 'Rp 19.923.130' },
+    { label: '15 Ags', x: 750, y: 35, value: 'Rp 21.126.130' }
+  ];
+
   const pointsMei = [
     { label: '1 Mei', x: 50, y: 150.5, value: 'Rp 4.882.104' },
     { label: '1 Mei', x: 90, y: 240, value: 'Rp 0' },
@@ -23,7 +33,15 @@ export default function FinanceDailyBalanceChart({ selectedPeriod = 'juni2026' }
     { label: '27 Jun', x: 750, y: 140.4, value: 'Rp 5.200.000' }
   ];
 
-  const points = selectedPeriod === 'mei2026' ? pointsMei : pointsJuni;
+  const sourceBalances = data?.dailyBalances?.length ? data.dailyBalances : null;
+  const maxBalance = sourceBalances ? Math.max(...sourceBalances.map((item) => item.balance), 1) : 1;
+  const dataPoints = sourceBalances?.map((item, index) => ({
+    label: new Intl.DateTimeFormat('id-ID', { day: 'numeric', month: 'short' }).format(new Date(`${item.date}T00:00:00`)),
+    x: sourceBalances.length === 1 ? 400 : 50 + (700 * index / (sourceBalances.length - 1)),
+    y: 240 - (200 * item.balance / maxBalance),
+    value: new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(item.balance),
+  }));
+  const points = dataPoints || (selectedPeriod === 'agustus2026' ? pointsAgustus : selectedPeriod === 'mei2026' ? pointsMei : pointsJuni);
 
   const pathD = `M ${points[0].x} ${points[0].y} ` + 
     points.slice(1).map(p => `L ${p.x} ${p.y}`).join(' ');
@@ -33,7 +51,7 @@ export default function FinanceDailyBalanceChart({ selectedPeriod = 'juni2026' }
   // Get labels excluding the second point (which is double 1st of the month)
   const xLabels = points.filter((p, i) => i !== 1);
 
-  const periodLabel = selectedPeriod === 'mei2026' ? 'Mei 2026' : 'Juni 2026';
+  const periodLabel = data?.period || (selectedPeriod === 'agustus2026' ? 'Agustus 2026 (1–15 Ags)' : selectedPeriod === 'mei2026' ? 'Mei 2026' : 'Juni 2026');
 
   return (
     <div className="fin-chart-card">

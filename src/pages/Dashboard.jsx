@@ -22,10 +22,11 @@ import RecentActivity from '../components/dashboard/RecentActivity.jsx';
 import LatestReportSnapshot from '../components/dashboard/LatestReportSnapshot.jsx';
 import useDashboardData from '../hooks/useDashboardData.js';
 import { mockPeriod } from '../data/dashboardMockData.js';
-import { newsArticles } from '../data/newsData.js';
+import { kabarRepository } from '../repositories/kabarRepository.js';
 import '../styles/dashboard.css';
 
 export default function Dashboard() {
+  const newsArticles = kabarRepository.getAll();
   const { programs, agenda, finance, isAnyLoading } = useDashboardData();
   const kabarCount = newsArticles.filter(a => a.status === 'Siap publik').length;
 

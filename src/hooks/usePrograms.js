@@ -1,37 +1,33 @@
-import { useEffect, useState } from 'react';
-import { programs as fallbackPrograms } from '../data/siteContent.js';
-import { getPublicPrograms, normalizeProgram } from '../services/api.js';
+import { useCallback, useEffect, useState } from 'react';
+import { programRepository } from '../repositories/programRepository.js';
 
-const normalizedFallbackPrograms = fallbackPrograms.map(normalizeProgram);
+export default function usePrograms({ scope = 'public' } = {}) {
+  const isAdmin = scope === 'admin';
+  const [programs, setPrograms] = useState(() => isAdmin ? programRepository.getInitialAll() : programRepository.getInitialPublic());
+  const [isLoading, setIsLoading] = useState(false);
+  const [sourceStatus, setSourceStatus] = useState(programRepository.getSourceStatus());
 
-export default function usePrograms() {
-  const [programs, setPrograms] = useState(normalizedFallbackPrograms);
-  const [isLoading, setIsLoading] = useState(true);
-  const [source, setSource] = useState('fallback');
+  const load = useCallback(async ({ signal } = {}) => {
+    setIsLoading(true);
+    const read = isAdmin ? programRepository.getAll : programRepository.getPublic;
+    const data = await read({ signal });
+    if (signal?.aborted) return;
+    setPrograms(data);
+    setSourceStatus(programRepository.getSourceStatus());
+    setIsLoading(false);
+  }, [isAdmin]);
 
   useEffect(() => {
     const controller = new AbortController();
-    let isMounted = true;
-
-    getPublicPrograms(fallbackPrograms, { signal: controller.signal }).then((result) => {
-      if (!isMounted) {
-        return;
-      }
-
-      setPrograms(result.data);
-      setSource(result.source);
-      setIsLoading(false);
-    });
-
-    return () => {
-      isMounted = false;
-      controller.abort();
-    };
-  }, []);
+    void load({ signal: controller.signal });
+    return () => controller.abort();
+  }, [load]);
 
   return {
     programs,
     isLoading,
-    source,
+    source: sourceStatus.type === 'supabase' ? 'supabase' : sourceStatus.type === 'remote-proxy' ? 'api' : 'fallback',
+    sourceStatus,
+    retry: () => load(),
   };
 }

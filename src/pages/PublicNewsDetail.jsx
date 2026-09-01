@@ -3,7 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import Footer from '../components/website/Footer.jsx';
 import Header from '../components/website/Header.jsx';
 import Container from '../components/common/Container.jsx';
-import { articles } from '../data/newsData.js';
+import usePublicArticles from '../hooks/usePublicArticles.js';
 import '../styles/home.css';
 import '../styles/news.css';
 
@@ -19,11 +19,10 @@ const CAT_COLORS = {
 
 export default function PublicNewsDetail() {
   const { slug } = useParams();
+  const { articles: publicArticles } = usePublicArticles();
 
   const article = useMemo(() => {
-    return articles.find(
-      (a) => a.slug === slug && a.visibility === 'Publik' && a.status === 'Siap publik'
-    ) ?? null;
+    return publicArticles.find((item) => item.slug === slug) ?? null;
   }, [slug]);
 
   const relatedArticles = useMemo(() => {
@@ -31,13 +30,13 @@ export default function PublicNewsDetail() {
     
     // Explicitly related articles excluding current article and enforcing public status
     let list = (article.relatedSlugs || [])
-      .map((s) => articles.find((a) => a.slug === s && a.slug !== article.slug && a.visibility === 'Publik' && a.status === 'Siap publik'))
+      .map((s) => publicArticles.find((a) => a.slug === s && a.slug !== article.slug))
       .filter(Boolean);
 
     // Fallback matching category if list is short
     if (list.length < 2) {
-      const categoryMatches = articles.filter(
-        (a) => a.category === article.category && a.slug !== article.slug && a.visibility === 'Publik' && a.status === 'Siap publik' && !list.some((existing) => existing.slug === a.slug)
+      const categoryMatches = publicArticles.filter(
+        (a) => a.category === article.category && a.slug !== article.slug && !list.some((existing) => existing.slug === a.slug)
       );
       list = [...list, ...categoryMatches];
     }
@@ -295,5 +294,3 @@ export default function PublicNewsDetail() {
     </div>
   );
 }
-
-

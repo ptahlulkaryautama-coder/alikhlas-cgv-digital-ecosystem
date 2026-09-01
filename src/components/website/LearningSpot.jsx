@@ -55,7 +55,7 @@ export const learningItems = [
     status: 'Siap publik',
     isVerified: true,
     displayDuration: 14000,
-    ctaLabel: 'Daftar Kajian Kitab',
+    ctaLabel: 'Lihat Info Kajian Kitab',
     ctaHref: '/program',
   },
   {

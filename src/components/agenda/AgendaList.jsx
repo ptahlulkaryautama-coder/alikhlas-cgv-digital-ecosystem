@@ -180,8 +180,8 @@ export default function AgendaList({ agenda = [], isLoading = false }) {
             : (
               <div style={{ padding: '32px', textAlign: 'center', color: 'var(--db-text-4)', fontSize: '13px' }}>
                 {searchQuery || activeFilter !== 'semua'
-                  ? 'Tidak ada agenda sesuai filter.'
-                  : 'Belum ada data agenda.'}
+                  ? 'Tidak ada agenda sesuai filter. Coba ubah kata kunci atau kategori filter.'
+                  : 'Belum ada data agenda kegiatan. Gunakan tombol Tambah Agenda untuk membuat kegiatan baru.'}
               </div>
             )}
       </div>

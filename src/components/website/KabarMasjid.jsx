@@ -1,12 +1,16 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { newsArticles } from '../../data/newsData.js';
+import { kabarRepository } from '../../repositories/kabarRepository.js';
+import { tpqRepository } from '../../repositories/tpqRepository.js';
 import Container from '../common/Container.jsx';
 
 export default function KabarMasjid() {
   const navigate = useNavigate();
   // Display only the latest 3 articles
-  const latestArticles = newsArticles.slice(0, 3);
+  const tpqSlugs = new Set(tpqRepository.getPublicNews().map((article) => article.slug));
+  const latestArticles = kabarRepository.getPublic()
+    .filter((article) => article.category !== 'TPQ' || tpqSlugs.has(article.slug))
+    .slice(0, 3);
 
   const CAT_COLORS = {
     TPQ:      { bg: '#E8F5EE', text: '#1A7A50' },
@@ -90,4 +94,3 @@ export default function KabarMasjid() {
     </section>
   );
 }
-

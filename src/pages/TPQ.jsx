@@ -18,12 +18,22 @@ import TPQNewsSection from '../components/tpq/TPQNewsSection.jsx';
 import TPQDocumentsSection from '../components/tpq/TPQDocumentsSection.jsx';
 import TPQFutureModulesSection from '../components/tpq/TPQFutureModulesSection.jsx';
 import TPQPrivacyNoticeCard from '../components/tpq/TPQPrivacyNoticeCard.jsx';
-import { FAQS } from '../data/tpqData.js';
+import FinanceImportPanel from '../components/finance/FinanceImportPanel.jsx';
+import FinanceApprovalPanel from '../components/finance/FinanceApprovalPanel.jsx';
+import FinanceBatchHistory from '../components/finance/FinanceBatchHistory.jsx';
+import FinanceManualEntryPanel from '../components/finance/FinanceManualEntryPanel.jsx';
+import FinanceCorrectionPanel from '../components/finance/FinanceCorrectionPanel.jsx';
+import FinancePilotGuide from '../components/finance/FinancePilotGuide.jsx';
+import FinanceSupabaseSnapshot from '../components/finance/FinanceSupabaseSnapshot.jsx';
+import { tpqRepository } from '../repositories/tpqRepository.js';
+import useTpqIntegration from '../hooks/useTpqIntegration.js';
 import '../styles/dashboard.css';
 import '../styles/financeAdmin.css';
 import '../styles/tpqPortal.css';
 
 export default function TPQ() {
+  const { faqs: FAQS } = tpqRepository.getAll();
+  const { schedule, agenda, learningFocus, sourceStatus, isLoading } = useTpqIntegration();
   return (
     <DashboardLayout
       title="TPQ & Pendidikan"
@@ -43,7 +53,7 @@ export default function TPQ() {
               Portal TPQ Al Ikhlas
             </h1>
             <p className="db-pg-desc">
-              Ringkasan jadwal belajar, kegiatan, dan informasi umum TPQ Al Ikhlas.
+              Ringkasan jadwal belajar, kegiatan, dan informasi umum TPQ Al Ikhlas. · {sourceStatus.label}{isLoading ? ' · Memeriksa sumber data…' : ''}
             </p>
             
             {/* Badges */}
@@ -52,7 +62,7 @@ export default function TPQ() {
                 Prototype internal
               </span>
               <span className="fin-pill fin-pill-green" style={{ fontSize: '11px', fontWeight: 700 }}>
-                Read-only
+                Interaktif Aktif
               </span>
             </div>
           </div>
@@ -60,12 +70,23 @@ export default function TPQ() {
           <div>
             <button 
               className="fin-btn" 
-              disabled 
-              aria-disabled="true"
               type="button"
-              style={{ opacity: 0.7, cursor: 'not-allowed', display: 'inline-flex', alignItems: 'center', gap: '6px' }}
+              onClick={() => alert('📥 Simulasi Ekspor PDF Raport TPQ Berhasil Di-generate untuk Pratinjau!')}
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '6px',
+                background: 'linear-gradient(135deg, #0b3424, #17573a)',
+                color: '#ffffff',
+                border: '1px solid #c6a15b',
+                padding: '10px 18px',
+                borderRadius: '10px',
+                fontWeight: 750,
+                cursor: 'pointer',
+                boxShadow: '0 4px 14px rgba(8,41,28,0.18)',
+              }}
             >
-              📥 Export Raport Santri <span style={{ fontSize: '9px', fontWeight: 600, color: 'var(--db-warn-text)', background: 'var(--db-warn-bg)', padding: '1px 4px', borderRadius: '3px' }}>Segera</span>
+              📥 Export Raport Santri <span style={{ fontSize: '9.5px', fontWeight: 800, color: '#08291c', background: '#f0cf88', padding: '2px 6px', borderRadius: '4px' }}>Simulasi Aktif</span>
             </button>
           </div>
         </div>
@@ -73,20 +94,29 @@ export default function TPQ() {
         {/* ── Privacy & Security Notice Card ── */}
         <TPQPrivacyNoticeCard />
 
+        <FinanceSupabaseSnapshot scope="tpq" />
+
+        <FinanceManualEntryPanel scope="tpq" />
+        <FinanceCorrectionPanel scope="tpq" />
+        <FinanceImportPanel scope="tpq" />
+        <FinanceApprovalPanel scope="tpq" />
+        <FinanceBatchHistory scope="tpq" />
+        <FinancePilotGuide scope="tpq" />
+
         {/* ── 1. Executive KPI Summary (Section B: Overview) ── */}
         <TPQOverviewKPI />
 
         {/* ── 2. Kelompok Belajar (Section C: Jadwal Kelas) ── */}
-        <TPQKelasSection />
+        <TPQKelasSection classes={schedule} />
 
         {/* ── 3. Kurikulum & Roadmap Capaian (Section D: Fokus Pembelajaran) ── */}
-        <TPQKurikulumSection />
+        <TPQKurikulumSection learningFocus={learningFocus} />
 
         {/* ── 4. Profil Ustadz & Ustadzah ── */}
         <TPQTeachersSection />
 
         {/* ── 5. Agenda Akademik & Kegiatan (Section E: Agenda TPQ) ── */}
-        <TPQAgendaSection />
+        <TPQAgendaSection agenda={agenda} />
 
         {/* ── 6. Kabar TPQ Terbaru (Section F: Kabar TPQ) ── */}
         <TPQNewsSection />

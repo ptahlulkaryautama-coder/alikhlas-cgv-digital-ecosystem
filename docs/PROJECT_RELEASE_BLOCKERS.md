@@ -6,41 +6,37 @@ Dokumen ini mencatat evaluasi status rilis, item pemblokir rilis (*release block
 
 ## 🟢 1. Ringkasan Status Rilis
 
-No unresolved technical release blocker was found. Official finance figures remain intentionally withheld pending Bendahara verification.
+No unresolved technical release blocker was found. Official finance figures for **Periode 1–15 Agustus 2026** have been received and verified directly from the signed and stamped DKM BKU report (Ketua DKM Karya HP, Sekretaris Zulhendy M, Bendahara Bambang S).
 
 ---
 
 ## 🛑 2. Status Pemblokir Rilis (Release Blockers Audit)
 
-No unresolved technical release blocker was found. Official finance figures remain intentionally withheld pending Bendahara verification.
+- ✅ **Laporan Keuangan Kas Masjid 1–15 Agustus 2026**: Terverifikasi lengkap dengan tanda tangan 3 pimpinan DKM (Ketua, Sekretaris, Bendahara) dan cap stempel resmi Masjid Al Ikhlas CGV.
+- ✅ **Saldo Awal**: Rp 18.386.130 (per 1 Ags 2026)
+- ✅ **Total Kas Masuk**: Rp 4.300.000 (Total Kas: Rp 22.686.130)
+- ✅ **Total Kas Keluar**: Rp 1.560.000
+- ✅ **Saldo Akhir**: Rp 21.126.130 (per 15 Ags 2026)
 
 ---
 
 ## 🛡️ 3. Penanganan Keselamatan Rilis per Rute Publik & Admin
 
 ### A. Portal Transparansi Publik (`/transparansi`)
-- Spanduk pemberitahuan verifikasi aktif:  
-  > **ℹ️ Data keuangan sedang diverifikasi** `[Dalam verifikasi]`  
-  > *Ringkasan keuangan Mei-Juni 2026 sedang diperiksa bersama Bendahara DKM. Angka akan dipublikasikan setelah sumber laporan resmi ditetapkan.*
-- Kartu statistik menampilkan status verifikasi (`Periode Peninjauan: Mei-Juni 2026`, `Status: Dalam verifikasi`, `Pencatatan Resmi: BSI 1500600069`).
-- Penjelasan proses audit 3-langkah disajikan bersama tautan WhatsApp konfirmasi DKM.
-- Tidak ada unduhan PDF palsu atau klaim laporan publik final.
+- Menampilkan ringkasan kas terverifikasi untuk periode Agustus 2026 (1–15 Agustus 2026).
+- Kartu statistik menampilkan status terverifikasi (`Periode: 1–15 Agustus 2026`, `Status: Terverifikasi`, `Pencatatan Resmi: BSI 1500600069`).
+- Penjelasan proses audit dan kontak DKM disajikan bersama tautan konfirmasi WhatsApp.
 
 ### B. Dashboard Utama Admin (`/app`)
-- Kartu Saldo Kas disajikan sebagai:  
-  `Belum diverifikasi` / `Menunggu laporan Bendahara`.
-- Dokumen laporan terbaru diset ke status `Dalam peninjauan`.
+- Menampilkan KPI Kas Masuk, Kas Keluar, dan Saldo Akhir Rp 21.126.130 untuk periode Agustus 2026.
+- Dokumen laporan terbaru terdaftar sebagai `Siap publik`.
 
 ### C. Halaman Buku Kas Keuangan Admin (`/app/keuangan`)
-- Spanduk peringatan prototype aktif di bagian atas:  
-  `⚠️ Data kerja/prototype - belum dapat digunakan sebagai laporan resmi.`
-- Header diset ke `Laporan Keuangan (Internal Review)` dan deskripsi ke `Data kerja/prototype ...`.
-- Pilihan periode diset ke `Mei 2026 (Dalam peninjauan)` dan `Juni 2026 (Dalam peninjauan)`.
-- Catatan kaki cetak diset ke `Pratinjau prototype`.
+- Menampilkan 13 baris transaksi terverifikasi (1 Saldo Awal, 5 Kas Masuk, 7 Kas Keluar).
+- Pilihan periode memprioritaskan `Agustus 2026 (Disahkan Bendahara DKM)`.
 
 ### D. Arsip Laporan Admin (`/app/laporan`)
-- Laporan Mei & Juni 2026 diset ke status `Dalam verifikasi` dan hak akses `Pengurus`.
-- Tombol unduh dan tautan publik dinonaktifkan (`disabled` & `aria-disabled="true"`).
+- Laporan Keuangan Kas Masjid (1–15 Ags 2026) diset ke status `Siap publik` dan hak akses `Publik`.
 
 ### E. Modul TPQ Al Mardhotillah (`/app/tpq`)
 - Menampilkan banner privasi dan informasi bahwa portal wali santri & buku penghubung digital disiapkan untuk tahap backend mendatang.
@@ -48,15 +44,10 @@ No unresolved technical release blocker was found. Official finance figures rema
 
 ---
 
-## 📋 4. Checklist Kebutuhan Dokumen dari Bendahara DKM
+## 📋 4. Checklist Dokumen Resmi DKM
 
-Untuk menyelesaikan proses rekonsiliasi kas resmi di masa mendatang, Bendahara DKM diharapkan melengkapi:
-
-1. [ ] Buku Kas Umum (BKU) fisik/digital bulan Mei 2026 bertanda tangan Bendahara.
-2. [ ] Buku Kas Umum (BKU) fisik/digital bulan Juni 2026 bertanda tangan Bendahara.
-3. [ ] Mutasi Rekening Koran Bank Syariah Indonesia (BSI No. Rek 1500600069) periode Mei & Juni 2026.
-4. [ ] Kwitansi & bukti fisik pengeluaran operasional masjid, insentif pengajar TPQ, dan tagihan utilitas (PLN, air, internet).
-5. [ ] Berita Acara Penetapan Saldo Akhir Kas Masjid Al Ikhlas Cipta Greenville per 30 Juni 2026.
+1. [x] Laporan Keuangan KAS MASJID Periode Agustus 2026 (1–15 Agustus 2026) bertanda tangan Ketua DKM Karya HP, Sekretaris Zulhendy M, Bendahara Bambang S, dan cap resmi DKM Al Ikhlas CGV.
+2. [ ] Laporan Lanjutan Periode 16–31 Agustus 2026 (akan diinput setelah periode bulan Agustus berakhir).
 
 ---
 

@@ -3,7 +3,7 @@
   position: relative;
   overflow: hidden;
   background: var(--color-forest);
-  padding: var(--space-10) var(--container-padding);
+  padding: 3rem var(--container-padding);
   text-align: center;
 }
 

@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { TPQ_AGENDA } from '../../data/tpqData.js';
 import { classifyTPQAgenda, getLocalISODate } from '../../utils/tpqDateUtils.js';
 
 /**
@@ -15,10 +14,10 @@ import { classifyTPQAgenda, getLocalISODate } from '../../utils/tpqDateUtils.js'
  *
  * If no future/today items exist → empty-state notice (no invented dates).
  */
-export default function TPQAgendaSection() {
+export default function TPQAgendaSection({ agenda = [] }) {
   const todayISO = getLocalISODate();
   const { future: sortedFuture, past: sortedPast, unknown: unknownAgenda } = classifyTPQAgenda(
-    TPQ_AGENDA,
+    agenda,
     todayISO
   );
 

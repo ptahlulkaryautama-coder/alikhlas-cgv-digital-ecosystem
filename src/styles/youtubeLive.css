@@ -80,7 +80,7 @@
 .yt-player-wrapper {
   position: relative;
   width: 100%;
-  padding-bottom: 56.25%; /* 16:9 aspect ratio */
+  padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
   background: #081911;
 }
 
@@ -90,7 +90,67 @@
   left: 0;
   width: 100%;
   height: 100%;
-  border: none;
+  border: 0;
+}
+
+.yt-facade-container {
+  position: absolute;
+  inset: 0;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.yt-facade-poster {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.yt-facade-container:hover .yt-facade-poster {
+  transform: scale(1.04);
+}
+
+.yt-facade-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(8, 25, 17, 0.45);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: #fff;
+  transition: background 0.3s ease;
+}
+
+.yt-facade-container:hover .yt-facade-overlay {
+  background: rgba(8, 25, 17, 0.3);
+}
+
+.yt-play-button {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--color-gold, #c9a55a);
+  color: #0c2b1d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.yt-facade-container:hover .yt-play-button {
+  transform: scale(1.12);
+  background: #dbb76c;
+}
+
+.yt-facade-label {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
 }
 
 /* Video Info */

@@ -1,16 +1,12 @@
 import { useEffect, useMemo, useState } from 'react';
 import KabarMasjidPreview from '../components/news/KabarMasjidPreview.jsx';
 import ContactSection from '../components/website/ContactSection.jsx';
-import DigitalEcosystem from '../components/website/DigitalEcosystem.jsx';
-import DonationSection from '../components/website/DonationSection.jsx';
 import Footer from '../components/website/Footer.jsx';
-import FourPillars from '../components/website/FourPillars.jsx';
 import Header from '../components/website/Header.jsx';
 import Hero from '../components/website/Hero.jsx';
-import LiveKajianSection from '../components/website/LiveKajianSection.jsx';
-import OrnamentDivider from '../components/website/OrnamentDivider.jsx';
+import JamaahGateway from '../components/website/JamaahGateway.jsx';
+import MediaHubSection from '../components/website/MediaHubSection.jsx';
 import ProgramKegiatan from '../components/website/ProgramKegiatan.jsx';
-import QuranQuote from '../components/website/QuranQuote.jsx';
 import TransparencyPreview from '../components/website/TransparencyPreview.jsx';
 import { getNextPrayer, getTodayPrayerTimes } from '../services/prayerTimes.js';
 import '../styles/home.css';
@@ -62,25 +58,14 @@ export default function Home() {
           prayerSource={prayerData.source}
           prayerTimes={prayerData.times}
         />
-        <FourPillars />
-        <OrnamentDivider />
-        <QuranQuote />
-        <OrnamentDivider />
+        <JamaahGateway />
+        {/* Render Program first, then Agenda second */}
         <ProgramKegiatan limitPrograms={3} hideAgenda={true} />
-        <OrnamentDivider />
-        <LiveKajianSection showArchiveList={true} />
-        <OrnamentDivider />
         <ProgramKegiatan limitAgenda={3} hideProgram={true} />
-        <OrnamentDivider />
+        <MediaHubSection />
         <KabarMasjidPreview />
-        <OrnamentDivider />
         <TransparencyPreview />
-        <OrnamentDivider />
-        <DonationSection />
-        <OrnamentDivider />
-        <DigitalEcosystem />
-        <OrnamentDivider />
-        <ContactSection />
+        <ContactSection isHomepage={true} />
       </main>
       <Footer />
     </div>

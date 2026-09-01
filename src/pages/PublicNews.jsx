@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Footer from '../components/website/Footer.jsx';
 import Header from '../components/website/Header.jsx';
 import Container from '../components/common/Container.jsx';
-import { articles } from '../data/newsData.js';
+import usePublicArticles from '../hooks/usePublicArticles.js';
 import '../styles/home.css';
 import '../styles/news.css';
 
@@ -19,13 +19,11 @@ const CAT_COLORS = {
   Qurban:   { bg: '#FFF0E8', text: '#A63D1A' },
 };
 
-const publicArticles = articles
-  .filter((a) => a.visibility === 'Publik' && a.status === 'Siap publik')
-  .sort((a, b) => new Date(b.date) - new Date(a.date));
-
 export default function PublicNews() {
   const navigate = useNavigate();
   const [activeCategory, setActiveCategory] = useState('Semua');
+  const { articles } = usePublicArticles();
+  const publicArticles = useMemo(() => [...articles].sort((a,b)=>new Date(b.date)-new Date(a.date)),[articles]);
 
   const filteredArticles = useMemo(() => {
     if (activeCategory === 'Semua') return publicArticles;
@@ -42,7 +40,7 @@ export default function PublicNews() {
     // Latest article date (already sorted desc)
     const latestDate = publicArticles[0]?.date ?? '—';
     return { total, topCat, latestDate };
-  }, []);
+  }, [publicArticles]);
 
   const featuredArticle = filteredArticles[0];
   const gridArticles = filteredArticles.slice(1);
@@ -129,53 +127,68 @@ export default function PublicNews() {
             ) : (
               <>
                 {/* Featured article — visually dominant editorial card */}
-                {featuredArticle && (
-                  <article
-                    className="featured-article-card animate-fade-in"
-                    onClick={() => navigate(`/kabar/${featuredArticle.slug}`)}
-                    role="button"
-                    tabIndex={0}
-                    onKeyDown={(e) => {
-                      if (e.key === 'Enter' || e.key === ' ') {
-                        e.preventDefault();
-                        navigate(`/kabar/${featuredArticle.slug}`);
-                      }
-                    }}
-                    aria-label={`Baca artikel utama: ${featuredArticle.title}`}
-                  >
-                    <div className="featured-img-wrapper">
-                      <img
-                        src={featuredArticle.coverImage || featuredArticle.image}
-                        alt={featuredArticle.title}
-                        loading="eager"
-                      />
-                      <div className="featured-img-overlay" aria-hidden="true" />
-                      {/* Category badge overlaid on image */}
-                      <span
-                        className="featured-cat-badge"
-                        style={{
-                          background: CAT_COLORS[featuredArticle.category]?.bg ?? '#E8F5EE',
-                          color: CAT_COLORS[featuredArticle.category]?.text ?? '#1A7A50',
-                        }}
-                      >
-                        {featuredArticle.category}
-                      </span>
-                    </div>
-                    <div className="featured-content">
-                      <div className="featured-meta">
-                        <span className="featured-date">{featuredArticle.date}</span>
-                        {featuredArticle.author && (
-                          <span className="featured-author">oleh {featuredArticle.author}</span>
-                        )}
+                {featuredArticle && (() => {
+                  const hasImage = Boolean(featuredArticle.coverImage || featuredArticle.image);
+                  return (
+                    <article
+                      className={`featured-article-card animate-fade-in ${hasImage ? 'has-image' : 'text-only'}`}
+                      onClick={() => navigate(`/kabar/${featuredArticle.slug}`)}
+                      role="button"
+                      tabIndex={0}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                          e.preventDefault();
+                          navigate(`/kabar/${featuredArticle.slug}`);
+                        }
+                      }}
+                      aria-label={`Baca artikel utama: ${featuredArticle.title}`}
+                    >
+                      {hasImage && (
+                        <div className="featured-img-wrapper">
+                          <img
+                            src={featuredArticle.coverImage || featuredArticle.image}
+                            alt={featuredArticle.title}
+                            loading="eager"
+                          />
+                          <div className="featured-img-overlay" aria-hidden="true" />
+                          <span
+                            className="featured-cat-badge"
+                            style={{
+                              background: CAT_COLORS[featuredArticle.category]?.bg ?? '#E8F5EE',
+                              color: CAT_COLORS[featuredArticle.category]?.text ?? '#1A7A50',
+                            }}
+                          >
+                            {featuredArticle.category}
+                          </span>
+                        </div>
+                      )}
+                      <div className="featured-content">
+                        <div className="featured-meta">
+                          {!hasImage && (
+                            <span
+                              className="featured-cat-pill"
+                              style={{
+                                background: CAT_COLORS[featuredArticle.category]?.bg ?? '#E8F5EE',
+                                color: CAT_COLORS[featuredArticle.category]?.text ?? '#1A7A50',
+                              }}
+                            >
+                              {featuredArticle.category}
+                            </span>
+                          )}
+                          <span className="featured-date">{featuredArticle.date}</span>
+                          {featuredArticle.author && (
+                            <span className="featured-author">· {featuredArticle.author}</span>
+                          )}
+                        </div>
+                        <h2 className="featured-title">{featuredArticle.title}</h2>
+                        <p className="featured-desc">{featuredArticle.excerpt}</p>
+                        <span className="featured-link">
+                          Baca Kabar Utama <span aria-hidden="true">→</span>
+                        </span>
                       </div>
-                      <h2 className="featured-title">{featuredArticle.title}</h2>
-                      <p className="featured-desc">{featuredArticle.excerpt}</p>
-                      <span className="featured-link">
-                        Baca Kabar <span aria-hidden="true">→</span>
-                      </span>
-                    </div>
-                  </article>
-                )}
+                    </article>
+                  );
+                })()}
 
                 {/* Article grid */}
                 {gridArticles.length > 0 && (
@@ -263,5 +276,3 @@ export default function PublicNews() {
     </div>
   );
 }
-
-

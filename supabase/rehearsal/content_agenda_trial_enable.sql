@@ -1,0 +1,3 @@
+do $$begin if not(select relrowsecurity from pg_class where oid='public.content_agenda'::regclass)then raise exception 'AGENDA_RLS_NOT_READY';end if;if has_function_privilege('anon','public.command_content_agenda(text,uuid,uuid,integer,jsonb,text)','EXECUTE')then raise exception 'AGENDA_RPC_EXPOSED';end if;end$$;
+update public.integration_feature_flags set enabled=true,updated_at=now() where key in('content_agenda_writes_enabled','content_agenda_test_mode_enabled');
+select key,enabled from public.integration_feature_flags where key in('content_agenda_writes_enabled','content_agenda_test_mode_enabled') order by key;

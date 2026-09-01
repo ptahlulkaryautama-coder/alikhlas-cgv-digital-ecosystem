@@ -1,12 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { newsArticles } from '../../data/newsData.js';
+import { tpqRepository } from '../../repositories/tpqRepository.js';
 
 export default function TPQNewsSection() {
   // Filter articles matching:
   // (category === "TPQ" || tags include "TPQ" || title mentions TPQ/santri)
   // && visibility === "Publik" && status === "Siap publik"
-  const tpqArticles = newsArticles.filter((article) => {
+  const tpqArticles = tpqRepository.getPublicNews().filter((article) => {
     if (article.visibility !== 'Publik' || article.status !== 'Siap publik') {
       return false;
     }

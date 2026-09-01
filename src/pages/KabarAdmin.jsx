@@ -12,10 +12,11 @@
 
 import React, { useState, useMemo } from 'react';
 import DashboardLayout from '../components/dashboard/DashboardLayout.jsx';
-import { newsArticles } from '../data/newsData.js';
+import { kabarRepository } from '../repositories/kabarRepository.js';
 import '../styles/dashboard.css';
 
 export default function KabarAdmin() {
+  const newsArticles = kabarRepository.getAll();
   const [searchQuery, setSearchQuery] = useState('');
   const [activeCategory, setActiveCategory] = useState('Semua');
   const [selectedArticle, setSelectedArticle] = useState(null);
