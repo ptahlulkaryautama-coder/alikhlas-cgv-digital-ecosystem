@@ -97,12 +97,20 @@ Dokumen ini adalah catatan aktivitas kerja project agar keputusan, perubahan, da
 | Penerapan Aturan Presisi Aspect Ratio 16:9 | Website Publik | Aturan `aspect-ratio: 16 / 9` & `object-fit: cover` diterapkan pada kontainer video & thumbnail untuk mencegah CLS | Build/test lokal | Tidak |
 | Penonaktifan sementara siaran langsung aktif | Website Publik | Status `isLiveNow` diset `false` untuk sementara waktu hingga jadwal siaran aktif disetujui DKM | Build/test lokal | Tidak |
 
-## 2026-08-22 — Status validasi terakhir
+## 2026-09-02 — Super Admin Direct User Account Creation Feature
+
+| Aksi | Area | Output | Validasi | Butuh user |
+| --- | --- | --- | --- | --- |
+| Pembuatan RPC `admin_create_user_account` | Auth / Database | `202609020029_admin_create_user_account.sql` mengizinkan Super Admin membuat akun dengan hash bcrypt & audit log | `admin-create-user.test.mjs` (passed) | Tidak |
+| Penambahan UI Pendaftaran Pengurus Langsung | Pengaturan / Settings | `OperationalRoleAdminPanel.jsx` menyediakan tombol `+ Tambah Akun Pengurus`, generator password acak, toggle lihat password & checklist role awal | Build/test lokal (210/210 passed) | Tidak |
+| Penambahan terjemahan error pendaftaran akun | Services | `supabaseClient.js` menerjemahkan error `invalid_email_format`, `password_too_short`, `email_already_exists` | `supabase-operator-error-copy.test.mjs` (passed) | Tidak |
+
+## 2026-09-02 — Status validasi terakhir
 
 | Check | Status |
 | --- | --- |
 | `npm run build` | Sukses |
-| `npm test` | 206/206 passed |
+| `npm test` | 210/210 passed |
 | Private TPQ SQL | Belum dijalankan |
 | Data anak asli | Belum dibuka/dimasukkan |
 | Public website projection TPQ private | Tidak ada |

@@ -55,8 +55,20 @@ export function formatSupabaseError(error, fallback = 'Aksi belum berhasil. Coba
   if (message.includes('version') || message.includes('expected_version') || message.includes('stale')) {
     return 'Data sudah berubah di sesi lain. Refresh halaman, cek ulang isi data, lalu ulangi aksi.';
   }
+  if (message.includes('invalid_email_format')) {
+    return 'Format email tidak valid. Pastikan penulisan email sudah benar (contoh: nama@domain.com).';
+  }
+  if (message.includes('password_too_short')) {
+    return 'Password terlalu pendek. Gunakan minimal 6 karakter.';
+  }
+  if (message.includes('email_already_exists')) {
+    return 'Email tersebut sudah terdaftar di sistem. Gunakan email lain atau pulihkan akun yang ada.';
+  }
   if (message.includes('duplicate') || message.includes('already exists')) {
     return 'Data serupa sudah pernah tersimpan. Cek daftar/riwayat sebelum membuat ulang.';
+  }
+  if (message.includes('super_admin_required')) {
+    return 'Hanya Super Admin yang berwenang menambahkan atau mengelola akun pengurus.';
   }
   if (message.includes('row-level security') || message.includes('rls')) {
     return 'Akses data ditolak oleh aturan keamanan. Pastikan akun, role, dan permission sudah sesuai.';
