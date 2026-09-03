@@ -19,24 +19,26 @@ export const mockPeriod = 'Agustus 2026';
 
 export const mockFinanceSummary = {
   period: 'Agustus 2026',
-  periodRange: '1–15 Agustus 2026',
-  updatedAt: '15 Agustus 2026',
+  periodRange: '1–31 Agustus 2026 (1 Bulan Penuh)',
+  updatedAt: '31 Agustus 2026',
   saldoAwal: 'Rp 18.386.130',
-  totalIn: 'Rp 4.300.000',
-  totalOut: 'Rp 1.560.000',
-  endingBalance: 'Rp 21.126.130',
-  transactionCount: '12',
+  totalIn: 'Rp 10.782.000',
+  totalOut: 'Rp 12.854.463',
+  endingBalance: 'Rp 16.313.667',
+  transactionCount: '38',
   donorCount: '',
-  activeCampaign: 'Operasional, tahsin, dan kajian dakwah',
-  note: 'Laporan Keuangan Kas Masjid DKM Al Ikhlas CGV periode 1–15 Agustus 2026 telah disahkan oleh Ketua DKM (Karya HP), Sekretaris (Zulhendy M), dan Bendahara (Bambang S).',
+  activeCampaign: 'Operasional, tahsin, kajian dakwah & Jumat Peduli Umat',
+  note: 'Laporan Keuangan Kas Masjid DKM Al Ikhlas CGV periode 1–31 Agustus 2026 telah disahkan oleh Ketua DKM (Karya HP), Sekretaris (Zulhendy M), dan Bendahara (Bambang S).',
 };
 
 // ── KPI (Exact values from Verified August 2026 Signed BKU) ──────────────────
 export const mockKpi = {
-  kasMasuk: { value: '4.300.000', hint: '1–15 Ags (5 transaksi)', raw: 4300000 },
-  kasKeluar: { value: '1.560.000', hint: '1–15 Ags (7 transaksi)', raw: 1560000 },
-  saldoAkhir: { value: '21.126.130', hint: 'Saldo per 15 Ags 2026', raw: 21126130 },
-  programAktif: { value: '6', hint: '6 kajian aktif', raw: 6 },
+  kasMasuk: { value: '10.782.000', hint: '1–31 Ags (11 transaksi masuk)', raw: 10782000 },
+  kasKeluar: { value: '12.854.463', hint: '1–31 Ags (27 transaksi keluar)', raw: 12854463 },
+  saldoAkhir: { value: '16.313.667', hint: 'Kas Masjid per 31 Ags 2026', raw: 16313667 },
+  saldoJpu: { value: '4.700.000', hint: 'Dana Sosial JPU per 31 Ags 2026', raw: 4700000 },
+  totalLikuiditas: { value: '21.013.667', hint: 'Total Kas Masjid + JPU', raw: 21013667 },
+  programAktif: { value: '7', hint: '6 kajian + 1 program JPU', raw: 7 },
   agendaBulanIni: { value: '4', hint: '4 agenda aktif', raw: 4 },
   donasiAktif: { value: '4', hint: 'Kampanye sedang berjalan', raw: 4 },
 };
@@ -44,21 +46,23 @@ export const mockKpi = {
 // ── Kas bulanan chart (Jan–Ags 2026) ──────────────────────────────────────
 export const mockBulananChart = {
   labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Ags'],
-  masuk:  [8400000, 9200000, 11500000, 12000000, 19431000, 12850000, 14200000, 4300000],
-  keluar: [4200000, 5100000, 6800000,  7200000,  8268292,  7650000,  8100000, 1560000],
+  masuk:  [8400000, 9200000, 11500000, 12000000, 19431000, 12850000, 14200000, 10782000],
+  keluar: [4200000, 5100000, 6800000,  7200000,  8268292,  7650000,  8100000, 12854463],
 };
 
 // ── Income source breakdown (donut - Agustus 2026) ─────────────────────────
 export const mockIncomeSources = [
-  { label: 'Infaq Jumat',                             amount: 'Rp 3.203.000', percent: 74, color: '#0c2b1d' },
-  { label: 'Infaq Majelis Taklim & Ummahat',          amount: 'Rp 797.000',   percent: 19, color: '#c9a55a' },
-  { label: 'Infaq Operasional (Hamba Allah M07)',     amount: 'Rp 300.000',   percent: 7,  color: '#6b7f74' },
+  { label: 'Infaq Jumat (4 Pekan)',                   amount: 'Rp 6.673.000', percent: 62, color: '#0c2b1d' },
+  { label: 'Infaq Kajian & Majelis Taklim',          amount: 'Rp 1.712.000', percent: 16, color: '#c9a55a' },
+  { label: 'Infaq Donatur & Operasional (M07/Pak Ary)', amount: 'Rp 1.600.000', percent: 15, color: '#0f6130' },
+  { label: 'Kencleng & QRIS Masjid',                  amount: 'Rp 797.000',   percent: 7,  color: '#6b7f74' },
 ];
 
 // ── Budget realization progress bars (Agustus 2026) ───────────────────────
 export const mockAnggaran = [
-  { label: 'Bisyaroh (Tahsin, Khotib, Pengajar)', pct: 90, realisasi: 'Rp 1.400.000', target: 'Rp 1,5 jt', color: 'g' },
-  { label: 'Operasional & Air Galon',             pct: 10, realisasi: 'Rp 160.000',   target: 'Rp 1,0 jt', color: 'g' },
+  { label: 'Bisyaroh (Imam Rp5,5jt, Khotib, Tahsin, Kajian)', pct: 71, realisasi: 'Rp 9.100.000', target: 'Rp 9,5 jt', color: 'g' },
+  { label: 'Utilitas & Operasional (PLN, WiFi, Galon, Kran)',  pct: 19, realisasi: 'Rp 2.394.463', target: 'Rp 2,5 jt', color: 'g' },
+  { label: 'Konsumsi & Acara (Parenting, Ummahat, Maulid)',    pct: 8,  realisasi: 'Rp 1.060.000', target: 'Rp 1,2 jt', color: 'g' },
 ];
 
 // ── Program list ────────────────────────────────────────────────────────────
@@ -95,6 +99,17 @@ export const mockPrograms = [
     waktu: "Ba'da Isya & Ba'da Subuh",
     pilar: 'Ilmu',
     pilarColor: 'pl-ilmu',
+  },
+  {
+    id: 4,
+    emoji: '🤝',
+    bgColor: '#FEF3C7',
+    kategori: 'Sosial & Santunan',
+    nama: 'Jumat Peduli Umat (JPU)',
+    hari: 'Setiap Jumat',
+    waktu: 'Siang & Sore',
+    pilar: 'Amanah',
+    pilarColor: 'pl-amanah',
   },
 ];
 
@@ -156,43 +171,112 @@ export const mockActivity = [
     id: 1,
     dotClass: 'g',
     emoji: '↑',
-    text: 'Infaq Jumat 15 Ags diterima (Rp 1.503.000)',
+    text: 'Infaq Jumat 28 Ags diterima (Rp 2.008.000)',
     sub: 'Kas masuk kategori Infaq Jumat',
-    time: '15 Agustus 2026',
+    time: '28 Agustus 2026',
   },
   {
     id: 2,
-    dotClass: 'g',
-    emoji: '↑',
-    text: 'Infaq Kajian Ummahat diterima (Rp 400.000)',
-    sub: 'Kas masuk kategori Penerimaan Kegiatan',
-    time: '09 Agustus 2026',
+    dotClass: 'b',
+    emoji: '🤝',
+    text: 'Penyaluran Santunan JPU Agustus (Rp 4.750.000)',
+    sub: 'Program sosial Jumat Peduli Umat',
+    time: '30 Agustus 2026',
   },
   {
     id: 3,
     dotClass: 'b',
     emoji: '📋',
-    text: 'Laporan Kas 1–15 Ags 2026 disahkan',
+    text: 'Laporan Kas & JPU Bulan Agustus 2026 disahkan',
     sub: 'Ditandatangani Ketua DKM, Sekretaris & Bendahara',
-    time: '15 Agustus 2026',
+    time: '31 Agustus 2026',
   },
 ];
 
-// ── Read-only Transaction List: Periode 1–15 Agustus 2026 (Disahkan Bendahara) ──
+// ── Read-only Transaction List: Periode Agustus 2026 (Kas Masjid - Disahkan Bendahara) ──
 export const mockTransactionsAgustus = [
-  { id: '1', tanggal: '01 Ags', kategori: 'Saldo Awal', keterangan: 'Saldo Akhir Periode Juli 2026', masuk: 'Rp 18.386.130', keluar: '-', saldo: 'Rp 18.386.130' },
-  { id: '2', tanggal: '01 Ags', kategori: 'Bisyaroh', keterangan: 'Pembayaran Bisyaroh Tahsin', masuk: '-', keluar: 'Rp 300.000', saldo: 'Rp 18.086.130' },
-  { id: '3', tanggal: '01 Ags', kategori: 'Operasional', keterangan: 'Pembayaran Air (22 Galon)', masuk: '-', keluar: 'Rp 110.000', saldo: 'Rp 17.976.130' },
-  { id: '4', tanggal: '04 Ags', kategori: 'Infaq Operasional', keterangan: 'Infaq Operasional Masjid - Hamba Allah Mandeville 07', masuk: 'Rp 300.000', keluar: '-', saldo: 'Rp 18.276.130' },
-  { id: '5', tanggal: '07 Ags', kategori: 'Infaq Jumat', keterangan: 'Infaq Jumat', masuk: 'Rp 1.700.000', keluar: '-', saldo: 'Rp 19.976.130' },
-  { id: '6', tanggal: '07 Ags', kategori: 'Bisyaroh', keterangan: 'Bisyaroh Khotib Jumat', masuk: '-', keluar: 'Rp 250.000', saldo: 'Rp 19.726.130' },
-  { id: '7', tanggal: '08 Ags', kategori: 'Penerimaan Kegiatan', keterangan: 'Infaq kajian majelis taklim ibu muslimah cgv', masuk: 'Rp 397.000', keluar: '-', saldo: 'Rp 20.123.130' },
-  { id: '8', tanggal: '08 Ags', kategori: 'Bisyaroh', keterangan: 'Pembayaran Bisyaroh kajian majelis taklim ibu muslimah cgv', masuk: '-', keluar: 'Rp 300.000', saldo: 'Rp 19.823.130' },
-  { id: '9', tanggal: '09 Ags', kategori: 'Penerimaan Kegiatan', keterangan: 'Infaq kajian ummahat sekitaran cgv', masuk: 'Rp 400.000', keluar: '-', saldo: 'Rp 20.223.130' },
-  { id: '10', tanggal: '09 Ags', kategori: 'Bisyaroh', keterangan: 'Pembayaran Bisyaroh kajian ummahat sekitaran cgv', masuk: '-', keluar: 'Rp 300.000', saldo: 'Rp 19.923.130' },
-  { id: '11', tanggal: '15 Ags', kategori: 'Infaq Jumat', keterangan: 'Infaq Jumat', masuk: 'Rp 1.503.000', keluar: '-', saldo: 'Rp 21.426.130' },
-  { id: '12', tanggal: '15 Ags', kategori: 'Bisyaroh', keterangan: 'Bisyaroh Khotib Jumat', masuk: '-', keluar: 'Rp 250.000', saldo: 'Rp 21.176.130' },
-  { id: '13', tanggal: '15 Ags', kategori: 'Operasional', keterangan: 'Operasional Masjid (Sunlight, Super pell)', masuk: '-', keluar: 'Rp 50.000', saldo: 'Rp 21.126.130' },
+  { id: '1', account: 'kas_masjid', accountLabel: 'Kas Masjid', tanggal: '01 Ags', kategori: 'Saldo Awal', keterangan: 'Saldo Akhir Periode Juli 2026', masuk: 'Rp 18.386.130', keluar: '-', saldo: 'Rp 18.386.130' },
+  { id: '2', account: 'kas_masjid', accountLabel: 'Kas Masjid', tanggal: '01 Ags', kategori: 'Bisyaroh', keterangan: 'Pembayaran Bisyaroh Tahsin', masuk: '-', keluar: 'Rp 300.000', saldo: 'Rp 18.086.130' },
+  { id: '3', account: 'kas_masjid', accountLabel: 'Kas Masjid', tanggal: '01 Ags', kategori: 'Operasional', keterangan: 'Pembayaran Air (22 Galon)', masuk: '-', keluar: 'Rp 110.000', saldo: 'Rp 17.976.130' },
+  { id: '4', account: 'kas_masjid', accountLabel: 'Kas Masjid', tanggal: '04 Ags', kategori: 'Infaq Operasional', keterangan: 'Infaq Operasional Masjid - Hamba Allah Mandeville 07', masuk: 'Rp 300.000', keluar: '-', saldo: 'Rp 18.276.130' },
+  { id: '5', account: 'kas_masjid', accountLabel: 'Kas Masjid', tanggal: '07 Ags', kategori: 'Infaq Jumat', keterangan: 'Infaq Jumat', masuk: 'Rp 1.700.000', keluar: '-', saldo: 'Rp 19.976.130' },
+  { id: '6', account: 'kas_masjid', accountLabel: 'Kas Masjid', tanggal: '07 Ags', kategori: 'Bisyaroh', keterangan: 'Bisyaroh Khotib Jumat', masuk: '-', keluar: 'Rp 250.000', saldo: 'Rp 19.726.130' },
+  { id: '7', account: 'kas_masjid', accountLabel: 'Kas Masjid', tanggal: '08 Ags', kategori: 'Kajian Warga', keterangan: 'Infaq kajian majelis taklim ibu muslimah cgv', masuk: 'Rp 397.000', keluar: '-', saldo: 'Rp 20.123.130' },
+  { id: '8', account: 'kas_masjid', accountLabel: 'Kas Masjid', tanggal: '08 Ags', kategori: 'Bisyaroh', keterangan: 'Pembayaran Bisyaroh kajian majelis taklim ibu muslimah cgv', masuk: '-', keluar: 'Rp 300.000', saldo: 'Rp 19.823.130' },
+  { id: '9', account: 'kas_masjid', accountLabel: 'Kas Masjid', tanggal: '09 Ags', kategori: 'Kajian Warga', keterangan: 'Infaq kajian ummahat sekitaran cgv', masuk: 'Rp 400.000', keluar: '-', saldo: 'Rp 20.223.130' },
+  { id: '10', account: 'kas_masjid', accountLabel: 'Kas Masjid', tanggal: '09 Ags', kategori: 'Bisyaroh', keterangan: 'Pembayaran Bisyaroh kajian ummahat sekitaran cgv', masuk: '-', keluar: 'Rp 300.000', saldo: 'Rp 19.923.130' },
+  { id: '11', account: 'kas_masjid', accountLabel: 'Kas Masjid', tanggal: '14 Ags', kategori: 'Infaq Jumat', keterangan: 'Infaq Jumat', masuk: 'Rp 1.503.000', keluar: '-', saldo: 'Rp 21.426.130' },
+  { id: '12', account: 'kas_masjid', accountLabel: 'Kas Masjid', tanggal: '14 Ags', kategori: 'Bisyaroh', keterangan: 'Bisyaroh Khotib Jumat', masuk: '-', keluar: 'Rp 250.000', saldo: 'Rp 21.176.130' },
+  { id: '13', account: 'kas_masjid', accountLabel: 'Kas Masjid', tanggal: '15 Ags', kategori: 'Operasional', keterangan: 'Operasional Masjid (Sunlight, Super pell)', masuk: '-', keluar: 'Rp 50.000', saldo: 'Rp 21.126.130' },
+  { id: '14', account: 'kas_masjid', accountLabel: 'Kas Masjid', tanggal: '15 Ags', kategori: 'Bisyaroh', keterangan: 'Pembayaran Bisyaroh Tahsin', masuk: '-', keluar: 'Rp 300.000', saldo: 'Rp 20.826.130' },
+  { id: '15', account: 'kas_masjid', accountLabel: 'Kas Masjid', tanggal: '16 Ags', kategori: 'Bisyaroh', keterangan: 'Pembayaran Bisyaroh kajian parenting anak', masuk: '-', keluar: 'Rp 300.000', saldo: 'Rp 20.526.130' },
+  { id: '16', account: 'kas_masjid', accountLabel: 'Kas Masjid', tanggal: '16 Ags', kategori: 'Kajian Warga', keterangan: 'Konsumsi kajian parenting anak', masuk: '-', keluar: 'Rp 300.000', saldo: 'Rp 20.226.130' },
+  { id: '17', account: 'kas_masjid', accountLabel: 'Kas Masjid', tanggal: '19 Ags', kategori: 'Infaq Operasional', keterangan: 'Pak Ary Kebun Sirih', masuk: 'Rp 1.000.000', keluar: '-', saldo: 'Rp 21.226.130' },
+  { id: '18', account: 'kas_masjid', accountLabel: 'Kas Masjid', tanggal: '20 Ags', kategori: 'Operasional', keterangan: 'Pembayaran Listrik Masjid', masuk: '-', keluar: 'Rp 1.901.663', saldo: 'Rp 19.324.467' },
+  { id: '19', account: 'kas_masjid', accountLabel: 'Kas Masjid', tanggal: '20 Ags', kategori: 'Operasional', keterangan: 'Pembayaran Wifi Masjid', masuk: '-', keluar: 'Rp 232.800', saldo: 'Rp 19.091.667' },
+  { id: '20', account: 'kas_masjid', accountLabel: 'Kas Masjid', tanggal: '21 Ags', kategori: 'Infaq Jumat', keterangan: 'Infaq Jumat', masuk: 'Rp 1.462.000', keluar: '-', saldo: 'Rp 20.553.667' },
+  { id: '21', account: 'kas_masjid', accountLabel: 'Kas Masjid', tanggal: '21 Ags', kategori: 'Bisyaroh', keterangan: 'Bisyaroh Khotib Jumat', masuk: '-', keluar: 'Rp 250.000', saldo: 'Rp 20.303.667' },
+  { id: '22', account: 'kas_masjid', accountLabel: 'Kas Masjid', tanggal: '23 Ags', kategori: 'Operasional', keterangan: 'Konsumsi rapat DKM', masuk: '-', keluar: 'Rp 60.000', saldo: 'Rp 20.243.667' },
+  { id: '23', account: 'kas_masjid', accountLabel: 'Kas Masjid', tanggal: '23 Ags', kategori: 'Kajian Warga', keterangan: 'Infaq kajian parenting', masuk: 'Rp 315.000', keluar: '-', saldo: 'Rp 20.558.667' },
+  { id: '24', account: 'kas_masjid', accountLabel: 'Kas Masjid', tanggal: '23 Ags', kategori: 'Bisyaroh', keterangan: 'Pembayaran Bisyaroh kajian parenting orang tua', masuk: '-', keluar: 'Rp 300.000', saldo: 'Rp 20.258.667' },
+  { id: '25', account: 'kas_masjid', accountLabel: 'Kas Masjid', tanggal: '23 Ags', kategori: 'Kajian Warga', keterangan: 'Konsumsi kajian parenting orang tua', masuk: '-', keluar: 'Rp 300.000', saldo: 'Rp 19.958.667' },
+  { id: '26', account: 'kas_masjid', accountLabel: 'Kas Masjid', tanggal: '24 Ags', kategori: 'Infaq Operasional', keterangan: 'Infaq Operasional Masjid - Anthurium 3', masuk: 'Rp 300.000', keluar: '-', saldo: 'Rp 20.258.667' },
+  { id: '27', account: 'kas_masjid', accountLabel: 'Kas Masjid', tanggal: '24 Ags', kategori: 'Infaq Operasional', keterangan: 'Infaq Maulid - Hamba Alloh', masuk: 'Rp 300.000', keluar: '-', saldo: 'Rp 20.558.667' },
+  { id: '28', account: 'kas_masjid', accountLabel: 'Kas Masjid', tanggal: '25 Ags', kategori: 'Bisyaroh', keterangan: 'Pembayaran Bisyaroh Maulid', masuk: '-', keluar: 'Rp 500.000', saldo: 'Rp 20.058.667' },
+  { id: '29', account: 'kas_masjid', accountLabel: 'Kas Masjid', tanggal: '25 Ags', kategori: 'Operasional', keterangan: 'Pengeluaran acara Maulid', masuk: '-', keluar: 'Rp 100.000', saldo: 'Rp 19.958.667' },
+  { id: '30', account: 'kas_masjid', accountLabel: 'Kas Masjid', tanggal: '27 Ags', kategori: 'Infaq Operasional', keterangan: 'Infaq kencleng - Aurora 2', masuk: 'Rp 707.000', keluar: '-', saldo: 'Rp 20.665.667' },
+  { id: '31', account: 'kas_masjid', accountLabel: 'Kas Masjid', tanggal: '28 Ags', kategori: 'Infaq Jumat', keterangan: 'Infaq Jumat', masuk: 'Rp 2.008.000', keluar: '-', saldo: 'Rp 22.673.667' },
+  { id: '32', account: 'kas_masjid', accountLabel: 'Kas Masjid', tanggal: '28 Ags', kategori: 'Bisyaroh', keterangan: 'Bisyaroh Khotib Jumat', masuk: '-', keluar: 'Rp 250.000', saldo: 'Rp 22.423.667' },
+  { id: '33', account: 'kas_masjid', accountLabel: 'Kas Masjid', tanggal: '29 Ags', kategori: 'Bisyaroh', keterangan: 'Pembayaran Bisyaroh Tahsin', masuk: '-', keluar: 'Rp 300.000', saldo: 'Rp 22.123.667' },
+  { id: '34', account: 'kas_masjid', accountLabel: 'Kas Masjid', tanggal: '30 Ags', kategori: 'Bisyaroh', keterangan: 'Pembayaran Bisyaroh kajian ummahat sekitaran cgv', masuk: '-', keluar: 'Rp 300.000', saldo: 'Rp 21.823.667' },
+  { id: '35', account: 'kas_masjid', accountLabel: 'Kas Masjid', tanggal: '30 Ags', kategori: 'Kajian Warga', keterangan: 'Konsumsi kajian ummahat sekitaran cgv', masuk: '-', keluar: 'Rp 300.000', saldo: 'Rp 21.523.667' },
+  { id: '36', account: 'kas_masjid', accountLabel: 'Kas Masjid', tanggal: '30 Ags', kategori: 'Kajian Warga', keterangan: 'Infaq kajian ummahat sekitaran cgv', masuk: 'Rp 300.000', keluar: '-', saldo: 'Rp 21.823.667' },
+  { id: '37', account: 'kas_masjid', accountLabel: 'Kas Masjid', tanggal: '30 Ags', kategori: 'Operasional', keterangan: 'Pengeluaran operasional (kran air)', masuk: '-', keluar: 'Rp 100.000', saldo: 'Rp 21.723.667' },
+  { id: '38', account: 'kas_masjid', accountLabel: 'Kas Masjid', tanggal: '31 Ags', kategori: 'Infaq Jamaah', keterangan: 'Infaq via QRIS bulan agustus (akumulasi)', masuk: 'Rp 90.000', keluar: '-', saldo: 'Rp 21.813.667' },
+  { id: '39', account: 'kas_masjid', accountLabel: 'Kas Masjid', tanggal: '31 Ags', kategori: 'Bisyaroh', keterangan: 'Pembayaran Bisyaroh Imam bulan Agustus 2026', masuk: '-', keluar: 'Rp 5.500.000', saldo: 'Rp 16.313.667' },
+];
+
+// ── Read-only Transaction List: Periode Agustus 2026 (Dana Sosial: Jumat Peduli Umat) ──
+export const mockTransactionsJPU = [
+  { id: 'jpu-1', account: 'jpu', accountLabel: 'JPU (Sosial)', tanggal: '01 Ags', kategori: 'Saldo Awal', keterangan: 'Saldo Akhir Periode Juli 2026', masuk: 'Rp 1.700.000', keluar: '-', saldo: 'Rp 1.700.000' },
+  { id: 'jpu-2', account: 'jpu', accountLabel: 'JPU (Sosial)', tanggal: '06 Ags', kategori: 'Donasi Warga', keterangan: 'Donasi Canyon 16', masuk: 'Rp 250.000', keluar: '-', saldo: 'Rp 1.950.000' },
+  { id: 'jpu-3', account: 'jpu', accountLabel: 'JPU (Sosial)', tanggal: '06 Ags', kategori: 'Donasi Warga', keterangan: 'Donasi Mandeville 9', masuk: 'Rp 200.000', keluar: '-', saldo: 'Rp 2.150.000' },
+  { id: 'jpu-4', account: 'jpu', accountLabel: 'JPU (Sosial)', tanggal: '07 Ags', kategori: 'Donasi Warga', keterangan: 'Donasi Abdullah', masuk: 'Rp 500.000', keluar: '-', saldo: 'Rp 2.650.000' },
+  { id: 'jpu-5', account: 'jpu', accountLabel: 'JPU (Sosial)', tanggal: '07 Ags', kategori: 'Donasi Warga', keterangan: 'Donasi Hamba Alloh - Kota Bunga', masuk: 'Rp 100.000', keluar: '-', saldo: 'Rp 2.750.000' },
+  { id: 'jpu-6', account: 'jpu', accountLabel: 'JPU (Sosial)', tanggal: '07 Ags', kategori: 'Jumat Berkah', keterangan: 'Pembayaran Paket Jumat Berkah', masuk: '-', keluar: 'Rp 750.000', saldo: 'Rp 2.000.000' },
+  { id: 'jpu-7', account: 'jpu', accountLabel: 'JPU (Sosial)', tanggal: '07 Ags', kategori: 'Santunan Umat', keterangan: 'Pemberian Santunan Jumat Peduli Umat', masuk: '-', keluar: 'Rp 500.000', saldo: 'Rp 1.500.000' },
+  { id: 'jpu-8', account: 'jpu', accountLabel: 'JPU (Sosial)', tanggal: '13 Ags', kategori: 'Donasi Warga', keterangan: 'Donasi Mandeville 9', masuk: 'Rp 250.000', keluar: '-', saldo: 'Rp 1.750.000' },
+  { id: 'jpu-9', account: 'jpu', accountLabel: 'JPU (Sosial)', tanggal: '13 Ags', kategori: 'Donasi Warga', keterangan: 'Donasi Mandeville 10', masuk: 'Rp 300.000', keluar: '-', saldo: 'Rp 2.050.000' },
+  { id: 'jpu-10', account: 'jpu', accountLabel: 'JPU (Sosial)', tanggal: '13 Ags', kategori: 'Donasi Warga', keterangan: 'Donasi Meteora 39', masuk: 'Rp 500.000', keluar: '-', saldo: 'Rp 2.550.000' },
+  { id: 'jpu-11', account: 'jpu', accountLabel: 'JPU (Sosial)', tanggal: '13 Ags', kategori: 'Donasi Warga', keterangan: 'Donasi Hamba Alloh', masuk: 'Rp 500.000', keluar: '-', saldo: 'Rp 3.050.000' },
+  { id: 'jpu-12', account: 'jpu', accountLabel: 'JPU (Sosial)', tanggal: '15 Ags', kategori: 'Jumat Berkah', keterangan: 'Pembayaran Paket Jumat Berkah', masuk: '-', keluar: 'Rp 700.000', saldo: 'Rp 2.350.000' },
+  { id: 'jpu-13', account: 'jpu', accountLabel: 'JPU (Sosial)', tanggal: '15 Ags', kategori: 'Santunan Umat', keterangan: 'Pemberian Santunan Jumat Peduli Umat', masuk: '-', keluar: 'Rp 500.000', saldo: 'Rp 1.850.000' },
+  { id: 'jpu-14', account: 'jpu', accountLabel: 'JPU (Sosial)', tanggal: '20 Ags', kategori: 'Donasi Warga', keterangan: 'Donasi Canyon 16', masuk: 'Rp 300.000', keluar: '-', saldo: 'Rp 2.150.000' },
+  { id: 'jpu-15', account: 'jpu', accountLabel: 'JPU (Sosial)', tanggal: '20 Ags', kategori: 'Donasi Warga', keterangan: 'Donasi Meteora 10', masuk: 'Rp 100.000', keluar: '-', saldo: 'Rp 2.250.000' },
+  { id: 'jpu-16', account: 'jpu', accountLabel: 'JPU (Sosial)', tanggal: '20 Ags', kategori: 'Donasi Warga', keterangan: 'Donasi Meterora 23A', masuk: 'Rp 300.000', keluar: '-', saldo: 'Rp 2.550.000' },
+  { id: 'jpu-17', account: 'jpu', accountLabel: 'JPU (Sosial)', tanggal: '20 Ags', kategori: 'Donasi Warga', keterangan: 'Donasi Pinata 32', masuk: 'Rp 200.000', keluar: '-', saldo: 'Rp 2.750.000' },
+  { id: 'jpu-18', account: 'jpu', accountLabel: 'JPU (Sosial)', tanggal: '20 Ags', kategori: 'Donasi Warga', keterangan: 'Donasi Mandeville 12A', masuk: 'Rp 300.000', keluar: '-', saldo: 'Rp 3.050.000' },
+  { id: 'jpu-19', account: 'jpu', accountLabel: 'JPU (Sosial)', tanggal: '20 Ags', kategori: 'Donasi Warga', keterangan: 'Donasi Canyon 15', masuk: 'Rp 350.000', keluar: '-', saldo: 'Rp 3.400.000' },
+  { id: 'jpu-20', account: 'jpu', accountLabel: 'JPU (Sosial)', tanggal: '20 Ags', kategori: 'Donasi Warga', keterangan: 'Donasi Hamba Alloh', masuk: 'Rp 1.000.000', keluar: '-', saldo: 'Rp 4.400.000' },
+  { id: 'jpu-21', account: 'jpu', accountLabel: 'JPU (Sosial)', tanggal: '20 Ags', kategori: 'Donasi Warga', keterangan: 'Donasi Canyon 2', masuk: 'Rp 300.000', keluar: '-', saldo: 'Rp 4.700.000' },
+  { id: 'jpu-22', account: 'jpu', accountLabel: 'JPU (Sosial)', tanggal: '21 Ags', kategori: 'Donasi Warga', keterangan: 'Donasi Mandeville 9', masuk: 'Rp 300.000', keluar: '-', saldo: 'Rp 5.000.000' },
+  { id: 'jpu-23', account: 'jpu', accountLabel: 'JPU (Sosial)', tanggal: '21 Ags', kategori: 'Jumat Berkah', keterangan: 'Pembayaran Paket Jumat Berkah', masuk: '-', keluar: 'Rp 750.000', saldo: 'Rp 4.250.000' },
+  { id: 'jpu-24', account: 'jpu', accountLabel: 'JPU (Sosial)', tanggal: '27 Ags', kategori: 'Donasi Warga', keterangan: 'Donasi Acacia F3A', masuk: 'Rp 200.000', keluar: '-', saldo: 'Rp 4.450.000' },
+  { id: 'jpu-25', account: 'jpu', accountLabel: 'JPU (Sosial)', tanggal: '27 Ags', kategori: 'Donasi Warga', keterangan: 'Donasi Mandeville 9', masuk: 'Rp 300.000', keluar: '-', saldo: 'Rp 4.750.000' },
+  { id: 'jpu-26', account: 'jpu', accountLabel: 'JPU (Sosial)', tanggal: '27 Ags', kategori: 'Donasi Warga', keterangan: 'Donasi Hamba Alloh', masuk: 'Rp 500.000', keluar: '-', saldo: 'Rp 5.250.000' },
+  { id: 'jpu-27', account: 'jpu', accountLabel: 'JPU (Sosial)', tanggal: '28 Ags', kategori: 'Donasi Warga', keterangan: 'Donasi Meterora 23A', masuk: 'Rp 300.000', keluar: '-', saldo: 'Rp 5.550.000' },
+  { id: 'jpu-28', account: 'jpu', accountLabel: 'JPU (Sosial)', tanggal: '28 Ags', kategori: 'Donasi Warga', keterangan: 'Donasi Mandeville 10', masuk: 'Rp 300.000', keluar: '-', saldo: 'Rp 5.850.000' },
+  { id: 'jpu-29', account: 'jpu', accountLabel: 'JPU (Sosial)', tanggal: '28 Ags', kategori: 'Donasi Warga', keterangan: 'Donasi Canyon 16', masuk: 'Rp 300.000', keluar: '-', saldo: 'Rp 6.150.000' },
+  { id: 'jpu-30', account: 'jpu', accountLabel: 'JPU (Sosial)', tanggal: '28 Ags', kategori: 'Donasi Warga', keterangan: 'Donasi Meteora 10', masuk: 'Rp 100.000', keluar: '-', saldo: 'Rp 6.250.000' },
+  { id: 'jpu-31', account: 'jpu', accountLabel: 'JPU (Sosial)', tanggal: '28 Ags', kategori: 'Jumat Berkah', keterangan: 'Pembayaran Paket Jumat Berkah', masuk: '-', keluar: 'Rp 750.000', saldo: 'Rp 5.500.000' },
+  { id: 'jpu-32', account: 'jpu', accountLabel: 'JPU (Sosial)', tanggal: '28 Ags', kategori: 'Santunan Umat', keterangan: 'Pemberian Santunan Jumat Peduli Umat', masuk: '-', keluar: 'Rp 500.000', saldo: 'Rp 5.000.000' },
+  { id: 'jpu-33', account: 'jpu', accountLabel: 'JPU (Sosial)', tanggal: '30 Ags', kategori: 'Santunan Umat', keterangan: 'Pemberian Santunan Jumat Peduli Umat', masuk: '-', keluar: 'Rp 300.000', saldo: 'Rp 4.700.000' },
+];
+
+// Combined list for general views
+export const mockTransactionsAgustusCombined = [
+  ...mockTransactionsAgustus,
+  ...mockTransactionsJPU.filter(j => j.kategori !== 'Saldo Awal'),
 ];
 
 // ── Read-only Transaction List (Exact 44 transactions from PDF) ──────────────

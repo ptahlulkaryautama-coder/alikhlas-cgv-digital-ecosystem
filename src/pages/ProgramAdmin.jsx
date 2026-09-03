@@ -20,6 +20,7 @@ import ProgramSummaryCards from '../components/program/ProgramSummaryCards.jsx';
 import ProgramTable from '../components/program/ProgramTable.jsx';
 import ProgramSchedulePreview from '../components/program/ProgramSchedulePreview.jsx';
 import ProgramWorkflowPanel from '../components/program/ProgramWorkflowPanel.jsx';
+import ProgramEntityManager from '../components/program/ProgramEntityManager.jsx';
 import usePrograms from '../hooks/usePrograms.js';
 import '../styles/dashboard.css';
 import '../styles/newsAdmin.css';
@@ -40,7 +41,7 @@ export default function ProgramAdmin() {
         <div className="db-top-banner">
           <div className="db-banner-icon">📋</div>
           <div className="db-banner-content">
-            <div className="db-banner-title">Manajemen Program Kajian</div>
+            <div className="db-banner-title">Pusat Manajemen Program, Kelas, Pustaka &amp; Media Dakwah</div>
             <div className="db-banner-sub">Masjid Al Ikhlas Cipta Greenville · DKM Al Ikhlas CGV</div>
           </div>
         </div>
@@ -48,14 +49,12 @@ export default function ProgramAdmin() {
         {/* ── Page header ──────────────────────────────────────────────── */}
         <div className="db-pg-header">
           <div>
-            <div className="db-pg-eyebrow">Pengelolaan Konten</div>
+            <div className="db-pg-eyebrow">Pengelolaan Konten DKM</div>
           <h1 className="db-pg-title">
-            Program &amp; <em>Kegiatan</em>
+            Program, Kajian &amp; <em>Media Dakwah</em>
           </h1>
           <p className="db-pg-desc">
-            {isLoading
-              ? 'Memuat daftar program dari Google Sheets…'
-              : `${programs.length} program · ${sourceStatus.label} · Read-only`}
+            Kelola data kajian rutin, kelas belajar, pustaka materi, arsip kegiatan, dan video rekaman dakwah.
           </p>
         </div>
 
@@ -65,11 +64,14 @@ export default function ProgramAdmin() {
             <rect x="1" y="1" width="9" height="9" rx="1.5" stroke="currentColor" strokeWidth="1.2" />
             <path d="M3.5 4h4M3.5 6h2.5" stroke="currentColor" strokeWidth="1.1" strokeLinecap="round" />
           </svg>
-          01_Program_Kajian
+          01_Program_Kajian &amp; Pustaka
         </div>
       </div>
 
-      {/* ── Notice: data source + disabled action ─────────────────── */}
+      {/* ── Interactive Content Entity Manager (CRUD + Image Upload for Kajian, Kelas, Pustaka, Media, Arsip) ── */}
+      <ProgramEntityManager />
+
+      {/* ── Notice: data source + workflow ─────────────────── */}
       <ProgramNotice source={source} isLoading={isLoading} total={programs.length} />
 
       <ProgramWorkflowPanel programs={programs} onRefresh={retry} />

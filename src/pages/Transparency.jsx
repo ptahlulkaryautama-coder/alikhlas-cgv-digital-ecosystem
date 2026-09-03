@@ -37,14 +37,14 @@ export default function Transparency() {
             <div style={{ flex: 1 }}>
               <div className="verified-banner-top">
                 <h2 className="verified-banner-title">
-                  Laporan Kas Resmi Terverifikasi &amp; Disahkan DKM
+                  Laporan Kas &amp; Dana Sosial Resmi Terverifikasi DKM
                 </h2>
                 <span className="verified-pill">
                   Status: Terverifikasi
                 </span>
               </div>
               <p className="verified-banner-text">
-                Buku Kas Periode <strong>1–15 Agustus 2026</strong> (Saldo Akhir: <strong>Rp 21.126.130</strong>) telah diteliti dan ditandatangani resmi oleh <strong>Karya HP (Ketua DKM)</strong>, <strong>Zulhendy M (Sekretaris)</strong>, dan <strong>Bambang S (Bendahara)</strong> dengan rekening resmi BSI No. Rek <strong>1500600069</strong>.
+                Buku Kas Periode <strong>Agustus 2026</strong> (Kas Masjid: <strong>Rp 16.313.667</strong> · Dana Sosial JPU: <strong>Rp 4.700.000</strong> · Total Likuiditas: <strong>Rp 21.013.667</strong>) telah diteliti dan disahkan resmi oleh <strong>Karya HP (Ketua DKM)</strong>, <strong>Zulhendy M (Sekretaris)</strong>, dan <strong>Bambang S (Bendahara)</strong> dengan rekening resmi BSI No. Rek <strong>1500600069</strong>.
               </p>
             </div>
           </div>

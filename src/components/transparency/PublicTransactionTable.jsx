@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { mockTransactionsAgustus } from '../../data/dashboardMockData.js';
+import { mockTransactionsAgustus, mockTransactionsJPU, mockTransactionsAgustusCombined } from '../../data/dashboardMockData.js';
 import Container from '../common/Container.jsx';
 
 function getCategoryBadge(kategori) {
@@ -10,36 +10,54 @@ function getCategoryBadge(kategori) {
   if (cat.includes('infaq jumat')) {
     return { bg: 'rgba(15, 97, 48, 0.12)', color: '#0f6130', border: '1px solid rgba(15, 97, 48, 0.3)', label: 'Infaq Jumat' };
   }
-  if (cat.includes('penerimaan') || cat.includes('kegiatan')) {
+  if (cat.includes('jumat berkah')) {
+    return { bg: 'rgba(2, 132, 199, 0.12)', color: '#0369a1', border: '1px solid rgba(2, 132, 199, 0.3)', label: 'Jumat Berkah' };
+  }
+  if (cat.includes('santunan')) {
+    return { bg: 'rgba(147, 51, 234, 0.12)', color: '#7e22ce', border: '1px solid rgba(147, 51, 234, 0.3)', label: 'Santunan Umat' };
+  }
+  if (cat.includes('donasi warga')) {
+    return { bg: 'rgba(13, 148, 136, 0.12)', color: '#0f766e', border: '1px solid rgba(13, 148, 136, 0.3)', label: 'Donasi Cluster' };
+  }
+  if (cat.includes('kajian') || cat.includes('penerimaan')) {
     return { bg: 'rgba(201, 165, 90, 0.15)', color: '#8a6200', border: '1px solid rgba(201, 165, 90, 0.35)', label: 'Kajian Warga' };
   }
-  if (cat.includes('infaq operasional') || cat.includes('infaq')) {
+  if (cat.includes('infaq operasional') || cat.includes('infaq jamaah')) {
     return { bg: 'rgba(15, 97, 48, 0.08)', color: '#0f6130', border: '1px solid rgba(15, 97, 48, 0.2)', label: 'Infaq Jamaah' };
   }
   if (cat.includes('bisyaroh')) {
     return { bg: 'rgba(155, 33, 19, 0.08)', color: '#9b2113', border: '1px solid rgba(155, 33, 19, 0.2)', label: 'Bisyaroh' };
   }
-  if (cat.includes('operasional')) {
+  if (cat.includes('utilitas') || cat.includes('operasional')) {
     return { bg: 'rgba(217, 119, 6, 0.08)', color: '#b45309', border: '1px solid rgba(217, 119, 6, 0.2)', label: 'Operasional' };
   }
   return { bg: 'rgba(0,0,0,0.05)', color: '#333', border: '1px solid rgba(0,0,0,0.1)', label: kategori };
 }
 
 export default function PublicTransactionTable() {
+  const [accountFilter, setAccountFilter] = useState('all'); // 'all' | 'kas_masjid' | 'jpu'
   const [filterType, setFilterType] = useState('all'); // 'all' | 'in' | 'out'
   const [searchQuery, setSearchQuery] = useState('');
 
+  // Base list based on selected account
+  const baseList = useMemo(() => {
+    if (accountFilter === 'kas_masjid') return mockTransactionsAgustus;
+    if (accountFilter === 'jpu') return mockTransactionsJPU;
+    return mockTransactionsAgustusCombined;
+  }, [accountFilter]);
+
   const filteredTransactions = useMemo(() => {
-    return mockTransactionsAgustus.filter((trx) => {
+    return baseList.filter((trx) => {
       const matchSearch = trx.keterangan.toLowerCase().includes(searchQuery.toLowerCase()) ||
                           trx.kategori.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                          trx.accountLabel.toLowerCase().includes(searchQuery.toLowerCase()) ||
                           trx.tanggal.toLowerCase().includes(searchQuery.toLowerCase());
       if (!matchSearch) return false;
       if (filterType === 'in') return trx.masuk !== '-';
       if (filterType === 'out') return trx.keluar !== '-';
       return true;
     });
-  }, [filterType, searchQuery]);
+  }, [baseList, filterType, searchQuery]);
 
   return (
     <section className="public-tx-section" id="buku-kas-terbuka" aria-labelledby="public-tx-title">
@@ -47,13 +65,13 @@ export default function PublicTransactionTable() {
         <div className="public-tx-header">
           <div>
             <div className="transparency-hero-label" style={{ color: '#0c2b1d', marginBottom: '8px' }}>
-              <span className="fin-line" style={{ background: '#0c2b1d' }}></span> BUKU KAS TRANSPARAN
+              <span className="fin-line" style={{ background: '#0c2b1d' }}></span> BUKU KAS TRANSPARAN &amp; DANA SOSIAL
             </div>
             <h2 id="public-tx-title" className="public-tx-heading">
-              Rincian Mutasi Kas Terverifikasi
+              Rincian Mutasi Kas Terverifikasi (Agustus 2026)
             </h2>
             <p className="public-tx-sub">
-              Catatan 13 transaksi kas periode 1–15 Agustus 2026 yang telah diverifikasi dan disahkan oleh Ketua DKM, Sekretaris, dan Bendahara Masjid Al Ikhlas CGV.
+              Catatan mutasi Kas Operasional Masjid (38 entri) dan Dana Sosial Jumat Peduli Umat (32 entri) periode 1–31 Agustus 2026 yang telah disahkan oleh Ketua DKM, Sekretaris, dan Bendahara.
             </p>
           </div>
 
@@ -61,9 +79,37 @@ export default function PublicTransactionTable() {
             <div className="endorse-icon">🏛️</div>
             <div>
               <div className="endorse-title">Pengesahan DKM Resmi</div>
-              <div className="endorse-meta">Disahkan: 15 Agustus 2026 · Rek. BSI 1500600069</div>
+              <div className="endorse-meta">Disahkan: 31 Agustus 2026 · Rek. BSI 1500600069</div>
             </div>
           </div>
+        </div>
+
+        {/* Account Level Selector Tabs */}
+        <div style={{ display: 'flex', gap: '8px', marginBottom: '14px', flexWrap: 'wrap' }}>
+          <button
+            type="button"
+            className={`public-tx-tab ${accountFilter === 'all' ? 'is-active' : ''}`}
+            onClick={() => setAccountFilter('all')}
+            style={{ fontWeight: 700 }}
+          >
+            Semua Akun ({mockTransactionsAgustusCombined.length} Entri)
+          </button>
+          <button
+            type="button"
+            className={`public-tx-tab ${accountFilter === 'kas_masjid' ? 'is-active' : ''}`}
+            onClick={() => setAccountFilter('kas_masjid')}
+            style={{ fontWeight: 700 }}
+          >
+            🏛️ Kas Masjid (39 Baris)
+          </button>
+          <button
+            type="button"
+            className={`public-tx-tab ${accountFilter === 'jpu' ? 'is-active' : ''}`}
+            onClick={() => setAccountFilter('jpu')}
+            style={{ fontWeight: 700 }}
+          >
+            🤝 Jumat Peduli Umat / JPU (33 Baris)
+          </button>
         </div>
 
         {/* Filter and Search Bar */}
@@ -76,7 +122,7 @@ export default function PublicTransactionTable() {
               className={`public-tx-tab ${filterType === 'all' ? 'is-active' : ''}`}
               onClick={() => setFilterType('all')}
             >
-              Semua Mutasi ({mockTransactionsAgustus.length})
+              Semua Mutasi ({baseList.length})
             </button>
             <button
               type="button"
@@ -85,7 +131,7 @@ export default function PublicTransactionTable() {
               className={`public-tx-tab ${filterType === 'in' ? 'is-active' : ''}`}
               onClick={() => setFilterType('in')}
             >
-              Kas Masuk (5)
+              Kas Masuk
             </button>
             <button
               type="button"
@@ -94,7 +140,7 @@ export default function PublicTransactionTable() {
               className={`public-tx-tab ${filterType === 'out' ? 'is-active' : ''}`}
               onClick={() => setFilterType('out')}
             >
-              Kas Keluar (7)
+              Kas Keluar
             </button>
           </div>
 
@@ -106,7 +152,7 @@ export default function PublicTransactionTable() {
             <input
               type="text"
               className="public-tx-search"
-              placeholder="Cari transaksi (cth: Jumat, Bisyaroh, Air)..."
+              placeholder="Cari transaksi (cth: Jumat, Bisyaroh, Canyon, Santunan)..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               aria-label="Cari transaksi"
@@ -125,12 +171,13 @@ export default function PublicTransactionTable() {
             <table className="public-ledger-table" aria-label="Tabel rincian mutasi kas masjid">
               <thead>
                 <tr>
-                  <th scope="col" style={{ width: '85px' }}>TANGGAL</th>
+                  <th scope="col" style={{ width: '80px' }}>TANGGAL</th>
+                  <th scope="col" style={{ width: '110px' }}>AKUN</th>
                   <th scope="col">KETERANGAN TRANSAKSI</th>
                   <th scope="col" style={{ width: '130px' }}>KATEGORI</th>
-                  <th scope="col" className="tx-align-right" style={{ width: '130px' }}>KAS MASUK</th>
-                  <th scope="col" className="tx-align-right" style={{ width: '130px' }}>KAS KELUAR</th>
-                  <th scope="col" className="tx-align-right" style={{ width: '140px' }}>SALDO AKHIR</th>
+                  <th scope="col" className="tx-align-right" style={{ width: '120px' }}>KAS MASUK</th>
+                  <th scope="col" className="tx-align-right" style={{ width: '120px' }}>KAS KELUAR</th>
+                  <th scope="col" className="tx-align-right" style={{ width: '130px' }}>SALDO AKHIR</th>
                 </tr>
               </thead>
               <tbody>
@@ -138,10 +185,27 @@ export default function PublicTransactionTable() {
                   const badge = getCategoryBadge(trx.kategori);
                   const isIncome = trx.masuk !== '-';
                   const isExpense = trx.keluar !== '-';
+                  const isJpu = trx.account === 'jpu';
                   return (
                     <tr key={trx.id} className="public-ledger-row">
                       <td className="tx-date-cell">
                         <span className="tx-date-badge">{trx.tanggal}</span>
+                      </td>
+                      <td>
+                        <span
+                          style={{
+                            fontSize: '11px',
+                            fontWeight: 700,
+                            padding: '3px 8px',
+                            borderRadius: '12px',
+                            background: isJpu ? 'rgba(6, 182, 212, 0.12)' : 'rgba(12, 43, 29, 0.08)',
+                            color: isJpu ? '#0284c7' : '#0c2b1d',
+                            border: isJpu ? '1px solid rgba(6, 182, 212, 0.3)' : '1px solid rgba(12, 43, 29, 0.2)',
+                            whiteSpace: 'nowrap',
+                          }}
+                        >
+                          {trx.accountLabel}
+                        </span>
                       </td>
                       <td className="tx-desc-cell">
                         <span className="tx-desc-text">{trx.keterangan}</span>
@@ -180,8 +244,8 @@ export default function PublicTransactionTable() {
                 })}
                 {filteredTransactions.length === 0 && (
                   <tr>
-                    <td colSpan={6} style={{ textAlign: 'center', padding: '36px', color: '#6b7f74' }}>
-                      Tidak ditemukan transaksi yang cocok dengan pencarian <em>"{searchQuery}"</em>.
+                    <td colSpan={7} style={{ textAlign: 'center', padding: '36px', color: '#6b7f74' }}>
+                      Tidak ditemukan transaksi yang cocok dengan filter atau pencarian <em>"{searchQuery}"</em>.
                     </td>
                   </tr>
                 )}
@@ -192,24 +256,62 @@ export default function PublicTransactionTable() {
           {/* Ledger Footer Summary */}
           <div className="public-ledger-footer">
             <div className="ledger-footer-left">
-              <span className="footer-meta-pill">1–15 Agustus 2026</span>
-              <span className="footer-meta-text">Menampilkan {filteredTransactions.length} dari {mockTransactionsAgustus.length} mutasi tercatat</span>
+              <span className="footer-meta-pill">Agustus 2026</span>
+              <span className="footer-meta-text">Menampilkan {filteredTransactions.length} dari {baseList.length} mutasi tercatat</span>
             </div>
             <div className="ledger-footer-right">
-              <div className="footer-stat-unit">
-                <span>Total Masuk:</span>
-                <strong className="text-forest">+Rp 4.300.000</strong>
-              </div>
-              <div className="footer-stat-divider">·</div>
-              <div className="footer-stat-unit">
-                <span>Total Keluar:</span>
-                <strong className="text-crimson">-Rp 1.560.000</strong>
-              </div>
-              <div className="footer-stat-divider">·</div>
-              <div className="footer-stat-unit">
-                <span>Saldo Akhir (15 Ags):</span>
-                <strong className="text-gold">Rp 21.126.130</strong>
-              </div>
+              {accountFilter === 'kas_masjid' ? (
+                <>
+                  <div className="footer-stat-unit">
+                    <span>Kas Masuk:</span>
+                    <strong className="text-forest">+Rp 10.782.000</strong>
+                  </div>
+                  <div className="footer-stat-divider">·</div>
+                  <div className="footer-stat-unit">
+                    <span>Kas Keluar:</span>
+                    <strong className="text-crimson">-Rp 12.854.463</strong>
+                  </div>
+                  <div className="footer-stat-divider">·</div>
+                  <div className="footer-stat-unit">
+                    <span>Saldo Akhir Kas Masjid:</span>
+                    <strong className="text-gold">Rp 16.313.667</strong>
+                  </div>
+                </>
+              ) : accountFilter === 'jpu' ? (
+                <>
+                  <div className="footer-stat-unit">
+                    <span>Donasi JPU Masuk:</span>
+                    <strong className="text-forest">+Rp 7.750.000</strong>
+                  </div>
+                  <div className="footer-stat-divider">·</div>
+                  <div className="footer-stat-unit">
+                    <span>Penyaluran Santunan:</span>
+                    <strong className="text-crimson">-Rp 4.750.000</strong>
+                  </div>
+                  <div className="footer-stat-divider">·</div>
+                  <div className="footer-stat-unit">
+                    <span>Saldo Akhir JPU:</span>
+                    <strong style={{ color: '#0284c7' }}>Rp 4.700.000</strong>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="footer-stat-unit">
+                    <span>Kas Masjid:</span>
+                    <strong className="text-gold">Rp 16.313.667</strong>
+                  </div>
+                  <div className="footer-stat-divider">·</div>
+                  <div className="footer-stat-unit">
+                    <span>Dana Sosial JPU:</span>
+                    <strong style={{ color: '#0284c7' }}>Rp 4.700.000</strong>
+                  </div>
+                  <div className="footer-stat-divider">·</div>
+                  <div className="footer-stat-unit">
+                    <span>Total Likuiditas:</span>
+                    <strong className="text-forest">Rp 21.013.667</strong>
+                  </div>
+                </>
+              )}
             </div>
           </div>
         </div>
@@ -220,7 +322,7 @@ export default function PublicTransactionTable() {
             <div className="sign-badge">PENGESAHAN DOKUMEN RESMI</div>
             <h3 className="sign-title">Dewan Kemakmuran Masjid Al Ikhlas CGV</h3>
             <p className="sign-sub">
-              Laporan Keuangan Kas Masjid Periode 1–15 Agustus 2026 telah diteliti dan disetujui bersama oleh pimpinan DKM:
+              Laporan Keuangan Kas Masjid &amp; Dana Sosial JPU Periode Agustus 2026 telah diteliti dan disetujui bersama oleh pimpinan DKM:
             </p>
           </div>
 
@@ -255,3 +357,4 @@ export default function PublicTransactionTable() {
     </section>
   );
 }
+
