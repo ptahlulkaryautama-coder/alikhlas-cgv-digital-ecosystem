@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import Container from '../common/Container.jsx';
 
 const mediaCategories = [
-  { id: 'video', label: '📺 Kajian & Live Stream' },
+  { id: 'video', label: '🎥 Rekaman Kajian (Facebook)' },
   { id: 'buletin', label: '📜 Buletin & Risalah Khutbah' },
   { id: 'pustaka', label: '📚 Pustaka Islam Digital' },
 ];
@@ -95,21 +95,34 @@ export default function MediaHubSection() {
                 <div className="video-thumb-wrap">
                   <img src={vid.thumbnail} alt={vid.title} loading="lazy" />
                   <div className="video-duration-badge">{vid.duration}</div>
-                  <Link to="/live" className="video-play-overlay" aria-label={`Putar ${vid.title}`}>
+                  <a
+                    href="https://www.facebook.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="video-play-overlay"
+                    aria-label={`Putar rekaman di Facebook: ${vid.title}`}
+                  >
                     <span className="play-icon">▶</span>
-                  </Link>
+                  </a>
                   <span className="video-category-tag">{vid.category}</span>
                 </div>
                 <div className="video-card-body">
                   <p className="video-speaker">{vid.speaker}</p>
                   <h3 className="video-card-title">
-                    <Link to="/live">{vid.title}</Link>
+                    <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer">
+                      {vid.title}
+                    </a>
                   </h3>
                   <div className="video-card-footer">
                     <span className="video-date">📅 {vid.date}</span>
-                    <Link to="/live" className="video-link-action">
-                      Tonton Video →
-                    </Link>
+                    <a
+                      href="https://www.facebook.com"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="video-link-action"
+                    >
+                      Buka Siaran Facebook →
+                    </a>
                   </div>
                 </div>
               </article>

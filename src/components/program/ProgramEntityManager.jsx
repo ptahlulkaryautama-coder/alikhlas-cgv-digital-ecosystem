@@ -16,111 +16,43 @@ function getInitialData() {
     console.error('Error loading local content:', e);
   }
 
-  // Prepopulate categorized datasets
+  // Prepopulate categorized datasets from official siteContent.programs
+  const kajianList = programs
+    .filter((p) => !['bahasa arab', 'tahsin'].some((k) => (p.category || '').toLowerCase().includes(k)))
+    .map((p, idx) => ({
+      id: `kajian-${idx + 1}`,
+      title: p.title,
+      category: p.category,
+      speaker: p.pemateri,
+      schedule: p.schedule,
+      location: p.location || 'Masjid Al Ikhlas CGV',
+      description: p.description,
+      image: idx % 2 === 0 ? '/src/assets/cerita-kajian-rutin.jpg' : '/src/assets/cerita-kajian-malam.jpg',
+      status: 'Siap Publik',
+      badgeColor: '#1A7A50',
+    }));
+
+  const kelasList = programs
+    .filter((p) => ['bahasa arab', 'tahsin'].some((k) => (p.category || '').toLowerCase().includes(k)))
+    .map((p, idx) => ({
+      id: `kelas-${idx + 1}`,
+      title: p.title,
+      category: p.category,
+      speaker: p.pemateri,
+      schedule: p.schedule,
+      location: p.location || 'Masjid Al Ikhlas CGV',
+      description: p.description,
+      image: '/src/assets/cerita-kajian-rutin.jpg',
+      status: 'Aktif Berjalan',
+      badgeColor: '#2B6CB0',
+    }));
+
   return {
-    kajian: [
-      {
-        id: 'kajian-1',
-        title: "Al-Furqan Min Qasas Al-Qur'an",
-        category: 'Kajian Kitab',
-        speaker: 'Ust. Abu Usamah, Lc.',
-        schedule: "Senin · Ba'da Maghrib",
-        location: 'Aula Utama Masjid',
-        description: "Mempelajari kisah-kisah penuh ibrah dalam Al-Qur'an dan pelajaran yang dapat diterapkan dalam kehidupan sehari-hari.",
-        image: '/src/assets/cerita-kajian-rutin.jpg',
-        status: 'Siap Publik',
-        badgeColor: '#1A7A50',
-      },
-      {
-        id: 'kajian-2',
-        title: 'Tafsir QS Luqman',
-        category: "Tafsir Al-Qur'an",
-        speaker: 'Ust. Dr. Muhammad Firanda, M.A.',
-        schedule: "Jumat · Ba'da Maghrib",
-        location: 'Aula Utama Masjid',
-        description: "Kajian tafsir ayat demi ayat untuk memahami pesan nasihat Luqman Al-Hakim bagi pendidikan tauhid dan akhlak keluarga.",
-        image: '/src/assets/cerita-kajian-malam.jpg',
-        status: 'Siap Publik',
-        badgeColor: '#17593a',
-      },
-      {
-        id: 'kajian-3',
-        title: "Ad-Daa' Wad-Dawaa' (Penyakit Hati & Obatnya)",
-        category: 'Kajian Keluarga & Tazkiyatun Nufus',
-        speaker: 'Ust. Abu Ihsan Al-Atsari',
-        schedule: "Ahad pekan ke-2 & ke-4 · Ba'da Maghrib",
-        location: 'Aula Utama Masjid',
-        description: 'Kajian bulanan untuk suami, istri, dan orang tua — membina ketenangan batin dan keharmonisan rumah tangga.',
-        image: '/src/assets/cerita-kajian-rutin.jpg',
-        status: 'Siap Publik',
-        badgeColor: '#8A6200',
-      },
-      {
-        id: 'kajian-4',
-        title: 'Al-Adab Al-Mufrad',
-        category: 'Kajian Hadits & Adab',
-        speaker: 'Dewan Asatidz DKM Al Ikhlas',
-        schedule: "Senin Pekan Genap · Ba'da Isya",
-        location: 'Aula Utama Masjid',
-        description: 'Pembahasan adab dan akhlak mulia berdasarkan karya agung Imam Al-Bukhari.',
-        image: '/src/assets/cerita-kajian-malam.jpg',
-        status: 'Siap Publik',
-        badgeColor: '#1A7A50',
-      },
-      {
-        id: 'kajian-5',
-        title: 'Kajian Tematik Parenting & Muslimah',
-        category: 'Kajian Tematik Khusus Ummahat',
-        speaker: 'Ustadzah Pembina Kajian Akhwat',
-        schedule: "Sabtu Pekan ke-1 · 09:00 WIB",
-        location: 'Ruang Serbaguna Lantai 2',
-        description: 'Bimbingan mendidik generasi qurani di era digital dengan pendekatan salafus shalih.',
-        image: '/src/assets/masjid-al-ikhlas-remake.png',
-        status: 'Siap Publik',
-        badgeColor: '#6B46C1',
-      },
-    ],
-    kelas: [
-      {
-        id: 'kelas-1',
-        title: 'Belajar Bahasa Arab dari Nol (Durusul Lughah)',
-        category: 'Bahasa Arab',
-        speaker: 'Ust. Ahmad Zaki, B.A.',
-        schedule: "Rabu & Ahad · Ba'da Isya & Ba'da Subuh",
-        location: 'Ruang Kelas TPQ Lantai 1',
-        description: 'Program dasar untuk memahami kaidah nahwu, sharaf, dan kosakata Al-Qur\'an secara bertahap dan interaktif.',
-        image: '/src/assets/cerita-kajian-rutin.jpg',
-        status: 'Aktif Berjalan',
-        badgeColor: '#2B6CB0',
-      },
-      {
-        id: 'kelas-2',
-        title: 'Belajar Tahsin & Tajwid dari Nol',
-        category: 'Tahsin Al-Qur\'an',
-        speaker: 'Ustadz Pembimbing Tahsin Al Ikhlas',
-        schedule: "Sabtu · Ba'da Ashar (16:00 WIB)",
-        location: 'Selasar Utama Masjid',
-        description: 'Perbaikan makharijul huruf, sifat huruf, dan kaidah tajwid praktis mulai dari dasar hingga lancar.',
-        image: '/src/assets/cerita-kajian-malam.jpg',
-        status: 'Aktif Berjalan',
-        badgeColor: '#8A6200',
-      },
-      {
-        id: 'kelas-3',
-        title: 'TPQ Al-Mardhotillah Santri Anak & Remaja',
-        category: 'Pendidikan Anak (TPQ)',
-        speaker: 'Ustadzah Pengampu TPQ (6 Pembimbing)',
-        schedule: 'Senin s/d Kamis · 16:00 – 17:30 WIB',
-        location: 'Gedung TPQ Al Ikhlas CGV',
-        description: 'Pendidikan Al-Qur\'an metode Iqra / Tilawati, hafalan doa harian, adab harian, dan praktek shalat bagi santri usia 4–15 tahun.',
-        image: '/src/assets/cerita-kajian-rutin.jpg',
-        status: 'Aktif Berjalan',
-        badgeColor: '#1A7A50',
-      },
-    ],
-    pustaka: pustakaIlmuItems,
-    media: mediaDakwahItems,
-    arsip: agendaItems,
+    kajian: kajianList,
+    kelas: kelasList,
+    pustaka: pustakaIlmuItems || [],
+    media: mediaDakwahItems || [],
+    arsip: agendaItems || [],
   };
 }
 

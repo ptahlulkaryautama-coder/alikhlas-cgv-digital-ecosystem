@@ -432,3 +432,313 @@
   color: rgba(255, 255, 255, 0.75);
   margin: 0;
 }
+
+/* ── Organization Tree Styles ── */
+.tpq-org-section {
+  padding: 70px 0;
+  background: #f4f6f4;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.tpq-org-tree-wrapper {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.org-tree-level {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.org-tree-connector-line {
+  width: 2px;
+  height: 28px;
+  background: #c9a55a;
+  margin: 0 auto;
+  opacity: 0.6;
+}
+
+.org-node-card {
+  background: #ffffff;
+  border: 1px solid rgba(12, 43, 29, 0.12);
+  border-radius: 16px;
+  padding: 22px 24px;
+  text-align: center;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.org-node-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(12, 43, 29, 0.08);
+}
+
+.card-pembina {
+  max-width: 440px;
+  width: 100%;
+  border-top: 4px solid #0c2b1d;
+}
+
+.card-mudir {
+  flex: 1;
+  min-width: 280px;
+  max-width: 420px;
+  border-top: 4px solid #c9a55a;
+}
+
+.card-admin {
+  flex: 1;
+  min-width: 280px;
+  max-width: 420px;
+  border-top: 4px solid #1565c0;
+}
+
+.org-node-badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: #e8f5ee;
+  color: #0c2b1d;
+  margin-bottom: 10px;
+}
+
+.org-node-badge.badge-gold {
+  background: #fdf6e7;
+  color: #8a6200;
+}
+
+.org-node-badge.badge-blue {
+  background: #e3f2fd;
+  color: #1565c0;
+}
+
+.org-node-name {
+  font-size: 18px;
+  font-weight: 800;
+  color: #0c2b1d;
+  margin: 0 0 4px 0;
+}
+
+.org-node-inst, .org-node-degree {
+  font-size: 13px;
+  color: #556b60;
+  font-weight: 600;
+  margin: 0 0 8px 0;
+}
+
+.org-node-hafalan {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #fef9e7;
+  border: 1px solid #f9e79f;
+  color: #7d6608;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 6px;
+  margin-bottom: 10px;
+}
+
+.org-node-desc {
+  font-size: 13px;
+  color: #4a6154;
+  line-height: 1.55;
+  margin: 0;
+}
+
+.level-asatidz-kicker .asatidz-tree-banner {
+  background: linear-gradient(135deg, #0c2b1d 0%, #154c33 100%);
+  color: #ffffff;
+  padding: 12px 28px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  border: 1px solid #c9a55a;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+}
+
+/* ── Faculty Cards Styles ── */
+.tpq-faculty-section {
+  padding: 80px 0;
+  background: #ffffff;
+}
+
+.faculty-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 28px;
+}
+
+.faculty-card {
+  background: #fafbfa;
+  border: 1px solid rgba(12, 43, 29, 0.08);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+  transition: all 0.25s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.faculty-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(12, 43, 29, 0.1);
+  border-color: rgba(201, 165, 90, 0.4);
+}
+
+.faculty-card-top {
+  padding: 24px 24px 16px 24px;
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  background: #ffffff;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.faculty-photo-wrap {
+  position: relative;
+  width: 84px;
+  height: 84px;
+  flex-shrink: 0;
+}
+
+.faculty-photo {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #c9a55a;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.faculty-hafalan-badge {
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #c9a55a;
+  color: #051a10;
+  font-size: 10px;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: 999px;
+  white-space: nowrap;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.faculty-identity {
+  flex: 1;
+}
+
+.faculty-role-pill {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  border: 1px solid;
+  padding: 2px 10px;
+  border-radius: 999px;
+  margin-bottom: 6px;
+}
+
+.faculty-name {
+  font-size: 17px;
+  font-weight: 800;
+  color: #0c2b1d;
+  margin: 0 0 2px 0;
+}
+
+.faculty-degree {
+  font-size: 12.5px;
+  color: #556b60;
+  font-weight: 600;
+  margin: 0;
+}
+
+.faculty-card-body {
+  padding: 20px 24px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.faculty-desc {
+  font-size: 13.5px;
+  color: #3b5045;
+  line-height: 1.6;
+  margin: 0 0 6px 0;
+}
+
+.faculty-info-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 13px;
+  color: #4a6154;
+}
+
+.faculty-info-row .info-icon {
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.faculty-certificates-box {
+  margin-top: 8px;
+  background: #ffffff;
+  border: 1px solid rgba(201, 165, 90, 0.25);
+  border-radius: 12px;
+  padding: 12px 16px;
+}
+
+.certs-title {
+  font-size: 12px;
+  font-weight: 800;
+  color: #8a6200;
+  margin: 0 0 8px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.certs-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.cert-item {
+  font-size: 12px;
+  color: #2d4036;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  line-height: 1.45;
+}
+
+.cert-check {
+  color: #1a7a50;
+  font-weight: 900;
+}
+

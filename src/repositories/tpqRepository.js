@@ -1,4 +1,4 @@
-import { FAQS, TPQ_AGENDA, TPQ_PORTAL_INFO, TPQ_STATS, CLASS_GROUPS, KURIKULUM_ROADMAP, TPQ_TEACHING_TEAM } from '../data/tpqData.js';
+import { FAQS, TPQ_AGENDA, TPQ_PORTAL_INFO, TPQ_STATS, CLASS_GROUPS, KURIKULUM_ROADMAP, TPQ_TEACHING_TEAM, TPQ_ORGANIZATION_STRUCTURE } from '../data/tpqData.js';
 import { tpqPublicProjection } from '../data/tpqPublicProjection.js';
 import { kabarRepository } from './kabarRepository.js';
 import { createSourceStatus, sourceStatusFromSupabase, SOURCE_TYPES } from './sourceStatus.js';
@@ -19,6 +19,7 @@ export const tpqRepository = Object.freeze({
   getAll: () => ({
     portalInfo: TPQ_PORTAL_INFO, stats: TPQ_STATS, classes: CLASS_GROUPS,
     curriculum: KURIKULUM_ROADMAP, teachingTeam: TPQ_TEACHING_TEAM,
+    structure: TPQ_ORGANIZATION_STRUCTURE,
     agenda: TPQ_AGENDA, faqs: FAQS,
   }),
   getPublic: () => tpqPublicProjection,

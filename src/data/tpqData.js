@@ -119,38 +119,105 @@ export const CLASS_GROUPS = [
  * No personal names, no personal schedules, no photographs.
  * Source: TPQ_PORTAL_INFO + CLASS_GROUPS structure (both approved).
  */
+export const TPQ_ORGANIZATION_STRUCTURE = {
+  pembina: {
+    role: 'Pembina & Pelindung',
+    name: 'Ketua DKM Masjid Al Ikhlas CGV',
+    institution: 'DKM Masjid Al Ikhlas Cipta Greenville',
+    description: 'Memberikan arahan strategis, kebijakan dakwah, dan pengawasan mutu pendidikan Al-Qur\'an.',
+  },
+  mudir: {
+    role: 'Kepala / Mudir TPQ',
+    name: 'Ustadzah Pembina Utama TPQ',
+    titleDegree: 'S.Pd.I / Al-Hafidzah',
+    hafalanJuz: 'Hafidzah 30 Juz Al-Qur\'an',
+    certificates: [
+      'Sanad Qira\'ah Riwayat Hafs \'an \'Ashim',
+      'Sertifikat TOT Standarisasi Guru Al-Qur\'an',
+      'Pelatihan Manajemen Mutu Lembaga Qur\'ani',
+    ],
+    photoUrl: '/src/assets/cerita-kajian-rutin.jpg',
+    description: 'Bertanggung jawab atas kurikulum pembelajaran, pembinaan asatidz, dan standarisasi bacaan santri.',
+  },
+  administrasi: {
+    role: 'Koordinator Administrasi & Keuangan Santri',
+    name: 'Tim Tata Usaha & IT Santri',
+    titleDegree: 'DKM Al Ikhlas CGV',
+    description: 'Mengelola pendataan santri, penerimaan santri baru, jadwal, dan pencatatan administrasi terpadu.',
+  },
+};
+
+/**
+ * TPQ_TEACHING_TEAM — Tim Asatidz & Pengampu Kelompok Belajar TPQ Al Mardhotillah
+ */
 export const TPQ_TEACHING_TEAM = [
   {
     id: 'tt1',
-    roleLabel: 'Pengajar Iqra Tingkat Dasar',
-    icon: '📖',
+    name: 'Ustadzah Pengampu Tingkat Dasar',
+    titleDegree: 'Al-Hafidzah',
+    roleLabel: 'Pengajar Iqra Tingkat Dasar (Iqra 1–3)',
+    photoUrl: '/src/assets/cerita-kajian-rutin.jpg',
+    hafalanJuz: 'Hafidzah 10 Juz',
+    certificates: [
+      'Sertifikat Standarisasi Pengajaran Metode Iqra & Tilawati',
+      'Pelatihan Pendampingan Karakter & Psikologi Santri Usia Dini',
+    ],
+    education: 'Ma\'had Tahfidz & Tarbiyah Qur\'aniyah',
     schedule: 'Senin – Kamis · 16.00–17.15 WIB',
-    focus: 'Pendampingan Hijaiyah & Adab Belajar',
-    desc: 'Membimbing santri usia dini dalam pengenalan huruf hijaiyah dengan pendekatan sabar dan bertahap.',
+    focus: 'Makharijul Huruf, Harakat Dasar, & Adab Santri',
+    badgeColor: '#0f6130',
+    desc: 'Membimbing santri pemula dalam mengenal 28 huruf hijaiyah dengan metode interaktif, sabar, dan menyenangkan.',
   },
   {
     id: 'tt2',
-    roleLabel: 'Pengajar Iqra Tingkat Menengah',
-    icon: '📗',
+    name: 'Ustadzah Pengampu Tingkat Menengah',
+    titleDegree: 'S.Ag / Al-Hafidzah',
+    roleLabel: 'Pengajar Iqra Tingkat Menengah (Iqra 4–6)',
+    photoUrl: '/src/assets/cerita-kajian-malam.jpg',
+    hafalanJuz: 'Hafidzah 15 Juz',
+    certificates: [
+      'Sertifikat Guru Qur\'an Berstandar Nasional',
+      'Sertifikasi Tajwid Aplikatif & Fashohah',
+    ],
+    education: 'Sarjana Ilmu Al-Qur\'an dan Tafsir',
     schedule: 'Senin – Kamis · 16.00–17.15 WIB',
-    focus: 'Tajwid Dasar & Kelancaran Membaca',
-    desc: 'Mendampingi santri menguasai bacaan mad, sukun, waqaf, dan persiapan naik ke kelas Al-Qur\'an.',
+    focus: 'Hukum Mad, Sukun, Tanwin, & Persiapan Al-Qur\'an',
+    badgeColor: '#1565C0',
+    desc: 'Mendampingi santri menguasai tajwid praktis, kelancaran menyambung ayat, dan pembiasaan membaca mandiri.',
   },
   {
     id: 'tt3',
-    roleLabel: 'Pengajar Al-Qur\'an & Tajwid',
-    icon: '🕌',
+    name: 'Ustadzah Pengampu Al-Qur\'an & Tajwid',
+    titleDegree: 'Al-Hafidzah',
+    roleLabel: 'Pengajar Al-Qur\'an 30 Juz & Tahsin',
+    photoUrl: '/src/assets/cerita-kajian-rutin.jpg',
+    hafalanJuz: 'Hafidzah 30 Juz (Mutqin)',
+    certificates: [
+      'Ijazah Sanad Matan Al-Jazariyyah',
+      'Sertifikat Pengajar Tahsin Tingkat Lanjutan',
+    ],
+    education: 'Alumni Pesantren Tahfidzul Qur\'an Putri',
     schedule: 'Senin – Kamis · 16.00–17.30 WIB',
-    focus: 'Tahsin Tartil & Hukum Tajwid Lanjutan',
-    desc: 'Mendampingi santri tadarus Al-Qur\'an 30 Juz secara fasih sesuai kaidah makhraj dan tajwid.',
+    focus: 'Tahsin Tartil 30 Juz, Makhorijul Huruf, & Gharib',
+    badgeColor: '#8A6200',
+    desc: 'Membimbing santri tadarus Al-Qur\'an dengan kaidah fashohah, hukum tajwid lengkap, dan adab tilawah shahihah.',
   },
   {
     id: 'tt4',
-    roleLabel: 'Pengajar Program Tahfiz',
-    icon: '⭐',
+    name: 'Ustadzah Pembina Tahfidz & Doa',
+    titleDegree: 'Al-Hafidzah',
+    roleLabel: 'Pengajar Program Tahfiz Juz Amma',
+    photoUrl: '/src/assets/cerita-kajian-malam.jpg',
+    hafalanJuz: 'Hafidzah 30 Juz Al-Qur\'an',
+    certificates: [
+      'Sertifikat Metode Murojaah & Tasmi\' Qur\'ani',
+      'Sertifikasi Bimbingan Doa & Praktik Ibadah Anak',
+    ],
+    education: 'Pendidikan Kader Penghafal Al-Qur\'an',
     schedule: 'Jumat & Sabtu · 16.00–17.30 WIB',
-    focus: 'Teknik Menghafal & Murojaah Terstruktur',
-    desc: 'Membimbing hafalan Juz Amma (37 surah) dengan teknik murojaah yang konsisten dan terprogram.',
+    focus: 'Setoran Hafalan Juz 30, Hadits Adab, & Doa Harian',
+    badgeColor: '#6B46C1',
+    desc: 'Membimbing hafalan 37 surah Juz Amma dengan mutqin melalui sistem tasmi\' dan penguatan talaqqi harian.',
   },
 ];
 

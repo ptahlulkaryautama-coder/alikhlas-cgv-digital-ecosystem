@@ -3,6 +3,8 @@ import Header from '../components/website/Header.jsx';
 import Footer from '../components/website/Footer.jsx';
 import Container from '../components/common/Container.jsx';
 import Button from '../components/common/Button.jsx';
+import TPQOrganizationChart from '../components/tpq/TPQOrganizationChart.jsx';
+import TPQFacultyCards from '../components/tpq/TPQFacultyCards.jsx';
 import { tpqRepository } from '../repositories/tpqRepository.js';
 import '../styles/tpqPublic.css';
 
@@ -12,6 +14,7 @@ export default function PublicTPQ() {
     classes: CLASS_GROUPS,
     curriculum: KURIKULUM_ROADMAP,
     teachingTeam: TPQ_TEACHING_TEAM,
+    structure: TPQ_STRUCTURE,
     agenda: TPQ_AGENDA,
     faqs: FAQS,
   } = tpqRepository.getAll();
@@ -63,11 +66,14 @@ export default function PublicTPQ() {
           </div>
 
           <div className="tpq-hero-actions">
-            <Button href="#kelompok-belajar" variant="gold">
-              Lihat Kelompok Belajar
+            <Button href="/tpq/daftar" variant="gold">
+              📝 Daftar Santri Baru (Online)
             </Button>
-            <Button href="/kontak" variant="glass">
-              Hubungi Pengurus / Pendaftaran
+            <Button href="#struktur-organisasi" variant="outline-light">
+              Bagan Struktur &amp; Pengampu
+            </Button>
+            <Button href="#kelompok-belajar" variant="glass">
+              Kelompok Belajar
             </Button>
           </div>
         </Container>
@@ -172,31 +178,11 @@ export default function PublicTPQ() {
         </Container>
       </section>
 
-      {/* ── 4. Tim Pengajar Peran ── */}
-      <section className="tpq-section" aria-labelledby="pengajar-title">
-        <Container size="xl">
-          <div className="tpq-section-header">
-            <p className="tpq-section-kicker">Dedikasi & Pembimbingan</p>
-            <h2 id="pengajar-title" className="tpq-section-title">
-              Tim Pengajar TPQ Al Mardhotillah
-            </h2>
-            <p className="tpq-section-desc">
-              Pengajar berdedikasi yang membimbing santri secara sabar, komunikatif, dan sesuai kaidah tajwid resmi.
-            </p>
-          </div>
+      {/* ── 4. Bagan Struktur Organisasi ── */}
+      <TPQOrganizationChart structure={TPQ_STRUCTURE} />
 
-          <div className="teaching-grid">
-            {TPQ_TEACHING_TEAM.map((team) => (
-              <article key={team.id} className="teacher-role-card">
-                <div className="teacher-avatar-box">{team.icon}</div>
-                <h4>{team.roleLabel}</h4>
-                <div className="teacher-schedule-tag">{team.schedule}</div>
-                <p>{team.desc}</p>
-              </article>
-            ))}
-          </div>
-        </Container>
-      </section>
+      {/* ── 5. Profil Asatidz & Pengampu Kelompok Belajar ── */}
+      <TPQFacultyCards teachingTeam={TPQ_TEACHING_TEAM} />
 
       {/* ── 5. Agenda Kegiatan ── */}
       <section className="tpq-section" style={{ background: '#ffffff' }} aria-labelledby="agenda-tpq-title">

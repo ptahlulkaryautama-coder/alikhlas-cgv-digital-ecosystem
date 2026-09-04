@@ -13,6 +13,7 @@ const PublicNewsDetail = lazy(() => import('./pages/PublicNewsDetail.jsx'));
 const PublicDonation = lazy(() => import('./pages/PublicDonation.jsx'));
 const PublicContact = lazy(() => import('./pages/PublicContact.jsx'));
 const PublicTPQ = lazy(() => import('./pages/PublicTPQ.jsx'));
+const PublicTPQRegister = lazy(() => import('./pages/PublicTPQRegister.jsx'));
 const Transparency = lazy(() => import('./pages/Transparency.jsx'));
 const Login = lazy(() => import('./pages/Login.jsx'));
 
@@ -47,10 +48,11 @@ export default function App() {
       <Routes>
         {/* ── Public routes ── */}
       <Route path="/" element={<Home />} />
-      <Route path="/live" element={<PublicLive />} />
+      <Route path="/live" element={<Navigate to="/program" replace />} />
       <Route path="/program" element={<PublicProgram />} />
       <Route path="/agenda" element={<PublicAgenda />} />
       <Route path="/tpq" element={<PublicTPQ />} />
+      <Route path="/tpq/daftar" element={<PublicTPQRegister />} />
       <Route path="/kabar" element={<PublicNews />} />
       <Route path="/kabar/:slug" element={<PublicNewsDetail />} />
       <Route path="/donasi" element={<PublicDonation />} />

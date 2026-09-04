@@ -18,6 +18,7 @@ import TPQNewsSection from '../components/tpq/TPQNewsSection.jsx';
 import TPQDocumentsSection from '../components/tpq/TPQDocumentsSection.jsx';
 import TPQFutureModulesSection from '../components/tpq/TPQFutureModulesSection.jsx';
 import TPQPrivacyNoticeCard from '../components/tpq/TPQPrivacyNoticeCard.jsx';
+import TPQRegistrationInbox from '../components/tpq/TPQRegistrationInbox.jsx';
 import FinanceImportPanel from '../components/finance/FinanceImportPanel.jsx';
 import FinanceApprovalPanel from '../components/finance/FinanceApprovalPanel.jsx';
 import FinanceBatchHistory from '../components/finance/FinanceBatchHistory.jsx';
@@ -102,6 +103,9 @@ export default function TPQ() {
         <FinanceApprovalPanel scope="tpq" />
         <FinanceBatchHistory scope="tpq" />
         <FinancePilotGuide scope="tpq" />
+
+        {/* ── 0. Inbox Pendaftaran Santri Baru (Online) ── */}
+        <TPQRegistrationInbox />
 
         {/* ── 1. Executive KPI Summary (Section B: Overview) ── */}
         <TPQOverviewKPI />

@@ -1,0 +1,306 @@
+/* tpqRegister.css — Styling for TPQ Online Registration Page */
+
+.tpq-register-page {
+  background-color: var(--color-dark, #071f15);
+  color: var(--color-warm, #f8f7f2);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.tpq-register-main {
+  flex: 1;
+  padding: 40px 0 80px 0;
+}
+
+.tpq-reg-hero {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.tpq-reg-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(201, 165, 90, 0.12);
+  border: 1px solid rgba(201, 165, 90, 0.3);
+  padding: 6px 16px;
+  border-radius: 999px;
+  color: var(--color-gold, #c9a55a);
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 16px;
+  text-transform: uppercase;
+}
+
+.tpq-reg-title {
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  font-family: var(--font-serif, Georgia, serif);
+  color: #fff;
+  margin: 0 0 12px 0;
+  line-height: 1.25;
+}
+
+.tpq-reg-subtitle {
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 1.05rem;
+  max-width: 650px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.tpq-form-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(16px);
+  border-radius: 1.5rem;
+  padding: 36px;
+  max-width: 820px;
+  margin: 0 auto;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+}
+
+@media (max-width: 640px) {
+  .tpq-form-card {
+    padding: 20px 16px;
+    border-radius: 1rem;
+  }
+}
+
+.form-fieldset {
+  border: none;
+  padding: 0;
+  margin: 0 0 32px 0;
+}
+
+.form-fieldset:last-of-type {
+  margin-bottom: 24px;
+}
+
+.fieldset-legend {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--color-gold, #c9a55a);
+  border-bottom: 1px solid rgba(201, 165, 90, 0.2);
+  padding-bottom: 8px;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.fieldset-legend span.legend-icon {
+  font-size: 1.3rem;
+}
+
+.form-grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+}
+
+@media (max-width: 640px) {
+  .form-grid-2 {
+    grid-template-columns: 1fr;
+  }
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.form-group label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.form-group label span.req {
+  color: #ff5252;
+  margin-left: 3px;
+}
+
+.form-input, .form-select, .form-textarea {
+  width: 100%;
+  padding: 12px 14px;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 0.75rem;
+  color: #fff;
+  font-size: 0.95rem;
+  font-family: inherit;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+.form-input:focus, .form-select:focus, .form-textarea:focus {
+  outline: none;
+  border-color: var(--color-gold, #c9a55a);
+  background: rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 0 3px rgba(201, 165, 90, 0.2);
+}
+
+.form-select option {
+  background: #071f15;
+  color: #fff;
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.form-checkbox-group {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: rgba(201, 165, 90, 0.08);
+  border: 1px solid rgba(201, 165, 90, 0.2);
+  padding: 14px 16px;
+  border-radius: 0.75rem;
+  margin-bottom: 24px;
+  cursor: pointer;
+}
+
+.form-checkbox-group input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  margin-top: 2px;
+  cursor: pointer;
+  accent-color: var(--color-gold, #c9a55a);
+}
+
+.form-checkbox-group label {
+  font-size: 0.88rem;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.5;
+  cursor: pointer;
+}
+
+.form-submit-row {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+}
+
+.btn-submit-reg {
+  width: 100%;
+  padding: 16px 24px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  border-radius: 0.85rem;
+  background: linear-gradient(135deg, #d4af37 0%, #aa820a 100%);
+  color: #051a10;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(212, 175, 55, 0.35);
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.btn-submit-reg:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(212, 175, 55, 0.45);
+}
+
+.btn-submit-reg:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Success Card */
+.reg-success-card {
+  text-align: center;
+  padding: 40px 24px;
+}
+
+.reg-success-icon {
+  width: 72px;
+  height: 72px;
+  background: rgba(26, 122, 80, 0.2);
+  border: 2px solid #1a7a50;
+  color: #48bb78;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.2rem;
+  margin: 0 auto 20px auto;
+}
+
+.reg-success-title {
+  font-size: 1.8rem;
+  color: #fff;
+  margin: 0 0 12px 0;
+  font-family: var(--font-serif, Georgia, serif);
+}
+
+.reg-success-number-pill {
+  display: inline-block;
+  background: rgba(201, 165, 90, 0.15);
+  border: 1px dashed var(--color-gold, #c9a55a);
+  color: var(--color-gold, #c9a55a);
+  padding: 8px 20px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  letter-spacing: 0.5px;
+  margin-bottom: 24px;
+}
+
+.reg-success-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 480px;
+  margin: 30px auto 0 auto;
+}
+
+.btn-pdf-action {
+  background: #1a7a50;
+  color: #fff;
+  padding: 14px 20px;
+  border-radius: 0.75rem;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: all 0.2s;
+  box-shadow: 0 6px 18px rgba(26, 122, 80, 0.3);
+}
+
+.btn-pdf-action:hover {
+  background: #156340;
+  transform: translateY(-2px);
+}
+
+.btn-wa-action {
+  background: #25d366;
+  color: #071f15;
+  padding: 14px 20px;
+  border-radius: 0.75rem;
+  font-weight: 700;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: all 0.2s;
+}
+
+.btn-wa-action:hover {
+  background: #1ebd5a;
+  transform: translateY(-2px);
+}

@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import Footer from '../components/website/Footer.jsx';
 import Header from '../components/website/Header.jsx';
 import ProgramKegiatan from '../components/website/ProgramKegiatan.jsx';
-import YouTubeLiveKajian from '../components/website/YouTubeLiveKajian.jsx';
 import Container from '../components/common/Container.jsx';
 import usePrograms from '../hooks/usePrograms.js';
 import '../styles/home.css';
@@ -139,9 +138,6 @@ export default function PublicProgram() {
         <div className="program-page-content">
           <ProgramKegiatan hideAgenda={true} />
         </div>
-
-        {/* ── YouTube Live & Rekaman Kajian Feature Section ── */}
-        <YouTubeLiveKajian />
 
 
 

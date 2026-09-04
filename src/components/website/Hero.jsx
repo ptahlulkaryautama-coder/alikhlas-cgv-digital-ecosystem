@@ -37,10 +37,6 @@ export default function Hero({ isPrayerLoading, nextPrayer, prayerSource, prayer
       <Container size="xl" className="home-hero-content">
         <div className="home-hero-copy">
           <div className="hero-badge-row">
-            <span className="hero-live-badge">
-              <span className="live-dot" />
-              LIVE · Masjid Al Ikhlas Stream
-            </span>
             <span className="hero-location-badge">Cipta Greenville · Batam</span>
           </div>
 
@@ -61,9 +57,6 @@ export default function Hero({ isPrayerLoading, nextPrayer, prayerSource, prayer
             </Button>
             <Button href="/tpq" variant="outline-light" className="hero-cta-secondary">
               Portal TPQ
-            </Button>
-            <Button href="/live" variant="light" className="hero-cta-live">
-              📺 Live Broadcast
             </Button>
           </div>
         </div>
