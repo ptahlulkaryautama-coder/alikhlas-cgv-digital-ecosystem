@@ -99,7 +99,7 @@ export default function FinanceOverview() {
             <div className="db-card-head">
               <div>
                 <div className="db-card-title">Tren Kas Masuk vs Keluar</div>
-                <div className="db-card-sub">Januari – Juni 2026 · dalam juta rupiah</div>
+                <div className="db-card-sub">Januari – September 2026 · dalam juta rupiah</div>
               </div>
               <div style={{ display: 'flex', gap: '5px' }}>
                 <span className="db-chip g">↑ Masuk</span>
@@ -120,7 +120,7 @@ export default function FinanceOverview() {
             <div className="db-card-head">
               <div>
                 <div className="db-card-title">Sumber Kas Masuk</div>
-                <div className="db-card-sub">Distribusi Juni 2026</div>
+                <div className="db-card-sub">Distribusi September 2026</div>
               </div>
             </div>
 

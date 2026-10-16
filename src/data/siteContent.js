@@ -338,6 +338,65 @@ export const donationPrograms = [
 ];
 
 export const financePeriods = {
+  september2026: {
+    label: "September 2026",
+    periodRange: "1–30 September 2026 (1 Bulan Penuh)",
+    updatedAt: "30 September 2026",
+    saldoAwal: "Rp 16.313.667",
+    saldoAwalRaw: 16313667,
+    kasMasuk: "Rp 15.646.541",
+    kasMasukRaw: 15646541,
+    kasMasukHint: "18 transaksi masuk (Infaq Jumat, Operasional, Donatur, Rongsokan Besi, QRIS)",
+    kasKeluar: "Rp 17.110.000",
+    kasKeluarRaw: 17110000,
+    kasKeluarHint: "28 transaksi keluar (Bisyaroh Imam Rp5,5jt, Renovasi Ruko Rp3jt, Utilitas, Bantuan Sosial)",
+    saldoAkhir: "Rp 14.850.208",
+    saldoAkhirRaw: 14850208,
+    saldoAkhirHint: "Saldo akhir Kas Masjid per 30 Sep 2026",
+    totalKas: "Rp 31.960.208",
+    status: "Terverifikasi",
+    source: "Laporan Kas DKM Periode September 2026 (Disahkan Bendahara Bambang S, Ketua DKM Karya HP, & Sekretaris Zulhendy M)",
+    transactionCount: "46",
+    // Dana Sosial: Jumat Peduli Umat (JPU)
+    jpu: {
+      label: "Jumat Peduli Umat (JPU)",
+      programName: "Dana Sosial Jumat Peduli Umat",
+      saldoAwal: "Rp 4.700.000",
+      saldoAwalRaw: 4700000,
+      kasMasuk: "Rp 6.400.000",
+      kasMasukRaw: 6400000,
+      kasKeluar: "Rp 6.600.000",
+      kasKeluarRaw: 6600000,
+      saldoAkhir: "Rp 4.500.000",
+      saldoAkhirRaw: 4500000,
+      transactionCount: "34",
+      source: "Laporan Keuangan JPU September 2026 (Disahkan DKM Al Ikhlas CGV)",
+    },
+    // Total Likuiditas Gabungan (Kas Operasional + Dana Sosial JPU)
+    combined: {
+      totalSaldoAkhir: "Rp 19.350.208",
+      totalSaldoAkhirRaw: 19350208,
+      totalMasuk: "Rp 22.046.541",
+      totalMasukRaw: 22046541,
+      totalKeluar: "Rp 23.710.000",
+      totalKeluarRaw: 23710000,
+      totalTransactions: "80",
+    },
+    incomeBreakdown: [
+      { label: 'Infaq Donatur & Operasional', amount: 'Rp 6.270.000', percent: 40, color: '#0f6130' },
+      { label: 'Infaq Jumat (4 Pekan)', amount: 'Rp 6.172.000', percent: 39, color: '#0c2b1d' },
+      { label: 'Penjualan Besi Bekas Renovasi', amount: 'Rp 1.345.500', percent: 9, color: '#c9a55a' },
+      { label: 'Infaq Kajian & Majelis Taklim', amount: 'Rp 1.000.000', percent: 6, color: '#8b5e34' },
+      { label: 'Kencleng, QRIS & Jamaah', amount: 'Rp 859.041', percent: 6, color: '#6b7f74' },
+    ],
+    expenseBreakdown: [
+      { label: 'Bisyaroh (Imam Rp5,5jt, Khotib 4x, Tahsin)', amount: 'Rp 7.500.000', percent: 44 },
+      { label: 'Bantuan Sosial & Bencana (Ibu Rusmah, NTT)', amount: 'Rp 3.300.000', percent: 19 },
+      { label: 'Renovasi Mushola & Teras Ruko 4', amount: 'Rp 3.000.000', percent: 18 },
+      { label: 'Utilitas Masjid (Listrik & WiFi)', amount: 'Rp 2.324.000', percent: 14 },
+      { label: 'Operasional, Perlengkapan & Goro', amount: 'Rp 1.286.000', percent: 8 },
+    ],
+  },
   agustus2026: {
     label: "Agustus 2026",
     periodRange: "1–31 Agustus 2026 (1 Bulan Penuh)",
@@ -453,35 +512,41 @@ export const financePeriods = {
 };
 
 export const transparencyStats = [
-  { label: 'Total Likuiditas (Kas + JPU)', value: 'Rp 21,01 jt' },
-  { label: 'Saldo Kas Masjid', value: 'Rp 16,31 jt' },
-  { label: 'Saldo Dana JPU', value: 'Rp 4,70 jt' },
-  { label: 'Total Mutasi Tercatat', value: '70 Transaksi' },
+  { label: 'Total Likuiditas (Kas + JPU)', value: 'Rp 19,35 jt' },
+  { label: 'Saldo Kas Masjid', value: 'Rp 14,85 jt' },
+  { label: 'Saldo Dana JPU', value: 'Rp 4,50 jt' },
+  { label: 'Total Mutasi Tercatat', value: '80 Transaksi' },
 ];
 
 export const publicFinanceSummary = {
-  period: financePeriods.agustus2026.label,
-  periodRange: financePeriods.agustus2026.periodRange,
-  updatedAt: financePeriods.agustus2026.updatedAt,
-  saldoAwal: financePeriods.agustus2026.saldoAwal,
-  totalIn: financePeriods.agustus2026.kasMasuk,
-  totalOut: financePeriods.agustus2026.kasKeluar,
-  endingBalance: financePeriods.agustus2026.saldoAkhir,
-  transactionCount: financePeriods.agustus2026.transactionCount,
-  status: financePeriods.agustus2026.status,
-  jpu: financePeriods.agustus2026.jpu,
-  combined: financePeriods.agustus2026.combined,
+  period: financePeriods.september2026.label,
+  periodRange: financePeriods.september2026.periodRange,
+  updatedAt: financePeriods.september2026.updatedAt,
+  saldoAwal: financePeriods.september2026.saldoAwal,
+  totalIn: financePeriods.september2026.kasMasuk,
+  totalOut: financePeriods.september2026.kasKeluar,
+  endingBalance: financePeriods.september2026.saldoAkhir,
+  transactionCount: financePeriods.september2026.transactionCount,
+  status: financePeriods.september2026.status,
+  jpu: financePeriods.september2026.jpu,
+  combined: financePeriods.september2026.combined,
   donorCount: '',
-  activeCampaign: 'Operasional, tahsin, kajian dakwah & Jumat Peduli Umat',
+  activeCampaign: 'Operasional, renovasi teras & mushola, kajian & Jumat Peduli Umat',
   note:
-    'Laporan Keuangan Kas Masjid & Jumat Peduli Umat (JPU) periode Agustus 2026 telah disahkan oleh Ketua DKM (Karya HP), Sekretaris (Zulhendy M), dan Bendahara (Bambang S) Masjid Al Ikhlas CGV.',
+    'Laporan Keuangan Kas Masjid & Jumat Peduli Umat (JPU) periode September 2026 telah disahkan oleh Ketua DKM (Karya HP), Sekretaris (Zulhendy M), dan Bendahara (Bambang S) Masjid Al Ikhlas CGV.',
 };
 
-export const financeBreakdown = financePeriods.agustus2026.expenseBreakdown;
+export const financeBreakdown = financePeriods.september2026.expenseBreakdown;
 
-export const incomeBreakdown = financePeriods.agustus2026.incomeBreakdown;
+export const incomeBreakdown = financePeriods.september2026.incomeBreakdown;
 
 export const monthlyReports = [
+  {
+    month: 'September 2026',
+    title: 'Laporan Kas Masjid & JPU Al Ikhlas',
+    status: 'Terverifikasi',
+    summary: 'Bisyaroh Imam (Rp5,5jt), renovasi mushola & teras ruko 4 (Rp3jt), utilitas listrik/WiFi, bantuan korban bencana & Ibu Rusmah, serta paket Jumat Peduli Umat (JPU).',
+  },
   {
     month: 'Agustus 2026',
     title: 'Laporan Kas Masjid & JPU Al Ikhlas',

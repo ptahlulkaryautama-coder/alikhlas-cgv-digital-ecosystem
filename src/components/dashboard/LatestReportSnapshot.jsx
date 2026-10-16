@@ -5,9 +5,9 @@
 import React from 'react';
 
 const RECENT_REPORTS = [
-  { id: 'DKM-2026-006', title: 'Laporan Kas 1–15 Ags 2026 (Disahkan)', category: 'Keuangan Bulanan', status: 'Siap publik', date: '15 Ags 2026' },
+  { id: 'DKM-2026-007', title: 'Laporan Kas & JPU Sep 2026 (Disahkan)', category: 'Keuangan Bulanan', status: 'Siap publik', date: '30 Sep 2026' },
+  { id: 'DKM-2026-006', title: 'Laporan Kas Ags 2026 (Disahkan)', category: 'Keuangan Bulanan', status: 'Siap publik', date: '31 Ags 2026' },
   { id: 'DKM-2026-005', title: 'Laporan Kas Mei 2026', category: 'Keuangan Bulanan', status: 'Arsip internal', date: '25 Mei 2026' },
-  { id: 'DKM-2026-004', title: 'Laporan Kas Juni 2026', category: 'Keuangan Bulanan', status: 'Arsip internal', date: '15 Jun 2026' },
 ];
 
 function getStatusBadge(status) {

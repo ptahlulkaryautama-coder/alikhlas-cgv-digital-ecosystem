@@ -20,12 +20,12 @@ import '../styles/dashboard.css';
 import '../styles/financeAdmin.css';
 
 export default function Finance() {
-  const [selectedPeriodKey, setSelectedPeriodKey] = useState('agustus2026');
+  const [selectedPeriodKey, setSelectedPeriodKey] = useState('september2026');
   const { data: apiData, isLoading: isApiLoading } = useFinanceData();
-  const periodIso = selectedPeriodKey === 'agustus2026' ? '2026-08-01' : selectedPeriodKey === 'mei2026' ? '2026-05-01' : '2026-06-01';
+  const periodIso = selectedPeriodKey === 'september2026' ? '2026-09-01' : selectedPeriodKey === 'agustus2026' ? '2026-08-01' : selectedPeriodKey === 'mei2026' ? '2026-05-01' : '2026-06-01';
   const financeLive = useSupabaseFinanceReadModel('dkm', periodIso);
 
-  const activePeriod = financePeriods[selectedPeriodKey];
+  const activePeriod = financePeriods[selectedPeriodKey] || financePeriods.september2026;
   const fallbackData = {
     period: activePeriod.label,
     totalIn: activePeriod.kasMasuk,
@@ -78,7 +78,7 @@ export default function Finance() {
         {/* ── Prototype Warning Banner ──────────────────────────────────── */}
         <div style={{ background: '#FFF3CD', border: '1px solid #FFEEBA', borderRadius: '12px', padding: '14px 20px', color: '#856404', fontSize: '13.5px', fontWeight: 600, marginBottom: '20px', display: 'flex', alignItems: 'center', gap: '10px' }} role="status">
           <span style={{ fontSize: '18px' }} aria-hidden="true">⚠️</span>
-          <span>Data kerja/prototype — belum dapat digunakan sebagai laporan resmi.</span>
+          <span>Data kerja/prototype — disahkan DKM untuk periode aktif.</span>
         </div>
 
         {/* ── Top Module Banner ────────────────────────────────────────── */}
@@ -87,7 +87,7 @@ export default function Finance() {
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
           </div>
           <div className="db-banner-content">
-            <div className="db-banner-title">Transparansi &amp; Amanah (Prototype)</div>
+            <div className="db-banner-title">Transparansi &amp; Amanah</div>
             <div className="db-banner-sub">Masjid Al Ikhlas Cipta Greenville · DKM Al Ikhlas CGV</div>
           </div>
         </div>
@@ -100,7 +100,7 @@ export default function Finance() {
               Buku Kas Masjid<br />
               <i>Al Ikhlas CGV</i>
             </h1>
-            <p className="db-pg-desc">Data kerja/prototype {displayData.transactionCount} entri transaksi {period} · BSI No. Rek 1500600069</p>
+            <p className="db-pg-desc">Laporan {displayData.transactionCount} entri mutasi {period} · BSI No. Rek 1500600069</p>
           </div>
 
           {/* Period selector */}
@@ -125,6 +125,7 @@ export default function Finance() {
                 boxShadow: 'var(--db-sh-sm)',
               }}
             >
+              <option value="september2026">September 2026 (Disahkan Bendahara DKM)</option>
               <option value="agustus2026">Agustus 2026 (Disahkan Bendahara DKM)</option>
               <option value="juni2026">Juni 2026 (Arsip Internal)</option>
               <option value="mei2026">Mei 2026 (Arsip Internal)</option>

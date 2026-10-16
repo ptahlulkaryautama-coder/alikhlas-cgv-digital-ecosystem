@@ -34,6 +34,7 @@ const NotFound = lazy(() => import('./pages/NotFound.jsx'));
 import { useEffect } from 'react';
 import PageLoader from './components/common/PageLoader.jsx';
 import PWAInstallPrompt from './components/common/PWAInstallPrompt.jsx';
+import MobileBottomNav from './components/common/MobileBottomNav.jsx';
 import { registerServiceWorker } from './pwaRegister.js';
 import { ROUTE_PERMISSIONS } from './services/accessPolicy.js';
 
@@ -171,6 +172,7 @@ export default function App() {
     </Routes>
   </Suspense>
   <PWAInstallPrompt />
+  <MobileBottomNav />
 </>
   );
 }

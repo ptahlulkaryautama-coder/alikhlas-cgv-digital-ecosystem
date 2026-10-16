@@ -23,12 +23,20 @@ function getStatusBadge(status) {
 export default function ReportsAdmin() {
   const CARDS = [
     {
-      title: 'Laporan Kas Agustus 2026 (1–15 Ags)',
+      title: 'Laporan Kas & JPU September 2026 (1 Bulan Penuh)',
+      category: 'Keuangan Bulanan',
+      status: 'Siap publik',
+      period: 'September 2026',
+      visibility: 'Publik',
+      desc: 'Buku kas periode 1–30 September 2026 telah diverifikasi & disahkan oleh Ketua DKM (Karya HP), Sekretaris (Zulhendy M), dan Bendahara (Bambang S) Masjid Al Ikhlas CGV.',
+    },
+    {
+      title: 'Laporan Kas Agustus 2026 (1–31 Ags)',
       category: 'Keuangan Bulanan',
       status: 'Siap publik',
       period: 'Agustus 2026',
       visibility: 'Publik',
-      desc: 'Buku kas periode 1–15 Agustus 2026 telah diverifikasi & disahkan oleh Ketua DKM, Sekretaris, dan Bendahara Masjid Al Ikhlas CGV.',
+      desc: 'Buku kas periode 1–31 Agustus 2026 telah diverifikasi & disahkan oleh Ketua DKM, Sekretaris, dan Bendahara Masjid Al Ikhlas CGV.',
     },
     {
       title: 'Laporan Kas Mei 2026',
@@ -61,7 +69,7 @@ export default function ReportsAdmin() {
       title="Laporan &amp; Arsip"
       subtitle="Arsip &amp; Laporan Transparansi"
       activeId="laporan"
-      period="Agustus 2026"
+      period="September 2026"
     >
       <div className="db-page-container">
         {/* ── Top Module Banner ────────────────────────────────────────── */}

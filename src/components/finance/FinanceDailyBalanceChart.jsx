@@ -1,14 +1,44 @@
 import React, { useState } from 'react';
 import '../../styles/financeAdmin.css';
 
-export default function FinanceDailyBalanceChart({ selectedPeriod = 'agustus2026', data = null }) {
+export default function FinanceDailyBalanceChart({ selectedPeriod = 'september2026', data = null }) {
   const [scaleMode, setScaleMode] = useState('dual'); // 'dual' | 'absolute'
   const [showKasMasjid, setShowKasMasjid] = useState(true);
   const [showJpu, setShowJpu] = useState(true);
 
-  // Line 1: Kas Operasional Masjid (Agustus 2026 - 1 Bulan Penuh)
-  // Dual axis: 14M -> 24M (y: 230 -> 40)
+  // Line 1: Kas Operasional Masjid (September 2026 - 1 Bulan Penuh)
+  // Dual axis: 12M -> 24M (y: 230 -> 40)
   // Absolute axis: 0 -> 25M (y: 240 -> 35)
+  const rawKasSeptember = [
+    { label: '01 Sep', x: 60, yDual: 161.7, yAbs: 106.2, value: 'Rp 16.313.667' },
+    { label: '04 Sep', x: 130, yDual: 136.8, yAbs: 93.3, value: 'Rp 17.887.667' },
+    { label: '07 Sep', x: 200, yDual: 149.9, yAbs: 100.1, value: 'Rp 17.061.167' },
+    { label: '10 Sep', x: 270, yDual: 118.2, yAbs: 83.7, value: 'Rp 19.061.167' },
+    { label: '11 Sep', x: 295, yDual: 98.2, yAbs: 73.4, value: 'Rp 20.321.208' },
+    { label: '15 Sep', x: 390, yDual: 108.1, yAbs: 78.4, value: 'Rp 19.701.208' },
+    { label: '18 Sep', x: 460, yDual: 85.4, yAbs: 66.7, value: 'Rp 21.131.208' },
+    { label: '19 Sep', x: 485, yDual: 170.5, yAbs: 110.8, value: 'Rp 15.757.208' },
+    { label: '22 Sep', x: 555, yDual: 141.9, yAbs: 95.9, value: 'Rp 17.567.208' },
+    { label: '25 Sep', x: 625, yDual: 124.3, yAbs: 86.9, value: 'Rp 18.675.208' },
+    { label: '27 Sep', x: 670, yDual: 131.6, yAbs: 90.6, value: 'Rp 18.215.208' },
+    { label: '30 Sep', x: 740, yDual: 184.9, yAbs: 118.2, value: 'Rp 14.850.208' }
+  ];
+
+  // Line 2: Dana Sosial - Jumat Peduli Umat (JPU September 2026)
+  // Dual axis: 1M -> 7M (y: 230 -> 40)
+  // Absolute axis: 0 -> 25M (y: 240 -> 35)
+  const rawJpuSeptember = [
+    { label: '01 Sep', x: 60, yDual: 112.8, yAbs: 201.5, value: 'Rp 4.700.000' },
+    { label: '04 Sep', x: 130, yDual: 81.2, yAbs: 193.3, value: 'Rp 5.700.000' },
+    { label: '07 Sep', x: 200, yDual: 160.3, yAbs: 213.8, value: 'Rp 3.200.000' },
+    { label: '11 Sep', x: 295, yDual: 161.9, yAbs: 214.2, value: 'Rp 3.150.000' },
+    { label: '18 Sep', x: 460, yDual: 158.8, yAbs: 213.3, value: 'Rp 3.250.000' },
+    { label: '24 Sep', x: 600, yDual: 111.2, yAbs: 201.0, value: 'Rp 4.750.000' },
+    { label: '25 Sep', x: 625, yDual: 119.2, yAbs: 203.1, value: 'Rp 4.500.000' },
+    { label: '30 Sep', x: 740, yDual: 119.2, yAbs: 203.1, value: 'Rp 4.500.000' }
+  ];
+
+  // Line 1: Kas Operasional Masjid (Agustus 2026 - 1 Bulan Penuh)
   const rawKasAgustus = [
     { label: '01 Ags', x: 60, yDual: 146.7, yAbs: 89.2, value: 'Rp 18.386.130' },
     { label: '07 Ags', x: 196, yDual: 121.2, yAbs: 78.2, value: 'Rp 19.726.130' },
@@ -22,8 +52,6 @@ export default function FinanceDailyBalanceChart({ selectedPeriod = 'agustus2026
   ];
 
   // Line 2: Dana Sosial - Jumat Peduli Umat (JPU)
-  // Dual axis: 1M -> 6.5M (y: 230 -> 40)
-  // Absolute axis: 0 -> 25M (y: 240 -> 35)
   const rawJpuAgustus = [
     { label: '01 Ags', x: 60, yDual: 205.8, yAbs: 226.1, value: 'Rp 1.700.000' },
     { label: '07 Ags', x: 196, yDual: 212.7, yAbs: 227.7, value: 'Rp 1.500.000' },
@@ -36,8 +64,15 @@ export default function FinanceDailyBalanceChart({ selectedPeriod = 'agustus2026
     { label: '31 Ags', x: 740, yDual: 102.2, yAbs: 201.5, value: 'Rp 4.700.000' }
   ];
 
-  const pointsKasAgustus = rawKasAgustus.map(p => ({ ...p, y: scaleMode === 'dual' ? p.yDual : p.yAbs }));
-  const pointsJpuAgustus = rawJpuAgustus.map(p => ({ ...p, y: scaleMode === 'dual' ? p.yDual : p.yAbs }));
+  const isSeptember = selectedPeriod === 'september2026' && !data;
+  const isAgustus = selectedPeriod === 'agustus2026' && !data;
+  const isMultiAccount = isSeptember || isAgustus;
+
+  const rawKas = isSeptember ? rawKasSeptember : rawKasAgustus;
+  const rawJpu = isSeptember ? rawJpuSeptember : rawJpuAgustus;
+
+  const pointsKas = rawKas.map(p => ({ ...p, y: scaleMode === 'dual' ? p.yDual : p.yAbs }));
+  const pointsJpu = rawJpu.map(p => ({ ...p, y: scaleMode === 'dual' ? p.yDual : p.yAbs }));
 
   const pointsMei = [
     { label: '1 Mei', x: 50, y: 150.5, value: 'Rp 4.882.104' },
@@ -61,7 +96,6 @@ export default function FinanceDailyBalanceChart({ selectedPeriod = 'agustus2026
     { label: '27 Jun', x: 750, y: 140.4, value: 'Rp 5.200.000' }
   ];
 
-  const isAgustus = selectedPeriod === 'agustus2026' && !data;
   const sourceBalances = data?.dailyBalances?.length ? data.dailyBalances : null;
   const maxBalance = sourceBalances ? Math.max(...sourceBalances.map((item) => item.balance), 1) : 1;
   const dataPoints = sourceBalances?.map((item, index) => ({
@@ -71,21 +105,21 @@ export default function FinanceDailyBalanceChart({ selectedPeriod = 'agustus2026
     value: new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(item.balance),
   }));
 
-  const points = dataPoints || (selectedPeriod === 'agustus2026' ? pointsKasAgustus : selectedPeriod === 'mei2026' ? pointsMei : pointsJuni);
+  const points = dataPoints || (isMultiAccount ? pointsKas : selectedPeriod === 'mei2026' ? pointsMei : pointsJuni);
 
-  const pathDKas = `M ${pointsKasAgustus[0].x} ${pointsKasAgustus[0].y} ` + 
-    pointsKasAgustus.slice(1).map(p => `L ${p.x} ${p.y}`).join(' ');
-  const fillDKas = `${pathDKas} L ${pointsKasAgustus[pointsKasAgustus.length - 1].x} 240 L ${pointsKasAgustus[0].x} 240 Z`;
+  const pathDKas = `M ${pointsKas[0].x} ${pointsKas[0].y} ` + 
+    pointsKas.slice(1).map(p => `L ${p.x} ${p.y}`).join(' ');
+  const fillDKas = `${pathDKas} L ${pointsKas[pointsKas.length - 1].x} 240 L ${pointsKas[0].x} 240 Z`;
 
-  const pathDJpu = `M ${pointsJpuAgustus[0].x} ${pointsJpuAgustus[0].y} ` + 
-    pointsJpuAgustus.slice(1).map(p => `L ${p.x} ${p.y}`).join(' ');
-  const fillDJpu = `${pathDJpu} L ${pointsJpuAgustus[pointsJpuAgustus.length - 1].x} 240 L ${pointsJpuAgustus[0].x} 240 Z`;
+  const pathDJpu = `M ${pointsJpu[0].x} ${pointsJpu[0].y} ` + 
+    pointsJpu.slice(1).map(p => `L ${p.x} ${p.y}`).join(' ');
+  const fillDJpu = `${pathDJpu} L ${pointsJpu[pointsJpu.length - 1].x} 240 L ${pointsJpu[0].x} 240 Z`;
 
   // Fallback single line path
   const pathD = `M ${points[0].x} ${points[0].y} ` + points.slice(1).map(p => `L ${p.x} ${p.y}`).join(' ');
   const fillD = `${pathD} L ${points[points.length - 1].x} 240 L ${points[0].x} 240 Z`;
 
-  const periodLabel = data?.period || (selectedPeriod === 'agustus2026' ? 'Agustus 2026 (1 Bulan Penuh)' : selectedPeriod === 'mei2026' ? 'Mei 2026' : 'Juni 2026');
+  const periodLabel = data?.period || (selectedPeriod === 'september2026' ? 'September 2026 (1 Bulan Penuh)' : selectedPeriod === 'agustus2026' ? 'Agustus 2026 (1 Bulan Penuh)' : selectedPeriod === 'mei2026' ? 'Mei 2026' : 'Juni 2026');
 
   return (
     <div className="fin-chart-card">
@@ -93,11 +127,11 @@ export default function FinanceDailyBalanceChart({ selectedPeriod = 'agustus2026
         <div>
           <div className="fin-chart-title">Saldo Harian ({periodLabel})</div>
           <div className="fin-chart-subtitle">
-            {isAgustus ? (scaleMode === 'dual' ? 'Skala Ganda (Seimbang): Kiri Kas Masjid, Kanan Dana JPU' : 'Skala Absolut (0 – 25 Juta)') : 'Perkembangan saldo akumulatif'}
+            {isMultiAccount ? (scaleMode === 'dual' ? 'Skala Ganda (Seimbang): Kiri Kas Masjid, Kanan Dana JPU' : 'Skala Absolut (0 – 25 Juta)') : 'Perkembangan saldo akumulatif'}
           </div>
         </div>
 
-        {isAgustus && (
+        {isMultiAccount && (
           <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', alignItems: 'center' }}>
             <div style={{ display: 'flex', background: '#F1F5F9', borderRadius: '14px', padding: '2px', border: '1px solid #E2E8F0' }}>
               <button
@@ -148,7 +182,7 @@ export default function FinanceDailyBalanceChart({ selectedPeriod = 'agustus2026
                 cursor: 'pointer',
               }}
             >
-              ● Kas Masjid (Rp 16,31 jt) {showKasMasjid ? '✓' : ''}
+              ● Kas Masjid ({isSeptember ? 'Rp 14,85 jt' : 'Rp 16,31 jt'}) {showKasMasjid ? '✓' : ''}
             </button>
             <button
               type="button"
@@ -164,7 +198,7 @@ export default function FinanceDailyBalanceChart({ selectedPeriod = 'agustus2026
                 cursor: 'pointer',
               }}
             >
-              ● JPU (Rp 4,70 jt) {showJpu ? '✓' : ''}
+              ● JPU ({isSeptember ? 'Rp 4,50 jt' : 'Rp 4,70 jt'}) {showJpu ? '✓' : ''}
             </button>
           </div>
         )}
@@ -198,14 +232,14 @@ export default function FinanceDailyBalanceChart({ selectedPeriod = 'agustus2026
           ))}
 
           {/* Grid labels (left Y-axis) */}
-          {isAgustus && scaleMode === 'dual' ? (
+          {isMultiAccount && scaleMode === 'dual' ? (
             <>
               {[
-                { label: '14jt', y: 230 },
-                { label: '16.5jt', y: 182.5 },
-                { label: '19jt', y: 135 },
-                { label: '21.5jt', y: 87.5 },
-                { label: '24jt', y: 40 },
+                { label: isSeptember ? '12jt' : '14jt', y: 230 },
+                { label: isSeptember ? '15jt' : '16.5jt', y: 182.5 },
+                { label: isSeptember ? '18jt' : '19jt', y: 135 },
+                { label: isSeptember ? '21jt' : '21.5jt', y: 87.5 },
+                { label: isSeptember ? '24jt' : '24jt', y: 40 },
               ].map((item, idx) => (
                 <text
                   key={`left-${idx}`}
@@ -224,10 +258,10 @@ export default function FinanceDailyBalanceChart({ selectedPeriod = 'agustus2026
               {/* Right Y-axis for JPU */}
               {[
                 { label: '1.0jt', y: 230 },
-                { label: '2.4jt', y: 182.5 },
-                { label: '3.8jt', y: 135 },
-                { label: '5.1jt', y: 87.5 },
-                { label: '6.5jt', y: 40 },
+                { label: isSeptember ? '2.5jt' : '2.4jt', y: 182.5 },
+                { label: isSeptember ? '4.0jt' : '3.8jt', y: 135 },
+                { label: isSeptember ? '5.5jt' : '5.1jt', y: 87.5 },
+                { label: isSeptember ? '7.0jt' : '6.5jt', y: 40 },
               ].map((item, idx) => (
                 <text
                   key={`right-${idx}`}
@@ -266,7 +300,7 @@ export default function FinanceDailyBalanceChart({ selectedPeriod = 'agustus2026
             ))
           )}
 
-          {isAgustus ? (
+          {isMultiAccount ? (
             <>
               {/* Line 1: Kas Masjid */}
               {showKasMasjid && (
@@ -280,7 +314,7 @@ export default function FinanceDailyBalanceChart({ selectedPeriod = 'agustus2026
                     strokeLinecap="round"
                     strokeLinejoin="round"
                   />
-                  {pointsKasAgustus.map((p, idx) => (
+                  {pointsKas.map((p, idx) => (
                     <g key={`kas-${idx}`}>
                       <circle
                         cx={p.x}
@@ -290,7 +324,7 @@ export default function FinanceDailyBalanceChart({ selectedPeriod = 'agustus2026
                         stroke="#0c2b1d"
                         strokeWidth="2"
                       />
-                      {idx === pointsKasAgustus.length - 1 && (
+                      {idx === pointsKas.length - 1 && (
                         <text
                           x={p.x - 20}
                           y={p.y - 12}
@@ -319,7 +353,7 @@ export default function FinanceDailyBalanceChart({ selectedPeriod = 'agustus2026
                     strokeLinecap="round"
                     strokeLinejoin="round"
                   />
-                  {pointsJpuAgustus.map((p, idx) => (
+                  {pointsJpu.map((p, idx) => (
                     <g key={`jpu-${idx}`}>
                       <circle
                         cx={p.x}
@@ -329,7 +363,7 @@ export default function FinanceDailyBalanceChart({ selectedPeriod = 'agustus2026
                         stroke="#0284c7"
                         strokeWidth="2"
                       />
-                      {idx === pointsJpuAgustus.length - 1 && (
+                      {idx === pointsJpu.length - 1 && (
                         <text
                           x={p.x - 20}
                           y={p.y + 16}
@@ -347,14 +381,21 @@ export default function FinanceDailyBalanceChart({ selectedPeriod = 'agustus2026
               )}
 
               {/* X Axis labels */}
-              {[
+              {(isSeptember ? [
+                { label: '01 Sep', x: 60 },
+                { label: '07 Sep', x: 200 },
+                { label: '15 Sep', x: 390 },
+                { label: '22 Sep', x: 555 },
+                { label: '25 Sep', x: 625 },
+                { label: '30 Sep', x: 740 },
+              ] : [
                 { label: '01 Ags', x: 60 },
                 { label: '07 Ags', x: 196 },
                 { label: '14 Ags', x: 355 },
                 { label: '21 Ags', x: 513 },
                 { label: '28 Ags', x: 672 },
                 { label: '31 Ags', x: 740 },
-              ].map((item, idx) => (
+              ]).map((item, idx) => (
                 <text
                   key={idx}
                   x={item.x}

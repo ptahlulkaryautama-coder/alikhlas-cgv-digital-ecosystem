@@ -1,6 +1,6 @@
 # Al Ikhlas CGV Digital Ecosystem — Activity Log
 
-Last updated: 2026-08-21
+Last updated: 2026-10-16 16:50 WIB (Ekosistem Digital Al Ikhlas CGV v2)
 
 Dokumen ini adalah catatan aktivitas kerja project agar keputusan, perubahan, dan hasil validasi tidak hilang di chat.
 
@@ -111,6 +111,48 @@ Dokumen ini adalah catatan aktivitas kerja project agar keputusan, perubahan, da
 | Pembuatan RPC `admin_create_user_account` | Auth / Database | `202609020029_admin_create_user_account.sql` mengizinkan Super Admin membuat akun dengan hash bcrypt & audit log | `admin-create-user.test.mjs` (passed) | Tidak |
 | Penambahan UI Pendaftaran Pengurus Langsung | Pengaturan / Settings | `OperationalRoleAdminPanel.jsx` menyediakan tombol `+ Tambah Akun Pengurus`, generator password acak, toggle lihat password & checklist role awal | Build/test lokal (210/210 passed) | Tidak |
 | Penambahan terjemahan error pendaftaran akun | Services | `supabaseClient.js` menerjemahkan error `invalid_email_format`, `password_too_short`, `email_already_exists` | `supabase-operator-error-copy.test.mjs` (passed) | Tidak |
+
+## 2026-10-16 15:30 WIB — Penyelarasan Keuangan Live Web & Portal Admin (September 2026)
+
+| Aksi | Area | Output | Validasi | Butuh user |
+| --- | --- | --- | --- | --- |
+| Penyelarasan sisa kas & mutasi September 2026 | Keuangan / Transparansi | Live Web (`/transparansi`) & Portal Admin (`/app/keuangan`, `/app/laporan`) selaras 100%: Kas Masjid Rp 14.850.208 (46 mutasi), JPU Rp 4.500.000 (34 mutasi), Total Likuiditas Rp 19.350.208 (80 mutasi) | Audit data silang | Tidak |
+| Koreksi fallback label & hero stat dari Agustus ke September | Website & Admin | `TransparencyHero.jsx`, `ReportsAdmin.jsx`, `LatestReportSnapshot.jsx`, `FinanceOverview.jsx` | Build & unit test | Tidak |
+| Penerbitan dokumen resmi arsip DKM | Dokumen / Laporan | `ReportArchiveTable.jsx` menerbitkan dokumen `DKM-2026-007` (Laporan Keuangan September 2026) | UI verified | Tidak |
+| Penataan mock aktivitas terkini | Mock / Activity | `dashboardMockData.js` menyematkan aktivitas September 2026 di urutan paling atas | UI verified | Tidak |
+
+## 2026-10-16 16:00 WIB — Buku Panduan Pengguna (User Guide Ekosistem Digital)
+
+| Aksi | Area | Output | Validasi | Butuh user |
+| --- | --- | --- | --- | --- |
+| Pembuatan buku panduan pengguna komprehensif | Dokumentasi | `docs/PANDUAN_PENGGUNA_ALIKHLAS_CGV.md` siap dibagikan ke DKM, TPQ, Warga, dan Wali Santri | Markdown preview | Siap dishare |
+| Panduan instalasi PWA | Mobile / PWA | Prosedur pasang aplikasi instan Android (Chrome APK/PWA) & iOS iPhone (Add to Home Screen) | Panduan teruji | Tidak |
+| Panduan operasional 4 pilar pengguna | Tata Kelola | Alur layanan Warga, Portal Santri/Wali, Portal Pengampu (vault privasi RLS), & DKM | Sesuai SOP DKM | Tidak |
+
+## 2026-10-16 16:30 WIB — Mobile UI/UX Overhaul & Proportion Fix (Pola HijrahApp)
+
+| Aksi | Area | Output | Validasi | Butuh user |
+| --- | --- | --- | --- | --- |
+| Redesain Navigasi Bawah Floating Island Dock | Navigasi Mobile | `MobileBottomNav.jsx` & `mobileApp.css`: Kapsul mengambang 14px dari bawah, radius 999px, frosted glass blur 28px, active pill expansion toska/emas, dynamic route label (`Agenda` / `Program`) | Browser audit (390x844) | Tidak |
+| Pembuatan Hero Mobile All-in-One HijrahApp | Home Mobile | `Hero.jsx` & `Home.jsx`: Location chip Sagulung Batam, Jam Digital real-time (`HH:mm:ss`), Tanggal Masehi, Badge Emas Hijriah (`6 Jumadilawal 1448 H`), Countdown sholat berikutnya, Grid pintasan 4-kolom, Jadwal sholat harian teks Arab & active glow hijau | Browser audit (390x844) | Tidak |
+| Penguncian tampilan Desktop Luxury | Web Desktop | Pemisahan CSS `@media (min-width: 769px)` menjaga hero sinematik desktop tetap 100% utuh | Desktop check | Tidak |
+| Pemadatan 4 Pilar Khidmah | Home Mobile | `mobileApp.css`: Grid 2x2 rapi (~220px) menggantikan kartu vertikal 800px | Browser audit | Tidak |
+| Pemadatan Kartu Program & Agenda | Program / Agenda | `mobileApp.css`: Judul sans-serif modern 15px, baris meta horizontal pill chip, deskripsi 2-baris terkunci, tinggi kartu turun dari ~380px ke ~160px | Browser audit | Tidak |
+| Perbaikan Header Scroll Peek-Through | Header Mobile | `mobileApp.css`: Frosted dark backdrop (`.site-header.scrolled`) saat scroll mencegah teks halaman menerobos celah navigasi | Browser audit | Tidak |
+| Pembersihan Halaman Transparansi Mobile | Transparansi Mobile | Menghilangkan tombol ganda redundan di mobile, menata kartu likuiditas ringkas di fold pertama, merapikan tabel transaksi mutasi | Browser audit | Tidak |
+| Penataan Halaman TPQ Mobile | TPQ Mobile | `tpqPublic.css` / `mobileApp.css`: Padding hero dipangkas dari 120px ke 76px, judul proporsional, kartu info operasional grid 2-kolom ringkas | Browser audit | Tidak |
+| Penataan Media Hub & Footer Mobile | Media / Footer | Single column video card 16:9, tab touch-scrollable, footer compact | Browser audit | Tidak |
+
+## 2026-10-16 16:50 WIB — Status Validasi Terkini (210/210 passed)
+
+| Check | Status | Keterangan |
+| --- | --- | --- |
+| `npm run build` | Sukses | Bundle terisolasi aman tanpa secret / URL luar |
+| `npm test` | **210/210 passed** | 100% lolos (0 fail, 0 skipped) |
+| Mobile Viewport Audit | Lulus | Diuji pada resolusi 390×844px (Chrome & iOS Safari) |
+| Dev Server | Aktif | Berjalan di port 5173 |
+| Keuangan September 2026 | 100% Aligned | Kas Rp 14.850.208, JPU Rp 4.500.000, Total Rp 19.350.208 |
+| Privacy Guard TPQ | Terkunci Aman | Private vault tetap aman, tidak ada data pribadi anak di frontend |
 
 ## 2026-09-02 — Status validasi terakhir
 

@@ -1,8 +1,17 @@
 import React from 'react';
 import Container from '../common/Container.jsx';
-import { incomeBreakdown, financeBreakdown } from '../../data/siteContent.js';
+import DonutChart from '../common/DonutChart.jsx';
+import { incomeBreakdown, financeBreakdown, publicFinanceSummary } from '../../data/siteContent.js';
 
-export default function FinanceBreakdown({ incomeItems = incomeBreakdown, expenseItems = financeBreakdown }) {
+export default function FinanceBreakdown({
+  incomeItems = incomeBreakdown,
+  expenseItems = financeBreakdown,
+  summary = publicFinanceSummary,
+}) {
+  const periodLabel = summary?.period ?? 'September 2026';
+  const totalIn = summary?.combined?.totalMasuk ?? summary?.totalIn ?? 'Rp 22.046.541';
+  const totalOut = summary?.combined?.totalKeluar ?? summary?.totalOut ?? 'Rp 23.710.000';
+
   return (
     <section className="finance-breakdown-section" id="alokasi-dana" aria-labelledby="breakdown-title">
       <Container>
@@ -15,7 +24,7 @@ export default function FinanceBreakdown({ incomeItems = incomeBreakdown, expens
               Komposisi Kas Masuk &amp; Realisasi Pengeluaran
             </h2>
             <p className="finance-breakdown-sub">
-              Rincian persentase penerimaan infaq jamaah dan realisasi operasional dakwah periode 1–15 Agustus 2026.
+              Rincian persentase penerimaan infaq jamaah dan realisasi operasional dakwah periode {periodLabel}.
             </p>
           </div>
         </div>
@@ -25,10 +34,22 @@ export default function FinanceBreakdown({ incomeItems = incomeBreakdown, expens
           <div className="breakdown-card breakdown-card--income">
             <div className="breakdown-card-head">
               <div>
-                <span className="card-kicker text-forest">SUMBER PENERIMAAN (1–15 AGS)</span>
-                <h3 className="card-title">Kas Masuk: Rp 4.300.000</h3>
+                <span className="card-kicker text-forest">SUMBER PENERIMAAN ({periodLabel.toUpperCase()})</span>
+                <h3 className="card-title">Kas Masuk: {totalIn}</h3>
               </div>
-              <span className="card-badge card-badge--forest">3 Kategori Infaq</span>
+              <span className="card-badge card-badge--forest">{incomeItems.length} Kategori Masuk</span>
+            </div>
+
+            {/* Donut Chart Presentation */}
+            <div style={{ marginBottom: '24px', padding: '12px 0' }}>
+              <DonutChart
+                items={incomeItems}
+                centerLabel="Total Masuk"
+                centerValue={totalIn}
+                size={180}
+                strokeWidth={22}
+                ariaLabel={`Diagram Donut Sumber Kas Masuk ${periodLabel}`}
+              />
             </div>
 
             <div className="breakdown-items-list">
@@ -36,7 +57,7 @@ export default function FinanceBreakdown({ incomeItems = incomeBreakdown, expens
                 <div className="breakdown-row" key={idx}>
                   <div className="breakdown-row-meta">
                     <span className="breakdown-row-label">
-                      <span className="breakdown-dot" style={{ background: item.color || '#0c2b1d' }}></span>
+                      <span className="breakdown-dot" style={{ background: item.color || '#0f6130' }}></span>
                       {item.label}
                     </span>
                     <div className="breakdown-row-values">
@@ -47,16 +68,16 @@ export default function FinanceBreakdown({ incomeItems = incomeBreakdown, expens
                   <div className="breakdown-track">
                     <div
                       className="breakdown-fill breakdown-fill--forest"
-                      style={{ width: `${item.percent}%`, background: item.color || '#0c2b1d' }}
+                      style={{ width: `${item.percent}%`, background: item.color || '#0f6130' }}
                     ></div>
                   </div>
                 </div>
               ))}
             </div>
 
-            <div className="breakdown-card-footer">
+            <div className="breakdown-card-footer" style={{ marginTop: '24px' }}>
               <div className="footer-highlight-pill">
-                💡 <strong>Pilar Utama:</strong> Infaq Jumat jamaah menopang 74% dari total penerimaan kas masjid.
+                💡 <strong>Pilar Utama:</strong> Infaq operasional donatur &amp; kotak infaq Jumat jamaah menopang porsi terbesar penerimaan kas masjid.
               </div>
             </div>
           </div>
@@ -65,10 +86,22 @@ export default function FinanceBreakdown({ incomeItems = incomeBreakdown, expens
           <div className="breakdown-card breakdown-card--expense">
             <div className="breakdown-card-head">
               <div>
-                <span className="card-kicker text-crimson">PENGGUNAAN DANA (1–15 AGS)</span>
-                <h3 className="card-title">Kas Keluar: Rp 1.560.000</h3>
+                <span className="card-kicker text-crimson">PENGGUNAAN DANA ({periodLabel.toUpperCase()})</span>
+                <h3 className="card-title">Kas Keluar: {totalOut}</h3>
               </div>
-              <span className="card-badge card-badge--crimson">Amanah &amp; Operasional</span>
+              <span className="card-badge card-badge--crimson">{expenseItems.length} Pos Alokasi</span>
+            </div>
+
+            {/* Donut Chart Presentation */}
+            <div style={{ marginBottom: '24px', padding: '12px 0' }}>
+              <DonutChart
+                items={expenseItems}
+                centerLabel="Total Keluar"
+                centerValue={totalOut}
+                size={180}
+                strokeWidth={22}
+                ariaLabel={`Diagram Donut Realisasi Pengeluaran ${periodLabel}`}
+              />
             </div>
 
             <div className="breakdown-items-list">
@@ -76,7 +109,7 @@ export default function FinanceBreakdown({ incomeItems = incomeBreakdown, expens
                 <div className="breakdown-row" key={idx}>
                   <div className="breakdown-row-meta">
                     <span className="breakdown-row-label">
-                      <span className="breakdown-dot" style={{ background: idx === 0 ? '#9b2113' : '#b45309' }}></span>
+                      <span className="breakdown-dot" style={{ background: item.color || '#9b2113' }}></span>
                       {item.label}
                     </span>
                     <div className="breakdown-row-values">
@@ -89,7 +122,7 @@ export default function FinanceBreakdown({ incomeItems = incomeBreakdown, expens
                       className="breakdown-fill breakdown-fill--crimson"
                       style={{
                         width: `${item.percent}%`,
-                        background: idx === 0 ? '#9b2113' : '#b45309',
+                        background: item.color || '#9b2113',
                       }}
                     ></div>
                   </div>
@@ -97,9 +130,9 @@ export default function FinanceBreakdown({ incomeItems = incomeBreakdown, expens
               ))}
             </div>
 
-            <div className="breakdown-card-footer">
+            <div className="breakdown-card-footer" style={{ marginTop: '24px' }}>
               <div className="footer-highlight-pill">
-                📖 <strong>Amanah Keumatan:</strong> Alokasi terbesar disalurkan untuk bisyaroh tahsin, khotib Jumat, dan ustadzah kajian.
+                📖 <strong>Amanah Keumatan:</strong> Alokasi diprioritaskan untuk bisyaroh imam &amp; guru, bantuan sosial peduli umat, serta renovasi fasilitas teras mushola.
               </div>
             </div>
           </div>
@@ -108,4 +141,3 @@ export default function FinanceBreakdown({ incomeItems = incomeBreakdown, expens
     </section>
   );
 }
-

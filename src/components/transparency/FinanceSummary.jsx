@@ -2,18 +2,19 @@ import React from 'react';
 import Container from '../common/Container.jsx';
 
 export default function FinanceSummary({ isLoading, summary }) {
-  const endingBalance = summary?.endingBalance || 'Rp 16.313.667';
-  const totalIn = summary?.totalIn || 'Rp 10.782.000';
-  const totalOut = summary?.totalOut || 'Rp 12.854.463';
-  const jpuEnding = summary?.jpu?.saldoAkhir || 'Rp 4.700.000';
-  const totalLikuiditas = summary?.combined?.totalSaldoAkhir || 'Rp 21.013.667';
+  const endingBalance = summary?.endingBalance || 'Rp 14.850.208';
+  const totalIn = summary?.totalIn || 'Rp 15.646.541';
+  const totalOut = summary?.totalOut || 'Rp 17.110.000';
+  const jpuEnding = summary?.jpu?.saldoAkhir || 'Rp 4.500.000';
+  const totalLikuiditas = summary?.combined?.totalSaldoAkhir || 'Rp 19.350.208';
+  const periodLabel = summary?.period || 'September 2026';
 
   const stats = [
     {
       id: 'saldo-akhir-masjid',
       label: 'KAS OPERASIONAL MASJID',
       value: endingBalance,
-      sub: 'Saldo Akhir per 31 Ags 2026',
+      sub: `Saldo Akhir per 30 Sep 2026`,
       badge: 'Terverifikasi DKM',
       badgeTone: 'gold',
       featured: true,
@@ -23,7 +24,7 @@ export default function FinanceSummary({ isLoading, summary }) {
       id: 'saldo-jpu',
       label: 'DANA SOSIAL (JPU)',
       value: jpuEnding,
-      sub: 'Jumat Peduli Umat (31 Ags)',
+      sub: 'Jumat Peduli Umat (30 Sep)',
       badge: 'Dana Sosial Umat',
       badgeTone: 'gold',
       featured: true,
@@ -33,7 +34,7 @@ export default function FinanceSummary({ isLoading, summary }) {
       id: 'kas-masuk',
       label: 'KAS MASJID MASUK',
       value: totalIn,
-      sub: '11 Transaksi (Infaq Jumat/Kajian)',
+      sub: '18 Transaksi (Infaq/Donatur/Rongsokan)',
       badge: '+Inflow',
       badgeTone: 'green',
       icon: '📥',
@@ -42,7 +43,7 @@ export default function FinanceSummary({ isLoading, summary }) {
       id: 'kas-keluar',
       label: 'KAS MASJID KELUAR',
       value: totalOut,
-      sub: '27 Transaksi (Bisyaroh & PLN)',
+      sub: '28 Transaksi (Bisyaroh/Renovasi/Bantuan)',
       badge: '-Outflow',
       badgeTone: 'crimson',
       icon: '📤',
@@ -54,16 +55,16 @@ export default function FinanceSummary({ isLoading, summary }) {
       <Container>
         <div className="transparency-summary-header">
           <div className="transparency-hero-label" style={{ color: '#0c2b1d', justifyContent: 'center', marginBottom: '8px' }}>
-            <span className="fin-line" style={{ background: '#0c2b1d' }}></span> IKHTISAR KAS RESMI
+            <span className="fin-line" style={{ background: '#0c2b1d' }}></span> 4 INDIKATOR UTAMA
           </div>
           <h2 className="transparency-summary-heading">
-            Laporan Kas &amp; Dana Sosial Terverifikasi (Agustus 2026)
+            Ringkasan Likuiditas &amp; Aliran Dana ({periodLabel})
           </h2>
           <p className="transparency-summary-sub">
-            Pencatatan kas resmi Masjid Al Ikhlas CGV disahkan oleh <strong>Ketua DKM (Karya HP), Sekretaris (Zulhendy M), dan Bendahara (Bambang S)</strong>.
+            Posisi saldo kas operasional masjid dan dana sosial JPU amanah jamaah.
             <br />
             <span style={{ display: 'inline-block', marginTop: '6px', padding: '4px 12px', background: 'rgba(12, 43, 29, 0.06)', borderRadius: '20px', fontWeight: 700, color: '#0c2b1d' }}>
-              Total Likuiditas Amanah (Kas Masjid + JPU): <strong>{totalLikuiditas}</strong>
+              Total Likuiditas Amanah (Kas + JPU): <strong>{totalLikuiditas}</strong>
             </span>
           </p>
         </div>

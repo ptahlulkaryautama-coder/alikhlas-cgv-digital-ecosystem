@@ -1,7 +1,8 @@
 import React from 'react';
 
 const mockReportsList = [
-  { id: 'DKM-2026-006', periode: 'Agustus 2026', tanggal: '15 Ags 2026', nama: 'Laporan Keuangan Kas Masjid (1–15 Ags 2026)', kategori: 'Keuangan', status: 'Siap publik', akses: 'Publik' },
+  { id: 'DKM-2026-007', periode: 'September 2026', tanggal: '30 Sep 2026', nama: 'Laporan Keuangan Kas Masjid & JPU (1–30 Sep 2026)', kategori: 'Keuangan', status: 'Siap publik', akses: 'Publik' },
+  { id: 'DKM-2026-006', periode: 'Agustus 2026', tanggal: '31 Ags 2026', nama: 'Laporan Keuangan Kas Masjid & JPU (1–31 Ags 2026)', kategori: 'Keuangan', status: 'Siap publik', akses: 'Publik' },
   { id: 'DKM-2026-005', periode: 'Mei 2026', tanggal: '25 Mei 2026', nama: 'Laporan Keuangan Bulanan Mei 2026', kategori: 'Keuangan', status: 'Arsip internal', akses: 'Pengurus' },
   { id: 'DKM-2026-004', periode: 'Juni 2026', tanggal: '14 Jun 2026', nama: 'Laporan Keuangan Bulanan Juni 2026', kategori: 'Keuangan', status: 'Arsip internal', akses: 'Pengurus' },
   { id: 'DKM-2026-003', periode: 'April 2026', tanggal: '10 Mei 2026', nama: 'Laporan LPJ Kegiatan Ramadhan 1447 H', kategori: 'Kegiatan DKM', status: 'Arsip internal', akses: 'Pengurus' },

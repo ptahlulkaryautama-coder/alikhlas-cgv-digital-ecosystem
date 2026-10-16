@@ -6,4 +6,8 @@ dist/
 Thumbs.db
 private-source/
 tmp/
+docs/skills/extracted/
+docs/skills/**/*.zip
+docs/skills/web-design-archetypes/lead-research-assistant/
+docs/skills/gaya-bahasa-natural/gaya-bahasa-natural.skill
 

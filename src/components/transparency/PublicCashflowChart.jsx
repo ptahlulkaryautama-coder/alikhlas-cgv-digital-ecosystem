@@ -7,34 +7,36 @@ export default function PublicCashflowChart() {
   const [showJpu, setShowJpu] = useState(true);
   const [hoveredPoint, setHoveredPoint] = useState(null);
 
-  // Line 1: Kas Operasional Masjid (Per 31 Agustus 2026)
-  // Dual axis: 14M -> 24M (y: 230 -> 40)
+  // Line 1: Kas Operasional Masjid (Per 30 September 2026)
+  // Dual axis: 12M -> 24M (y: 230 -> 40)
   // Absolute axis: 0 -> 25M (y: 240 -> 35)
   const rawKasMasjid = [
-    { label: '01 Ags (Awal)', date: '01 Ags', fund: 'Kas Masjid', valueNum: 18386130, valueStr: 'Rp 18.386.130', x: 60, yDual: 146.7, yAbs: 89.2 },
-    { label: '07 Ags (Infaq Jumat)', date: '07 Ags', fund: 'Kas Masjid', valueNum: 19726130, valueStr: 'Rp 19.726.130', x: 196, yDual: 121.2, yAbs: 78.2 },
-    { label: '14 Ags (Infaq Jumat)', date: '14 Ags', fund: 'Kas Masjid', valueNum: 21176130, valueStr: 'Rp 21.176.130', x: 355, yDual: 93.7, yAbs: 66.4 },
-    { label: '20 Ags (PLN/Wifi)', date: '20 Ags', fund: 'Kas Masjid', valueNum: 19091667, valueStr: 'Rp 19.091.667', x: 491, yDual: 133.3, yAbs: 83.4 },
-    { label: '21 Ags (Infaq Jumat)', date: '21 Ags', fund: 'Kas Masjid', valueNum: 20303667, valueStr: 'Rp 20.303.667', x: 513, yDual: 110.2, yAbs: 73.5 },
-    { label: '27 Ags (Kencleng)', date: '27 Ags', fund: 'Kas Masjid', valueNum: 20665667, valueStr: 'Rp 20.665.667', x: 649, yDual: 103.4, yAbs: 70.5 },
-    { label: '28 Ags (Infaq Jumat)', date: '28 Ags', fund: 'Kas Masjid', valueNum: 22423667, valueStr: 'Rp 22.423.667', x: 672, yDual: 70.0, yAbs: 56.1 },
-    { label: '30 Ags (Kajian/Taklim)', date: '30 Ags', fund: 'Kas Masjid', valueNum: 21723667, valueStr: 'Rp 21.723.667', x: 717, yDual: 83.3, yAbs: 61.9 },
-    { label: '31 Ags (Saldo Akhir)', date: '31 Ags', fund: 'Kas Masjid', valueNum: 16313667, valueStr: 'Rp 16.313.667', x: 740, yDual: 186.1, yAbs: 106.2, featured: true },
+    { label: '01 Sep (Awal)', date: '01 Sep', fund: 'Kas Masjid', valueNum: 16313667, valueStr: 'Rp 16.313.667', x: 60, yDual: 161.7, yAbs: 106.2 },
+    { label: '04 Sep (Infaq Jumat)', date: '04 Sep', fund: 'Kas Masjid', valueNum: 17887667, valueStr: 'Rp 17.887.667', x: 130, yDual: 136.8, yAbs: 93.3 },
+    { label: '07 Sep (Bantuan Bu Rusmah)', date: '07 Sep', fund: 'Kas Masjid', valueNum: 17061167, valueStr: 'Rp 17.061.167', x: 200, yDual: 149.9, yAbs: 100.1 },
+    { label: '10 Sep (Infaq Listrik/Air)', date: '10 Sep', fund: 'Kas Masjid', valueNum: 19061167, valueStr: 'Rp 19.061.167', x: 270, yDual: 118.2, yAbs: 83.7 },
+    { label: '11 Sep (Infaq Jumat)', date: '11 Sep', fund: 'Kas Masjid', valueNum: 20321208, valueStr: 'Rp 20.321.208', x: 295, yDual: 98.2, yAbs: 73.4 },
+    { label: '15 Sep (Kencleng)', date: '15 Sep', fund: 'Kas Masjid', valueNum: 19701208, valueStr: 'Rp 19.701.208', x: 390, yDual: 108.1, yAbs: 78.4 },
+    { label: '18 Sep (Infaq Jumat)', date: '18 Sep', fund: 'Kas Masjid', valueNum: 21131208, valueStr: 'Rp 21.131.208', x: 460, yDual: 85.4, yAbs: 66.7 },
+    { label: '19 Sep (Renovasi Ruko 4)', date: '19 Sep', fund: 'Kas Masjid', valueNum: 15757208, valueStr: 'Rp 15.757.208', x: 485, yDual: 170.5, yAbs: 110.8 },
+    { label: '22 Sep (Donatur Pak Ary)', date: '22 Sep', fund: 'Kas Masjid', valueNum: 17567208, valueStr: 'Rp 17.567.208', x: 555, yDual: 141.9, yAbs: 95.9 },
+    { label: '25 Sep (Infaq Jumat)', date: '25 Sep', fund: 'Kas Masjid', valueNum: 18675208, valueStr: 'Rp 18.675.208', x: 625, yDual: 124.3, yAbs: 86.9 },
+    { label: '27 Sep (Goro & Infaq)', date: '27 Sep', fund: 'Kas Masjid', valueNum: 18215208, valueStr: 'Rp 18.215.208', x: 670, yDual: 131.6, yAbs: 90.6 },
+    { label: '30 Sep (Saldo Akhir)', date: '30 Sep', fund: 'Kas Masjid', valueNum: 14850208, valueStr: 'Rp 14.850.208', x: 740, yDual: 184.9, yAbs: 118.2, featured: true },
   ];
 
-  // Line 2: Dana Sosial - Jumat Peduli Umat (JPU)
-  // Dual axis: 1M -> 6.5M (y: 230 -> 40)
+  // Line 2: Dana Sosial - Jumat Peduli Umat (JPU September 2026)
+  // Dual axis: 1M -> 7M (y: 230 -> 40)
   // Absolute axis: 0 -> 25M (y: 240 -> 35)
   const rawJpu = [
-    { label: '01 Ags (Awal)', date: '01 Ags', fund: 'JPU (Sosial)', valueNum: 1700000, valueStr: 'Rp 1.700.000', x: 60, yDual: 205.8, yAbs: 226.1 },
-    { label: '07 Ags (Santunan & Donasi)', date: '07 Ags', fund: 'JPU (Sosial)', valueNum: 1500000, valueStr: 'Rp 1.500.000', x: 196, yDual: 212.7, yAbs: 227.7 },
-    { label: '15 Ags (Jumat Berkah)', date: '15 Ags', fund: 'JPU (Sosial)', valueNum: 1850000, valueStr: 'Rp 1.850.000', x: 377, yDual: 200.6, yAbs: 224.8 },
-    { label: '20 Ags (Donasi Cluster)', date: '20 Ags', fund: 'JPU (Sosial)', valueNum: 4700000, valueStr: 'Rp 4.700.000', x: 491, yDual: 102.2, yAbs: 201.5 },
-    { label: '21 Ags (Jumat Berkah)', date: '21 Ags', fund: 'JPU (Sosial)', valueNum: 4250000, valueStr: 'Rp 4.250.000', x: 513, yDual: 117.7, yAbs: 205.1 },
-    { label: '27 Ags (Donasi Warga)', date: '27 Ags', fund: 'JPU (Sosial)', valueNum: 5250000, valueStr: 'Rp 5.250.000', x: 649, yDual: 83.2, yAbs: 196.9 },
-    { label: '28 Ags (Santunan & Donasi)', date: '28 Ags', fund: 'JPU (Sosial)', valueNum: 5000000, valueStr: 'Rp 5.000.000', x: 672, yDual: 91.8, yAbs: 199.0 },
-    { label: '30 Ags (Santunan)', date: '30 Ags', fund: 'JPU (Sosial)', valueNum: 4700000, valueStr: 'Rp 4.700.000', x: 717, yDual: 102.2, yAbs: 201.5 },
-    { label: '31 Ags (Saldo Akhir JPU)', date: '31 Ags', fund: 'JPU (Sosial)', valueNum: 4700000, valueStr: 'Rp 4.700.000', x: 740, yDual: 102.2, yAbs: 201.5, featured: true },
+    { label: '01 Sep (Awal)', date: '01 Sep', fund: 'JPU (Sosial)', valueNum: 4700000, valueStr: 'Rp 4.700.000', x: 60, yDual: 112.8, yAbs: 201.5 },
+    { label: '04 Sep (Jumat Berkah)', date: '04 Sep', fund: 'JPU (Sosial)', valueNum: 5700000, valueStr: 'Rp 5.700.000', x: 130, yDual: 81.2, yAbs: 193.3 },
+    { label: '07 Sep (Santunan & Bantuan)', date: '07 Sep', fund: 'JPU (Sosial)', valueNum: 3200000, valueStr: 'Rp 3.200.000', x: 200, yDual: 160.3, yAbs: 213.8 },
+    { label: '11 Sep (Jumat Berkah & NTT)', date: '11 Sep', fund: 'JPU (Sosial)', valueNum: 3150000, valueStr: 'Rp 3.150.000', x: 295, yDual: 161.9, yAbs: 214.2 },
+    { label: '18 Sep (Santunan & Donasi)', date: '18 Sep', fund: 'JPU (Sosial)', valueNum: 3250000, valueStr: 'Rp 3.250.000', x: 460, yDual: 158.8, yAbs: 213.3 },
+    { label: '24 Sep (Donasi Warga)', date: '24 Sep', fund: 'JPU (Sosial)', valueNum: 4750000, valueStr: 'Rp 4.750.000', x: 600, yDual: 111.2, yAbs: 201.0 },
+    { label: '25 Sep (Jumat Berkah)', date: '25 Sep', fund: 'JPU (Sosial)', valueNum: 4500000, valueStr: 'Rp 4.500.000', x: 625, yDual: 119.2, yAbs: 203.1 },
+    { label: '30 Sep (Saldo Akhir JPU)', date: '30 Sep', fund: 'JPU (Sosial)', valueNum: 4500000, valueStr: 'Rp 4.500.000', x: 740, yDual: 119.2, yAbs: 203.1, featured: true },
   ];
 
   const pointsKasMasjid = rawKasMasjid.map(p => ({ ...p, y: scaleMode === 'dual' ? p.yDual : p.yAbs }));
@@ -47,12 +49,12 @@ export default function PublicCashflowChart() {
   const fillDJpu = `${pathDJpu} L ${pointsJpu[pointsJpu.length - 1].x} 240 L ${pointsJpu[0].x} 240 Z`;
 
   const xDateLabels = [
-    { label: '01 Ags', x: 60 },
-    { label: '07 Ags', x: 196 },
-    { label: '14 Ags', x: 355 },
-    { label: '21 Ags', x: 513 },
-    { label: '28 Ags', x: 672 },
-    { label: '31 Ags', x: 740 },
+    { label: '01 Sep', x: 60 },
+    { label: '07 Sep', x: 200 },
+    { label: '15 Sep', x: 390 },
+    { label: '22 Sep', x: 555 },
+    { label: '25 Sep', x: 625 },
+    { label: '30 Sep', x: 740 },
   ];
 
   return (
@@ -65,7 +67,7 @@ export default function PublicCashflowChart() {
                 <span className="fin-line" style={{ background: '#c9a55a' }}></span> PERJALANAN ARUS KAS &amp; DANA SOSIAL
               </div>
               <h3 id="chart-heading" className="public-chart-title">
-                Grafik Saldo Harian: Kas Masjid &amp; JPU (Agustus 2026)
+                Grafik Saldo Harian: Kas Masjid &amp; JPU (September 2026)
               </h3>
               <p className="public-chart-desc">
                 {scaleMode === 'dual'
@@ -75,22 +77,22 @@ export default function PublicCashflowChart() {
             </div>
 
             {/* Total Balance Badges */}
-            <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+            <div className="public-chart-badges-container">
               <div className="public-chart-stat-badge" style={{ borderLeft: '3px solid #c9a55a' }}>
-                <span className="badge-kicker">KAS MASJID (31 AGS)</span>
-                <strong className="badge-val" style={{ color: '#c9a55a' }}>Rp 16.313.667</strong>
-                <span className="badge-growth">Operasional &amp; Bisyaroh</span>
+                <span className="badge-kicker">KAS MASJID (30 SEP)</span>
+                <strong className="badge-val" style={{ color: '#c9a55a' }}>Rp 14.850.208</strong>
+                <span className="badge-growth">Operasional &amp; Renovasi</span>
               </div>
               <div className="public-chart-stat-badge" style={{ borderLeft: '3px solid #06b6d4' }}>
-                <span className="badge-kicker">DANA JPU (31 AGS)</span>
-                <strong className="badge-val" style={{ color: '#38bdf8' }}>Rp 4.700.000</strong>
+                <span className="badge-kicker">DANA JPU (30 SEP)</span>
+                <strong className="badge-val" style={{ color: '#38bdf8' }}>Rp 4.500.000</strong>
                 <span className="badge-growth">Sosial &amp; Santunan</span>
               </div>
             </div>
           </div>
 
           {/* Interactive Legend, Filter & Scale Mode Controls */}
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '12px', padding: '12px 18px', background: 'rgba(255,255,255,0.04)', borderRadius: '10px', marginBottom: '16px', border: '1px solid rgba(255,255,255,0.08)' }}>
+          <div className="public-chart-controls-bar" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '12px', padding: '12px 18px', background: 'rgba(255,255,255,0.04)', borderRadius: '10px', marginBottom: '16px', border: '1px solid rgba(255,255,255,0.08)' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
               {/* Scale mode toggle button */}
               <div style={{ display: 'flex', background: 'rgba(0,0,0,0.25)', borderRadius: '20px', padding: '2px', border: '1px solid rgba(255,255,255,0.1)' }}>

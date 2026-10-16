@@ -1,12 +1,12 @@
 import Container from '../common/Container.jsx';
 
 export default function TransparencyHero({ isLoading, summary }) {
-  const period = summary?.periodRange ? `${summary.period} (${summary.periodRange})` : (summary?.period ?? 'Agustus 2026');
-  const updatedAt = summary?.updatedAt ?? '31 Agustus 2026';
+  const period = summary?.periodRange ? `${summary.period} (${summary.periodRange})` : (summary?.period ?? 'September 2026');
+  const updatedAt = summary?.updatedAt ?? '30 September 2026';
   const status = summary?.status ?? 'Terverifikasi';
-  const endingBalance = summary?.endingBalance ?? 'Rp 16.313.667';
-  const jpuEnding = summary?.jpu?.saldoAkhir ?? 'Rp 4.700.000';
-  const totalLikuiditas = summary?.combined?.totalSaldoAkhir ?? 'Rp 21.013.667';
+  const endingBalance = summary?.endingBalance ?? 'Rp 14.850.208';
+  const jpuEnding = summary?.jpu?.saldoAkhir ?? 'Rp 4.500.000';
+  const totalLikuiditas = summary?.combined?.totalSaldoAkhir ?? 'Rp 19.350.208';
 
   return (
     <section className="transparency-hero" aria-labelledby="transparency-title">
@@ -22,16 +22,19 @@ export default function TransparencyHero({ isLoading, summary }) {
 
           <div className="transparency-hero-actions">
             <a href="#ringkasan" className="transparency-hero-btn transparency-hero-btn-outline">
-              Ikhtisar Kas
+              ✨ Ikhtisar Kas
+            </a>
+            <a href="#grafik-kas" className="transparency-hero-btn transparency-hero-btn-outline">
+              📈 Grafik Kas
             </a>
             <a href="#buku-kas-terbuka" className="transparency-hero-btn transparency-hero-btn-outline">
-              Buku Kas Terbuka (70 Mutasi)
+              📑 Buku Kas ({summary?.combined?.totalTransactions || summary?.transactionCount || '70'} Mutasi)
             </a>
             <a href="#alokasi-dana" className="transparency-hero-btn transparency-hero-btn-outline">
-              Alokasi &amp; Grafik
+              📊 Alokasi
             </a>
             <a href="#donasi-transparansi" className="transparency-hero-btn transparency-hero-btn-gold">
-              Kanal Donasi (BSI &amp; QRIS)
+              💛 Donasi &amp; QRIS
             </a>
           </div>
         </div>

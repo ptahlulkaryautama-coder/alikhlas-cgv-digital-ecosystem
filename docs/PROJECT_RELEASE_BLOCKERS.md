@@ -6,37 +6,43 @@ Dokumen ini mencatat evaluasi status rilis, item pemblokir rilis (*release block
 
 ## 🟢 1. Ringkasan Status Rilis
 
-No unresolved technical release blocker was found. Official finance figures for **Periode 1–15 Agustus 2026** have been received and verified directly from the signed and stamped DKM BKU report (Ketua DKM Karya HP, Sekretaris Zulhendy M, Bendahara Bambang S).
+No unresolved technical release blocker was found. Official finance figures for **Periode September 2026 (1–30 September 2026)** have been received and verified directly from the signed and stamped DKM BKU report & Laporan JPU (Ketua DKM Karya HP, Sekretaris Zulhendy M, Bendahara Bambang S).
 
 ---
 
 ## 🛑 2. Status Pemblokir Rilis (Release Blockers Audit)
 
-- ✅ **Laporan Keuangan Kas Masjid 1–15 Agustus 2026**: Terverifikasi lengkap dengan tanda tangan 3 pimpinan DKM (Ketua, Sekretaris, Bendahara) dan cap stempel resmi Masjid Al Ikhlas CGV.
-- ✅ **Saldo Awal**: Rp 18.386.130 (per 1 Ags 2026)
-- ✅ **Total Kas Masuk**: Rp 4.300.000 (Total Kas: Rp 22.686.130)
-- ✅ **Total Kas Keluar**: Rp 1.560.000
-- ✅ **Saldo Akhir**: Rp 21.126.130 (per 15 Ags 2026)
+- ✅ **Laporan Keuangan Kas Masjid 1–30 September 2026**: Terverifikasi lengkap dengan tanda tangan 3 pimpinan DKM (Ketua, Sekretaris, Bendahara) dan cap stempel resmi Masjid Al Ikhlas CGV.
+  - **Saldo Awal**: Rp 16.313.667 (per 1 Sep 2026)
+  - **Total Kas Masuk**: Rp 15.646.541 (Total Kas: Rp 31.960.208)
+  - **Total Kas Keluar**: Rp 17.110.000
+  - **Saldo Akhir Kas Masjid**: Rp 14.850.208 (per 30 Sep 2026)
+- ✅ **Laporan Dana Sosial Jumat Peduli Umat (JPU) September 2026**:
+  - **Saldo Awal**: Rp 4.700.000 (per 1 Sep 2026)
+  - **Total Donasi Masuk**: Rp 6.400.000 (Total Kas: Rp 11.100.000)
+  - **Total Penyaluran Keluar**: Rp 6.600.000
+  - **Saldo Akhir JPU**: Rp 4.500.000 (per 30 Sep 2026)
+- ✅ **Total Likuiditas Gabungan**: Rp 19.350.208 (80 transaksi mutasi)
 
 ---
 
 ## 🛡️ 3. Penanganan Keselamatan Rilis per Rute Publik & Admin
 
 ### A. Portal Transparansi Publik (`/transparansi`)
-- Menampilkan ringkasan kas terverifikasi untuk periode Agustus 2026 (1–15 Agustus 2026).
-- Kartu statistik menampilkan status terverifikasi (`Periode: 1–15 Agustus 2026`, `Status: Terverifikasi`, `Pencatatan Resmi: BSI 1500600069`).
+- Menampilkan ringkasan kas terverifikasi untuk periode September 2026 (1–30 September 2026).
+- Kartu statistik menampilkan status terverifikasi (`Periode: September 2026`, `Status: Terverifikasi`, `Pencatatan Resmi: BSI 1500600069`).
 - Penjelasan proses audit dan kontak DKM disajikan bersama tautan konfirmasi WhatsApp.
 
 ### B. Dashboard Utama Admin (`/app`)
-- Menampilkan KPI Kas Masuk, Kas Keluar, dan Saldo Akhir Rp 21.126.130 untuk periode Agustus 2026.
+- Menampilkan KPI Kas Masuk, Kas Keluar, Saldo Akhir Kas Masjid Rp 14.850.208, Saldo JPU Rp 4.500.000, dan Total Likuiditas Rp 19.350.208.
 - Dokumen laporan terbaru terdaftar sebagai `Siap publik`.
 
 ### C. Halaman Buku Kas Keuangan Admin (`/app/keuangan`)
-- Menampilkan 13 baris transaksi terverifikasi (1 Saldo Awal, 5 Kas Masuk, 7 Kas Keluar).
-- Pilihan periode memprioritaskan `Agustus 2026 (Disahkan Bendahara DKM)`.
+- Menampilkan 47 baris transaksi Kas Masjid & 34 baris transaksi JPU (total 80 baris mutasi terverifikasi).
+- Pilihan periode memprioritaskan `September 2026 (Disahkan Bendahara DKM)`.
 
 ### D. Arsip Laporan Admin (`/app/laporan`)
-- Laporan Keuangan Kas Masjid (1–15 Ags 2026) diset ke status `Siap publik` dan hak akses `Publik`.
+- Laporan Keuangan Kas Masjid & JPU (1–30 Sep 2026) diset ke status `Siap publik` dan hak akses `Publik`.
 
 ### E. Modul TPQ Al Mardhotillah (`/app/tpq`)
 - Menampilkan banner privasi dan informasi bahwa portal wali santri & buku penghubung digital disiapkan untuk tahap backend mendatang.
@@ -46,8 +52,9 @@ No unresolved technical release blocker was found. Official finance figures for 
 
 ## 📋 4. Checklist Dokumen Resmi DKM
 
-1. [x] Laporan Keuangan KAS MASJID Periode Agustus 2026 (1–15 Agustus 2026) bertanda tangan Ketua DKM Karya HP, Sekretaris Zulhendy M, Bendahara Bambang S, dan cap resmi DKM Al Ikhlas CGV.
-2. [ ] Laporan Lanjutan Periode 16–31 Agustus 2026 (akan diinput setelah periode bulan Agustus berakhir).
+1. [x] Laporan Keuangan KAS MASJID Periode September 2026 (1–30 September 2026) bertanda tangan Ketua DKM Karya HP, Sekretaris Zulhendy M, Bendahara Bambang S, dan cap resmi DKM Al Ikhlas CGV.
+2. [x] Laporan Keuangan JUMAT PEDULI UMAT (JPU) Periode September 2026 bertanda tangan Ketua DKM Karya HP, Sekretaris Zulhendy M, Bendahara Bambang S, dan cap resmi DKM Al Ikhlas CGV.
+3. [x] Laporan Keuangan KAS MASJID & JPU Periode Agustus 2026 (Arsip Terverifikasi).
 
 ---
 

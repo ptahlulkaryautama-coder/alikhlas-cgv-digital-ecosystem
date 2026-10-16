@@ -6,6 +6,7 @@ import PublicCashflowChart from '../components/transparency/PublicCashflowChart.
 import PublicTransactionTable from '../components/transparency/PublicTransactionTable.jsx';
 import ReportList from '../components/transparency/ReportList.jsx';
 import TransparencyHero from '../components/transparency/TransparencyHero.jsx';
+import TransparencyTopicBar from '../components/transparency/TransparencyTopicBar.jsx';
 import Footer from '../components/website/Footer.jsx';
 import Header from '../components/website/Header.jsx';
 import {
@@ -28,8 +29,11 @@ export default function Transparency() {
         {/* 1. Hero Section with Quick Overview */}
         <TransparencyHero isLoading={isLoading} summary={summary} />
 
-        {/* 2. Official Endorsement Banner */}
-        <Container style={{ marginTop: '32px', marginBottom: '8px' }}>
+        {/* 2. In-Page Sticky Topic Jump Bar */}
+        <TransparencyTopicBar transactionCount={summary?.combined?.totalTransactions || summary?.transactionCount || '70'} />
+
+        {/* 3. Official Endorsement Banner */}
+        <Container className="verified-banner-container" style={{ marginTop: '16px', marginBottom: '8px' }}>
           <div className="public-verified-banner" role="status">
             <div className="verified-icon-circle">
               <span>✓</span>
@@ -44,23 +48,25 @@ export default function Transparency() {
                 </span>
               </div>
               <p className="verified-banner-text">
-                Buku Kas Periode <strong>Agustus 2026</strong> (Kas Masjid: <strong>Rp 16.313.667</strong> · Dana Sosial JPU: <strong>Rp 4.700.000</strong> · Total Likuiditas: <strong>Rp 21.013.667</strong>) telah diteliti dan disahkan resmi oleh <strong>Karya HP (Ketua DKM)</strong>, <strong>Zulhendy M (Sekretaris)</strong>, dan <strong>Bambang S (Bendahara)</strong> dengan rekening resmi BSI No. Rek <strong>1500600069</strong>.
+                Buku Kas Periode <strong>September 2026</strong> (Kas Masjid: <strong>Rp 14.850.208</strong> · Dana Sosial JPU: <strong>Rp 4.500.000</strong> · Total Likuiditas: <strong>Rp 19.350.208</strong>) telah diteliti dan disahkan resmi oleh <strong>Karya HP (Ketua DKM)</strong>, <strong>Zulhendy M (Sekretaris)</strong>, dan <strong>Bambang S (Bendahara)</strong> dengan rekening resmi BSI No. Rek <strong>1500600069</strong>.
               </p>
             </div>
           </div>
         </Container>
 
-        {/* 3. 4 Main Financial KPI Cards */}
+        {/* 4. 4 Main Financial KPI Cards */}
         <div id="ringkasan">
           <FinanceSummary isLoading={isLoading} summary={summary} />
         </div>
 
-        {/* 4. Cash Flow Trend Chart */}
-        <PublicCashflowChart />
+        {/* 5. Cash Flow Trend Chart */}
+        <div id="grafik-kas">
+          <PublicCashflowChart />
+        </div>
 
         {/* 5. Income Composition & Expense Allocation */}
         <div id="alokasi-dana">
-          <FinanceBreakdown incomeItems={incomeBreakdown} expenseItems={financeBreakdown} />
+          <FinanceBreakdown incomeItems={incomeBreakdown} expenseItems={financeBreakdown} summary={summary} />
         </div>
 
         {/* 6. Full 13 Transparent Transaction Ledger */}

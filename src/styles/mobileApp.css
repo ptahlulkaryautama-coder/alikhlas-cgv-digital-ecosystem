@@ -1,0 +1,1729 @@
+/**
+ * mobileApp.css
+ * Mobile App & PWA Polish for Masjid Al Ikhlas CGV
+ * Solves: Oversized headings, excessive vertical spacing, redundant cards,
+ *         touch targets, navigation drawer aesthetics, and mobile bottom navigation.
+ */
+
+/* ── 1. GLOBAL MOBILE SPACING & CLEARANCE ──────────────────────────────── */
+@media (max-width: 768px) {
+  body {
+    /* Clearance for sticky mobile bottom navigation */
+    padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px)) !important;
+  }
+
+  /* Compact section vertical rhythm */
+  .section,
+  .section-lg,
+  .pillars-section,
+  .program-section,
+  .agenda-section,
+  .transparency-section,
+  .ecosystem-section,
+  .donation-section,
+  .stories-section,
+  .contact-section {
+    padding-block: clamp(1.75rem, 5vw, 2.5rem) !important;
+  }
+
+  /* Eliminate text peek-through above floating header pill */
+  .site-header {
+    position: fixed;
+    inset: 0 0 auto;
+    z-index: 50;
+    pointer-events: none;
+    transition: background 0.25s ease, backdrop-filter 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .site-header.scrolled {
+    background: rgba(8, 20, 14, 0.94) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    border-bottom: 1px solid rgba(45, 212, 191, 0.18) !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45) !important;
+  }
+
+  .site-nav {
+    pointer-events: auto !important;
+    margin-top: 0.5rem !important;
+    padding: 0.45rem 0.75rem !important;
+    transition: margin 0.25s ease, background 0.25s ease;
+  }
+
+  .site-header.scrolled .site-nav {
+    margin-top: 0.35rem !important;
+    margin-bottom: 0.35rem !important;
+    background: transparent !important;
+    border-color: transparent !important;
+    box-shadow: none !important;
+  }
+
+  .menu-toggle {
+    pointer-events: auto !important;
+    cursor: pointer !important;
+    touch-action: manipulation !important;
+  }
+
+  .site-nav-cta {
+    min-height: 34px !important;
+    padding: 0.4rem 0.85rem !important;
+    font-size: 11.5px !important;
+    font-weight: 700 !important;
+  }
+
+  /* PWA Install Banner clearance above Mobile Bottom Nav */
+  .pwa-install-banner {
+    bottom: calc(68px + env(safe-area-inset-bottom, 0px)) !important;
+    left: 14px !important;
+    right: 14px !important;
+    width: auto !important;
+    max-width: none !important;
+    padding: 12px 14px !important;
+    gap: 8px !important;
+    z-index: 55 !important;
+  }
+
+  .pwa-app-icon {
+    width: 36px !important;
+    height: 36px !important;
+  }
+
+  .pwa-title-group h4 {
+    font-size: 0.88rem !important;
+  }
+
+  .pwa-title-group p {
+    font-size: 0.75rem !important;
+  }
+
+  .pwa-install-actions .button {
+    min-height: 36px !important;
+    padding: 0.4rem 0.8rem !important;
+    font-size: 11px !important;
+  }
+}
+
+/* ── 2. MOBILE APP BOTTOM NAVIGATION DOCK (HIJRAH-APP FLOATING ISLAND DOCK) ── */
+.mobile-bottom-nav {
+  position: fixed;
+  bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+  left: 14px;
+  right: 14px;
+  max-width: 440px;
+  margin: 0 auto;
+  z-index: 60;
+  background: rgba(9, 23, 16, 0.94);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  border: 1px solid rgba(45, 212, 191, 0.25);
+  border-radius: 999px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5), 0 0 24px rgba(45, 212, 191, 0.08);
+  padding: 6px 8px;
+}
+
+@media (min-width: 769px) {
+  .mobile-bottom-nav {
+    display: none !important;
+  }
+}
+
+.mobile-bottom-nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 4px;
+}
+
+.mobile-nav-tab {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 12px;
+  color: rgba(255, 255, 255, 0.65);
+  text-decoration: none;
+  border-radius: 999px;
+  position: relative;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  min-height: 40px;
+}
+
+.mobile-nav-tab .mobile-nav-tab-label {
+  display: none;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+}
+
+.mobile-nav-tab-icon {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: transform 0.2s ease;
+}
+
+.mobile-nav-tab-icon svg {
+  width: 19px;
+  height: 19px;
+  stroke: currentColor;
+  stroke-width: 2;
+  fill: none;
+}
+
+/* Active tab expands into a pill badge like HijrahApp */
+.mobile-nav-tab.is-active {
+  background: linear-gradient(135deg, #2dd4bf 0%, #0d9488 100%);
+  color: #03211a !important;
+  padding: 8px 16px;
+  box-shadow: 0 4px 14px rgba(45, 212, 191, 0.35);
+}
+
+.mobile-nav-tab.is-active .mobile-nav-tab-label {
+  display: inline-block;
+  color: #03211a;
+}
+
+.mobile-nav-tab.is-active .mobile-nav-tab-icon svg {
+  stroke: #03211a;
+  stroke-width: 2.2;
+}
+
+/* Special Donasi tab active */
+.mobile-nav-tab-special.is-active {
+  background: linear-gradient(135deg, #f59e0b 0%, #d4af37 100%);
+  color: #0c2b1d !important;
+  box-shadow: 0 4px 14px rgba(212, 175, 55, 0.35);
+}
+
+.mobile-nav-tab-special.is-active .mobile-nav-tab-label,
+.mobile-nav-tab-special.is-active .mobile-nav-tab-icon svg {
+  color: #0c2b1d;
+  stroke: #0c2b1d;
+}
+
+/* ── 3. REDESIGNED LUXURY MOBILE MENU DRAWER ──────────────────────────── */
+@media (max-width: 768px) {
+  .mobile-menu {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: none;
+    flex-direction: column;
+    padding: 1.25rem 1rem max(1.5rem, env(safe-area-inset-bottom, 1.5rem)) !important;
+    background: rgba(9, 23, 16, 0.98) !important;
+    color: var(--color-warm);
+    backdrop-filter: blur(28px);
+    -webkit-backdrop-filter: blur(28px);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .mobile-menu.is-open {
+    display: flex !important;
+  }
+
+  .mobile-menu-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 14px !important;
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(201, 165, 90, 0.25) !important;
+    border-radius: 16px !important;
+    margin-bottom: 16px;
+    flex-shrink: 0;
+  }
+
+  .mobile-brand-logo {
+    width: 40px !important;
+    height: 40px !important;
+    padding: 4px !important;
+    border-radius: 50%;
+  }
+
+  .mobile-menu-card strong {
+    font-size: 13.5px !important;
+    color: #ffffff;
+    font-family: var(--font-heading);
+  }
+
+  .mobile-menu-card small {
+    font-size: 11px !important;
+    color: rgba(255, 255, 255, 0.6) !important;
+  }
+
+  .mobile-menu-close-btn {
+    width: 36px !important;
+    height: 36px !important;
+    background: rgba(255, 255, 255, 0.08) !important;
+    border: 1px solid rgba(255, 255, 255, 0.16) !important;
+  }
+
+  .mobile-menu-section-label {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    color: #c9a55a;
+    text-transform: uppercase;
+    margin: 8px 0 12px 4px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .mobile-menu-section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: rgba(201, 165, 90, 0.2);
+  }
+
+  /* List of navigation cards - replaces giant serif text */
+  .mobile-menu-links {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 8px !important;
+    margin-top: 0 !important;
+    font-family: var(--font-heading) !important;
+    font-size: 14px !important;
+    line-height: 1.3 !important;
+  }
+
+  .mobile-nav-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 14px;
+    color: #ffffff;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    min-height: 52px;
+  }
+
+  .mobile-nav-card:active,
+  .mobile-nav-card:hover {
+    background: rgba(201, 165, 90, 0.1);
+    border-color: rgba(201, 165, 90, 0.35);
+  }
+
+  .mobile-nav-card.is-active {
+    background: linear-gradient(135deg, rgba(201, 165, 90, 0.18) 0%, rgba(12, 43, 29, 0.3) 100%);
+    border-color: #c9a55a;
+    box-shadow: 0 4px 14px rgba(12, 43, 29, 0.4);
+  }
+
+  .mobile-nav-card-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.07);
+    color: #f3e3b6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 17px;
+    flex-shrink: 0;
+  }
+
+  .mobile-nav-card.is-active .mobile-nav-card-icon {
+    background: rgba(201, 165, 90, 0.25);
+    color: #c9a55a;
+  }
+
+  .mobile-nav-card-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .mobile-nav-card-title {
+    font-size: 13.5px;
+    font-weight: 700;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .mobile-nav-card.is-active .mobile-nav-card-title {
+    color: #f3e3b6;
+  }
+
+  .mobile-nav-card-desc {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.55);
+    margin-top: 1px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .mobile-nav-card-badge {
+    font-size: 9px;
+    font-weight: 800;
+    padding: 2px 7px;
+    border-radius: 20px;
+    background: rgba(201, 165, 90, 0.2);
+    color: #c9a55a;
+    border: 1px solid rgba(201, 165, 90, 0.3);
+  }
+
+  /* Drawer Quick Actions Footer */
+  .mobile-menu-footer-actions {
+    margin-top: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+
+  .mobile-menu-cta {
+    width: 100% !important;
+    margin-top: 0 !important;
+    min-height: 44px !important;
+    font-size: 13.5px !important;
+    font-weight: 700 !important;
+    border-radius: 12px !important;
+  }
+
+  .mobile-menu-wa-btn {
+    width: 100%;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: rgba(37, 211, 102, 0.12);
+    border: 1.5px solid rgba(37, 211, 102, 0.4);
+    color: #25d366;
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .mobile-menu-wa-btn:active {
+    background: rgba(37, 211, 102, 0.22);
+  }
+}
+
+/* ── 4. IN-PAGE STICKY TOPIC QUICK JUMP BAR ───────────────────────────── */
+.topic-quick-bar-wrapper {
+  position: sticky;
+  top: 60px;
+  z-index: 40;
+  background: rgba(12, 43, 29, 0.95);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(201, 165, 90, 0.25);
+  padding: 8px 0;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.topic-quick-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  overflow-x: auto;
+  flex-wrap: nowrap;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding-inline: 4px;
+}
+
+.topic-quick-bar::-webkit-scrollbar {
+  display: none;
+}
+
+.topic-quick-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 11.5px;
+  font-weight: 700;
+  white-space: nowrap;
+  text-decoration: none;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.topic-quick-chip:hover,
+.topic-quick-chip:active {
+  background: rgba(201, 165, 90, 0.25);
+  border-color: #c9a55a;
+  color: #ffffff;
+}
+
+.topic-quick-chip.is-gold {
+  background: #c9a55a;
+  color: #0c2b1d;
+  border-color: #c9a55a;
+}
+
+/* ── 4B. HIJRAH-APP MOBILE HERO & PRAYER EXPERIENCE ────────────────────── */
+@media (min-width: 769px) {
+  .home-hero-mobile {
+    display: none !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .home-hero-desktop {
+    display: none !important;
+  }
+
+  .home-hero {
+    min-height: auto !important;
+    height: auto !important;
+    background: #08140e !important;
+    padding-top: 68px !important;
+    padding-bottom: 14px !important;
+    position: relative;
+  }
+
+  .hijrah-mobile-container {
+    padding-inline: 14px !important;
+  }
+
+  /* Top Location Pill Bar */
+  .hijrah-top-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 6px 2px 14px;
+  }
+
+  .hijrah-location-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 999px;
+    padding: 6px 12px;
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+  }
+
+  .hijrah-location-chip svg {
+    color: #2dd4bf;
+  }
+
+  .hijrah-top-actions {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .hijrah-icon-btn {
+    display: grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: rgba(255, 255, 255, 0.85);
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .hijrah-icon-btn:hover,
+  .hijrah-icon-btn:active {
+    background: rgba(45, 212, 191, 0.2);
+    border-color: #2dd4bf;
+    color: #ffffff;
+  }
+
+  /* Main Frosted Glass Card */
+  .hijrah-main-card {
+    background: linear-gradient(145deg, rgba(16, 40, 29, 0.85) 0%, rgba(9, 23, 16, 0.95) 100%);
+    border: 1px solid rgba(45, 212, 191, 0.22);
+    border-radius: 20px;
+    padding: 16px 14px;
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    margin-bottom: 18px;
+  }
+
+  .hijrah-card-top-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  .hijrah-clock-block {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .hijrah-digital-clock {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+  }
+
+  .hijrah-clock-time {
+    font-family: var(--font-heading);
+    font-size: 32px;
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+
+  .hijrah-clock-sec {
+    font-family: var(--font-heading);
+    font-size: 14px;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.45);
+  }
+
+  .hijrah-masehi-date {
+    font-size: 11.5px;
+    color: rgba(255, 255, 255, 0.65);
+    font-weight: 600;
+    margin-top: 4px;
+  }
+
+  .hijrah-hijri-badge {
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.22) 0%, rgba(212, 175, 55, 0.08) 100%);
+    border: 1px solid rgba(212, 175, 55, 0.4);
+    border-radius: 12px;
+    padding: 6px 10px;
+    text-align: right;
+  }
+
+  .hijri-badge-text {
+    font-size: 10.5px;
+    font-weight: 800;
+    color: #fbbf24;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+  }
+
+  .hijrah-card-divider {
+    height: 1px;
+    background: rgba(255, 255, 255, 0.08);
+    margin: 12px 0 10px;
+  }
+
+  .hijrah-next-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  .hijrah-next-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .hijrah-next-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    background: rgba(45, 212, 191, 0.15);
+    border: 1px solid rgba(45, 212, 191, 0.3);
+    display: grid;
+    place-items: center;
+    color: #2dd4bf;
+    flex-shrink: 0;
+  }
+
+  .hijrah-next-icon svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .hijrah-next-kicker {
+    font-size: 9.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.55);
+    letter-spacing: 0.04em;
+  }
+
+  .hijrah-next-name {
+    font-size: 14px;
+    font-weight: 800;
+    color: #ffffff;
+  }
+
+  .hijrah-next-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 2px;
+  }
+
+  .hijrah-next-time {
+    font-size: 18px;
+    font-weight: 800;
+    color: #2dd4bf;
+    line-height: 1;
+  }
+
+  .hijrah-countdown-pill {
+    font-size: 9px;
+    font-weight: 700;
+    color: #fbbf24;
+    background: rgba(251, 191, 36, 0.15);
+    border: 1px solid rgba(251, 191, 36, 0.3);
+    border-radius: 20px;
+    padding: 2px 6px;
+    white-space: nowrap;
+  }
+
+  /* 4-Column Shortcuts Grid */
+  .hijrah-shortcuts-section {
+    margin-bottom: 20px;
+  }
+
+  .hijrah-section-title-sm {
+    font-size: 13px;
+    font-weight: 800;
+    color: #ffffff;
+    letter-spacing: -0.01em;
+    margin-bottom: 10px;
+  }
+
+  .hijrah-shortcuts-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+  }
+
+  .hijrah-shortcut-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 10px;
+    font-weight: 700;
+    text-align: center;
+    transition: transform 0.2s ease;
+  }
+
+  .hijrah-shortcut-item:active {
+    transform: scale(0.95);
+  }
+
+  .hijrah-shortcut-icon-box {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    background: rgba(18, 44, 32, 0.85);
+    border: 1px solid rgba(45, 212, 191, 0.2);
+    display: grid;
+    place-items: center;
+    color: #2dd4bf;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    transition: all 0.2s ease;
+  }
+
+  .hijrah-shortcut-icon-box svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .hijrah-shortcut-item.is-gold .hijrah-shortcut-icon-box {
+    background: rgba(212, 175, 55, 0.16);
+    border-color: rgba(212, 175, 55, 0.35);
+    color: #fbbf24;
+  }
+
+  .hijrah-shortcut-item.is-gold span {
+    color: #fbbf24;
+  }
+
+  /* Clean Hijrah-Style Prayer List */
+  .hijrah-schedule-section {
+    background: rgba(12, 28, 20, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 18px;
+    padding: 14px 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    margin-bottom: 20px;
+  }
+
+  .hijrah-schedule-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+
+  .hijrah-source-badge {
+    font-size: 9px;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.06);
+    color: rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .hijrah-prayer-list {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
+
+  .hijrah-prayer-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 9px 12px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    transition: all 0.2s ease;
+  }
+
+  .hijrah-prayer-row.is-active-prayer {
+    background: rgba(45, 212, 191, 0.1);
+    border: 1.5px solid #2dd4bf;
+    box-shadow: 0 4px 14px rgba(45, 212, 191, 0.2);
+  }
+
+  .hijrah-prayer-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .hijrah-prayer-icon-wrap {
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.06);
+    display: grid;
+    place-items: center;
+    color: rgba(255, 255, 255, 0.65);
+    flex-shrink: 0;
+  }
+
+  .hijrah-prayer-icon-wrap.is-active {
+    background: rgba(45, 212, 191, 0.25);
+    color: #2dd4bf;
+  }
+
+  .hijrah-prayer-icon-wrap svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .hijrah-prayer-names {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .hijrah-prayer-name-lat {
+    font-size: 13px;
+    font-weight: 700;
+    color: #ffffff;
+  }
+
+  .hijrah-prayer-row.is-active-prayer .hijrah-prayer-name-lat {
+    color: #5eead4;
+  }
+
+  .hijrah-prayer-name-ar {
+    font-size: 10.5px;
+    color: rgba(255, 255, 255, 0.45);
+    font-family: var(--font-arabic, serif);
+    margin-top: -1px;
+  }
+
+  .hijrah-prayer-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .hijrah-prayer-time-val {
+    font-family: var(--font-heading);
+    font-size: 14px;
+    font-weight: 700;
+    color: #ffffff;
+  }
+
+  .hijrah-prayer-row.is-active-prayer .hijrah-prayer-time-val {
+    color: #2dd4bf;
+    font-size: 15px;
+    font-weight: 800;
+  }
+
+  .hijrah-prayer-active-pill {
+    font-size: 8.5px;
+    font-weight: 800;
+    padding: 2px 7px;
+    border-radius: 20px;
+    background: #2dd4bf;
+    color: #042f2e;
+  }
+
+  .hijrah-check-icon {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.35);
+  }
+
+  /* Compact 2x2 Pillars Section */
+  .jamaah-pillars-section {
+    padding-block: 1.5rem !important;
+  }
+
+  .pillars-header-block {
+    margin-bottom: 1rem !important;
+  }
+
+  .pillars-header-block .section-title {
+    font-size: 1.25rem !important;
+  }
+
+  .pillars-header-block .section-copy {
+    display: none !important;
+  }
+
+  .pillars-feature-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 8px !important;
+  }
+
+  .pillar-feature-card {
+    padding: 12px 10px !important;
+    border-radius: 14px !important;
+  }
+
+  .pillar-feature-top {
+    margin-bottom: 8px !important;
+  }
+
+  .pillar-feature-icon {
+    width: 32px !important;
+    height: 32px !important;
+    border-radius: 8px !important;
+  }
+
+  .pillar-feature-icon svg {
+    width: 17px !important;
+    height: 17px !important;
+  }
+
+  .pillar-feature-badge {
+    font-size: 8px !important;
+    padding: 2px 5px !important;
+  }
+
+  .pillar-feature-title {
+    font-size: 12px !important;
+    margin-bottom: 3px !important;
+  }
+
+  .pillar-feature-desc {
+    font-size: 10px !important;
+    line-height: 1.35 !important;
+  }
+}
+
+/* ── 5. RESPONSIVE HERO SECTIONS & BALANCED TYPOGRAPHY ─────────────────── */
+@media (max-width: 768px) {
+  /* Headline clamp fix: no more 56px monstrosities */
+  .section-title,
+  .program-header .section-title {
+    font-size: clamp(1.35rem, 5.8vw, 1.85rem) !important;
+    line-height: 1.25 !important;
+    letter-spacing: -0.01em !important;
+  }
+
+  /* Page hero compact padding */
+  .page-hero {
+    padding-top: 84px !important;
+    padding-bottom: 22px !important;
+  }
+
+  .page-hero-kicker {
+    margin-bottom: 6px !important;
+    font-size: 10.5px !important;
+  }
+
+  .page-hero h1 {
+    font-size: clamp(1.45rem, 6.2vw, 1.95rem) !important;
+    line-height: 1.2 !important;
+    margin: 0 0 8px 0 !important;
+    letter-spacing: -0.01em !important;
+  }
+
+  .page-hero p {
+    font-size: 13px !important;
+    line-height: 1.5 !important;
+    margin: 0 auto 12px auto !important;
+    max-width: 95% !important;
+  }
+
+  .program-hero-stats {
+    padding: 8px 12px !important;
+    margin-top: 14px !important;
+    gap: 12px !important;
+  }
+
+  .program-hero-stat-value {
+    font-size: 1.25rem !important;
+  }
+
+  .program-hero-stat-label {
+    font-size: 10px !important;
+  }
+
+  /* Agenda Section Header & View Toggle (Screenshot 5) */
+  .agenda-header {
+    gap: 10px !important;
+    margin-bottom: 14px !important;
+  }
+
+  .agenda-header .label {
+    font-size: 10.5px !important;
+    margin-bottom: 4px !important;
+  }
+
+  .view-toggle {
+    margin-top: 4px !important;
+    padding: 3px !important;
+    border-radius: 20px !important;
+  }
+
+  .view-toggle button {
+    padding: 5px 10px !important;
+    font-size: 11px !important;
+  }
+
+  /* Program Cards Compact Mobile Rhythm */
+  .program-grid {
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+    margin-top: 12px !important;
+  }
+
+  .program-card {
+    min-height: auto !important;
+    padding: 12px 14px !important;
+    border-radius: 16px !important;
+    background: #ffffff !important;
+    border: 1px solid rgba(12, 43, 29, 0.1) !important;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04) !important;
+  }
+
+  .program-card-top {
+    margin-bottom: 4px !important;
+  }
+
+  .program-card h3 {
+    font-family: var(--font-sans, system-ui, -apple-system, sans-serif) !important;
+    font-size: 15px !important;
+    font-weight: 750 !important;
+    line-height: 1.35 !important;
+    margin: 4px 0 6px 0 !important;
+    color: #0c2b1d !important;
+    letter-spacing: -0.01em !important;
+  }
+
+  .program-meta {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 4px 6px !important;
+    margin-bottom: 8px !important;
+    font-size: 11px !important;
+  }
+
+  .program-meta .meta-row {
+    margin: 0 !important;
+    padding: 3px 7px !important;
+    background: rgba(12, 43, 29, 0.04) !important;
+    border-radius: 6px !important;
+    font-size: 10.5px !important;
+    color: #3b5044 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 4px !important;
+  }
+
+  .program-meta .meta-icon {
+    width: 12px !important;
+    height: 12px !important;
+    color: #1a7a50 !important;
+  }
+
+  .program-description-text {
+    font-size: 11.5px !important;
+    line-height: 1.45 !important;
+    color: #556b5e !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2 !important;
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
+    margin-bottom: 8px !important;
+  }
+
+  .program-card-footer {
+    padding-top: 4px !important;
+    margin-top: 4px !important;
+  }
+
+  .program-card-cta {
+    min-height: 36px !important;
+    padding: 6px 12px !important;
+    font-size: 11.5px !important;
+    font-weight: 700 !important;
+    border-radius: 10px !important;
+  }
+
+  .agenda-grid {
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+    margin-top: 12px !important;
+  }
+
+  .agenda-card {
+    padding: 12px 14px !important;
+    border-radius: 16px !important;
+    background: #ffffff !important;
+    border: 1px solid rgba(12, 43, 29, 0.1) !important;
+  }
+
+  .agenda-card h3 {
+    font-family: var(--font-sans, system-ui, -apple-system, sans-serif) !important;
+    font-size: 15px !important;
+    font-weight: 750 !important;
+    line-height: 1.35 !important;
+    margin: 4px 0 6px 0 !important;
+    color: #0c2b1d !important;
+  }
+
+  .agenda-meta-info {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 4px 8px !important;
+    margin-bottom: 6px !important;
+  }
+
+  .agenda-meta-item {
+    font-size: 10.5px !important;
+    padding: 2px 6px !important;
+    background: rgba(12, 43, 29, 0.04) !important;
+    border-radius: 6px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 4px !important;
+  }
+
+  .agenda-desc-short {
+    font-size: 11.5px !important;
+    line-height: 1.4 !important;
+    color: #556b5e !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2 !important;
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
+  }
+}
+
+/* ── 6. TRANSPARENCY PAGE MOBILE OVERHAUL ──────────────────────────────── */
+@media (max-width: 768px) {
+  /* Hero compact rhythm (Screenshot 4) */
+  .transparency-hero {
+    padding: 84px 0 20px 0 !important;
+  }
+
+  .transparency-hero-grid {
+    gap: 16px !important;
+  }
+
+  .transparency-hero-label {
+    font-size: 10px !important;
+    margin-bottom: 6px !important;
+  }
+
+  .transparency-hero h1 {
+    font-size: clamp(1.3rem, 5.2vw, 1.65rem) !important;
+    line-height: 1.25 !important;
+    margin: 0 0 6px 0 !important;
+    word-break: break-word !important;
+    overflow-wrap: break-word !important;
+  }
+
+  .transparency-hero-desc {
+    font-size: 12.5px !important;
+    line-height: 1.5 !important;
+    margin: 0 0 10px 0 !important;
+  }
+
+  /* Hide duplicate jump pills in hero: sticky topic quick jump bar handles navigation cleanly */
+  .transparency-hero-actions {
+    display: none !important;
+  }
+
+  /* Total Likuiditas Amanah card is pulled up right at fold */
+  .transparency-hero-card {
+    padding: 16px 16px !important;
+    border-radius: 14px !important;
+  }
+
+  .hero-card-header {
+    margin-bottom: 8px !important;
+  }
+
+  .transparency-card-label {
+    font-size: 9.5px !important;
+  }
+
+  .transparency-card-value {
+    font-size: 20px !important;
+    margin-bottom: 4px !important;
+  }
+
+  .hero-card-meta-list {
+    margin-top: 10px !important;
+    padding-top: 10px !important;
+    gap: 6px !important;
+  }
+
+  .hero-card-meta-item {
+    font-size: 11px !important;
+  }
+
+  /* Verified Banner (Screenshot 2) */
+  .public-verified-banner {
+    padding: 12px 14px !important;
+    gap: 12px !important;
+    border-radius: 14px !important;
+  }
+
+  .verified-icon-circle {
+    width: 32px !important;
+    height: 32px !important;
+    font-size: 16px !important;
+    flex-shrink: 0 !important;
+  }
+
+  .verified-banner-title {
+    font-size: 13.5px !important;
+    line-height: 1.3 !important;
+  }
+
+  .verified-pill {
+    font-size: 9px !important;
+    padding: 2px 7px !important;
+  }
+
+  .verified-banner-text {
+    font-size: 11.5px !important;
+    line-height: 1.5 !important;
+    margin-top: 4px !important;
+  }
+
+  /* Summary 4-KPI Grid: 2x2 grid instead of 4 giant stacked cards */
+  .transparency-summary-section {
+    padding: 28px 0 16px 0 !important;
+  }
+
+  .transparency-summary-header {
+    margin-bottom: 18px !important;
+  }
+
+  .transparency-summary-heading {
+    font-size: 19px !important;
+    line-height: 1.25 !important;
+    margin-bottom: 6px !important;
+  }
+
+  .transparency-summary-sub {
+    font-size: 12px !important;
+    line-height: 1.5 !important;
+  }
+
+  .finance-summary-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 8px !important;
+  }
+
+  .finance-stat-card {
+    padding: 12px 10px !important;
+    border-radius: 12px !important;
+  }
+
+  .stat-card-top {
+    margin-bottom: 6px !important;
+  }
+
+  .stat-label {
+    font-size: 8.5px !important;
+    letter-spacing: 0.04em !important;
+  }
+
+  .stat-badge {
+    font-size: 8px !important;
+    padding: 2px 5px !important;
+  }
+
+  .stat-value {
+    font-size: 15.5px !important;
+    margin-bottom: 6px !important;
+    line-height: 1.1 !important;
+  }
+
+  .stat-card-bottom {
+    padding-top: 6px !important;
+    gap: 4px !important;
+  }
+
+  .stat-icon {
+    font-size: 12px !important;
+  }
+
+  .stat-sub {
+    font-size: 9px !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+
+  .transparency-trust-strip {
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+    padding: 12px 14px !important;
+    margin-top: 16px !important;
+  }
+
+  .trust-strip-divider {
+    display: none !important;
+  }
+
+  /* Cashflow Chart (Screenshot 1) */
+  .public-chart-section {
+    padding: 14px 0 24px 0 !important;
+  }
+
+  .public-chart-container {
+    padding: 16px 12px !important;
+    border-radius: 16px !important;
+  }
+
+  .public-chart-top {
+    gap: 12px !important;
+    margin-bottom: 12px !important;
+  }
+
+  .public-chart-title {
+    font-size: 16px !important;
+    line-height: 1.3 !important;
+    margin-bottom: 4px !important;
+  }
+
+  .public-chart-desc {
+    font-size: 11px !important;
+    line-height: 1.45 !important;
+  }
+
+  /* Side-by-side compact 2-column balance badges */
+  .public-chart-badges-container {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 8px !important;
+    width: 100% !important;
+    margin-top: 6px !important;
+  }
+
+  .public-chart-stat-badge {
+    padding: 8px 10px !important;
+    border-radius: 10px !important;
+    text-align: left !important;
+  }
+
+  .badge-kicker {
+    font-size: 8px !important;
+    margin-bottom: 2px !important;
+  }
+
+  .badge-val {
+    font-size: 14.5px !important;
+    line-height: 1.1 !important;
+  }
+
+  .badge-growth {
+    font-size: 9px !important;
+    margin-top: 2px !important;
+  }
+
+  /* Controls toolbar: touch scrollable / compact */
+  .public-chart-controls-bar {
+    padding: 8px 10px !important;
+    border-radius: 10px !important;
+    margin-bottom: 10px !important;
+    gap: 8px !important;
+  }
+
+  .public-svg-chart-wrapper {
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    margin-inline: -8px !important;
+    padding-inline: 8px !important;
+    padding-bottom: 6px !important;
+  }
+
+  .public-svg-chart {
+    min-width: 520px !important;
+  }
+}
+
+/* ── 6B. PUBLIC LEDGER MOBILE TABLE OVERHAUL ──────────────────────────── */
+@media (max-width: 768px) {
+  .public-ledger-card {
+    border-radius: 14px !important;
+  }
+
+  .public-tx-header {
+    padding: 12px 14px !important;
+    gap: 10px !important;
+  }
+
+  .public-tx-title {
+    font-size: 15px !important;
+  }
+
+  .public-tx-controls {
+    gap: 8px !important;
+  }
+
+  .public-tx-tabs button {
+    padding: 5px 10px !important;
+    font-size: 11px !important;
+  }
+
+  .public-ledger-table th {
+    font-size: 8.5px !important;
+    letter-spacing: 0.05em !important;
+    padding: 8px 10px !important;
+  }
+
+  .public-ledger-table td {
+    padding: 9px 10px !important;
+    font-size: 11.5px !important;
+  }
+
+  .tx-date-badge {
+    font-size: 9.5px !important;
+    padding: 2px 6px !important;
+  }
+
+  .tx-desc-text {
+    font-size: 11.5px !important;
+    line-height: 1.35 !important;
+  }
+
+  .tx-cat-badge {
+    font-size: 9px !important;
+    padding: 2px 5px !important;
+  }
+
+  .tx-val-plus,
+  .tx-val-minus,
+  .tx-amount-balance strong {
+    font-size: 11.5px !important;
+  }
+
+  .public-ledger-footer {
+    padding: 10px 14px !important;
+    font-size: 11px !important;
+  }
+}
+
+/* ── 6C. KABAR MASJID MOBILE NEWS COMPACT ─────────────────────────────── */
+@media (max-width: 768px) {
+  .kabar-section {
+    padding-block: 1.75rem !important;
+  }
+
+  .kabar-layout {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+  }
+
+  .kabar-card-featured {
+    border-radius: 16px !important;
+    padding: 12px 14px !important;
+  }
+
+  .kabar-card-featured .kabar-card-image {
+    height: 140px !important;
+    border-radius: 12px !important;
+    object-fit: cover !important;
+  }
+
+  .kabar-card-featured .kabar-card-title {
+    font-family: var(--font-sans, system-ui, -apple-system, sans-serif) !important;
+    font-size: 15px !important;
+    font-weight: 750 !important;
+    line-height: 1.35 !important;
+    margin: 6px 0 4px 0 !important;
+  }
+
+  .kabar-card-featured .kabar-card-excerpt {
+    font-size: 11.5px !important;
+    line-height: 1.45 !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2 !important;
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
+  }
+
+  .kabar-secondary-list {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 8px !important;
+  }
+
+  .kabar-card-secondary {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 12px !important;
+    padding: 10px 12px !important;
+    border-radius: 14px !important;
+    min-height: auto !important;
+  }
+
+  .kabar-card-secondary .kabar-card-body {
+    display: flex !important;
+    flex-direction: column !important;
+    flex: 1 !important;
+    min-width: 0 !important;
+  }
+
+  .kabar-card-image-secondary {
+    width: 68px !important;
+    height: 68px !important;
+    border-radius: 10px !important;
+    object-fit: cover !important;
+    flex-shrink: 0 !important;
+  }
+
+  .kabar-card-secondary .kabar-card-title {
+    font-family: var(--font-sans, system-ui, -apple-system, sans-serif) !important;
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    line-height: 1.3 !important;
+    margin: 2px 0 2px 0 !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2 !important;
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
+  }
+
+  .kabar-card-secondary .kabar-card-excerpt,
+  .kabar-card-secondary .kabar-card-link {
+    display: none !important;
+  }
+}
+
+/* ── 6D. MEDIA HUB MOBILE COMPACT ─────────────────────────────────────── */
+@media (max-width: 768px) {
+  .media-hub-section {
+    padding-block: 1.75rem !important;
+  }
+
+  .media-hub-header {
+    margin-bottom: 12px !important;
+    gap: 8px !important;
+  }
+
+  .media-hub-header .section-eyebrow {
+    font-size: 9.5px !important;
+  }
+
+  .media-hub-header .section-title {
+    font-size: 1.25rem !important;
+  }
+
+  .media-hub-header .section-lead {
+    display: none !important;
+  }
+
+  .media-hub-tabs {
+    padding: 3px !important;
+    margin-bottom: 12px !important;
+    border-radius: 999px !important;
+  }
+
+  .media-tab-btn {
+    padding: 5px 10px !important;
+    font-size: 11px !important;
+  }
+
+  .media-video-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+
+  .media-video-card {
+    border-radius: 14px !important;
+  }
+
+  .media-video-card h3 {
+    font-size: 13.5px !important;
+    line-height: 1.3 !important;
+  }
+}
+
+/* ── 6E. PUBLIC TPQ MOBILE OVERHAUL ───────────────────────────────────── */
+@media (max-width: 768px) {
+  .tpq-public-hero {
+    padding: 76px 0 22px 0 !important;
+  }
+
+  .tpq-public-hero h1 {
+    font-size: clamp(1.4rem, 6vw, 1.85rem) !important;
+    line-height: 1.25 !important;
+    margin-bottom: 6px !important;
+  }
+
+  .tpq-hero-subtitle {
+    font-size: 12px !important;
+    line-height: 1.5 !important;
+    margin-bottom: 14px !important;
+  }
+
+  .tpq-hero-info-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 8px !important;
+    margin-bottom: 18px !important;
+  }
+
+  .tpq-info-pill-card {
+    padding: 10px 10px !important;
+    border-radius: 12px !important;
+    gap: 8px !important;
+  }
+
+  .tpq-info-icon {
+    font-size: 18px !important;
+  }
+
+  .tpq-info-text small {
+    font-size: 9px !important;
+  }
+
+  .tpq-info-text strong {
+    font-size: 11px !important;
+    line-height: 1.2 !important;
+  }
+
+  .tpq-classes-grid,
+  .tpq-curriculum-grid,
+  .tpq-agenda-grid,
+  .tpq-faculty-grid {
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+  }
+
+  .tpq-class-card,
+  .tpq-curriculum-card,
+  .tpq-faculty-card {
+    padding: 14px !important;
+    border-radius: 14px !important;
+  }
+}
+
+/* ── 6F. FOOTER MOBILE COMPACT ────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .site-footer {
+    padding: 28px 0 calc(76px + env(safe-area-inset-bottom, 0px)) 0 !important;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+
+  .footer-col h4 {
+    font-size: 12.5px !important;
+    margin-bottom: 6px !important;
+  }
+
+  .footer-col a {
+    font-size: 11.5px !important;
+  }
+}
+
+/* ── 7. TOUCH TARGET ACCESSIBILITY & UTILITIES ─────────────────────────── */
+@media (max-width: 768px) {
+  button,
+  a.button,
+  .copy-btn,
+  .copy-btn-mini,
+  .view-toggle button {
+    min-height: 40px;
+    touch-action: manipulation;
+  }
+
+  /* Filter chips horizontal touch scroll */
+  .news-filter-chips,
+  .program-filter-chips {
+    display: flex !important;
+    overflow-x: auto !important;
+    flex-wrap: nowrap !important;
+    -webkit-overflow-scrolling: touch !important;
+    padding-inline: 12px !important;
+    scrollbar-width: none !important;
+    justify-content: flex-start !important;
+    gap: 6px !important;
+  }
+
+  .news-filter-chips::-webkit-scrollbar,
+  .program-filter-chips::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  .news-filter-chip,
+  .program-filter-chip {
+    white-space: nowrap !important;
+    flex-shrink: 0 !important;
+    padding: 6px 14px !important;
+    font-size: 12px !important;
+  }
+}
+
+/* ── 8. NATIVE SMOOTH SCROLL & SAFE TARGET MARGINS ─────────────────────── */
+html {
+  scroll-behavior: smooth;
+}
+
+#ringkasan,
+#grafik-kas,
+#alokasi-dana,
+#buku-kas-terbuka,
+#laporan,
+#donasi-transparansi,
+#agenda,
+#program {
+  scroll-margin-top: 100px;
+}

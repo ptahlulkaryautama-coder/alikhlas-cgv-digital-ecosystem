@@ -57,6 +57,7 @@ export default function Home() {
           nextPrayer={nextPrayer}
           prayerSource={prayerData.source}
           prayerTimes={prayerData.times}
+          currentDate={currentDate}
         />
         <JamaahGateway />
         {/* Render Program first, then Agenda second */}

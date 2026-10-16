@@ -1,33 +1,53 @@
 import React, { useState } from 'react';
-import { mockTransactionsAgustus, mockTransactionsJPU, mockTransactionsAgustusCombined, mockTransactionsMei, mockTransactionsJuni, mockFinanceSummary, financePeriods } from '../../data/dashboardMockData.js';
+import { 
+  mockTransactionsSeptember, 
+  mockTransactionsSeptemberJPU, 
+  mockTransactionsSeptemberCombined,
+  mockTransactionsAgustus, 
+  mockTransactionsJPU, 
+  mockTransactionsAgustusCombined, 
+  mockTransactionsMei, 
+  mockTransactionsJuni, 
+  financePeriods 
+} from '../../data/dashboardMockData.js';
 import '../../styles/financeAdmin.css';
 
 function getPillClass(kategori) {
   const cat = (kategori || '').toLowerCase();
-  if (cat.includes('infaq') || cat.includes('donasi') || cat.includes('penerimaan')) return 'fin-pill-green';
-  if (cat.includes('jumat berkah') || cat.includes('santunan')) return 'fin-pill-blue';
-  if (cat.includes('operasional') || cat.includes('bisyaroh') || cat.includes('jumber')) return 'fin-pill-red';
+  if (cat.includes('infaq') || cat.includes('donasi') || cat.includes('penerimaan') || cat.includes('pendapatan')) return 'fin-pill-green';
+  if (cat.includes('jumat berkah') || cat.includes('santunan') || cat.includes('tanggap')) return 'fin-pill-blue';
+  if (cat.includes('operasional') || cat.includes('bisyaroh') || cat.includes('utilitas') || cat.includes('renovasi')) return 'fin-pill-red';
   return 'fin-pill-blue';
 }
 
-export default function FinanceTransactionTable({ selectedPeriod = 'agustus2026', data = null, source = 'fallback' }) {
+export default function FinanceTransactionTable({ selectedPeriod = 'september2026', data = null, source = 'fallback' }) {
   const [activeAccount, setActiveAccount] = useState('kas_masjid'); // 'kas_masjid' | 'jpu' | 'all'
-  const activePeriod = financePeriods[selectedPeriod] || financePeriods.agustus2026;
+  const activePeriod = financePeriods[selectedPeriod] || financePeriods.september2026;
   const money = (value) => new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(value);
   
+  const getSeptemberList = () => {
+    if (activeAccount === 'jpu') return mockTransactionsSeptemberJPU;
+    if (activeAccount === 'all') return mockTransactionsSeptemberCombined;
+    return mockTransactionsSeptember;
+  };
+
   const getAgustusList = () => {
     if (activeAccount === 'jpu') return mockTransactionsJPU;
     if (activeAccount === 'all') return mockTransactionsAgustusCombined;
     return mockTransactionsAgustus;
   };
 
+  const isMultiAccountPeriod = selectedPeriod === 'september2026' || selectedPeriod === 'agustus2026';
+
   const list = data 
     ? data.transactions.map((row) => ({ id: row.id, tanggal: row.date, keterangan: row.description, kategori: row.category, masuk: row.direction === 'income' ? money(row.amount) : '-', keluar: row.direction === 'expense' ? money(row.amount) : '-', saldo: money(row.runningBalance) })) 
-    : selectedPeriod === 'agustus2026' 
-      ? getAgustusList() 
-      : selectedPeriod === 'mei2026' 
-        ? mockTransactionsMei 
-        : mockTransactionsJuni;
+    : selectedPeriod === 'september2026'
+      ? getSeptemberList()
+      : selectedPeriod === 'agustus2026' 
+        ? getAgustusList() 
+        : selectedPeriod === 'mei2026' 
+          ? mockTransactionsMei 
+          : mockTransactionsJuni;
 
   const periodLabel = data?.period || (activePeriod.periodRange ? `${activePeriod.label} (${activePeriod.periodRange})` : activePeriod.label);
 
@@ -57,7 +77,7 @@ export default function FinanceTransactionTable({ selectedPeriod = 'agustus2026'
           </div>
         </div>
 
-        {selectedPeriod === 'agustus2026' && !data && (
+        {isMultiAccountPeriod && !data && (
           <div style={{ display: 'flex', gap: '8px', marginTop: '14px', flexWrap: 'wrap' }}>
             <button
               type="button"
@@ -65,7 +85,7 @@ export default function FinanceTransactionTable({ selectedPeriod = 'agustus2026'
               className={`fin-btn ${activeAccount === 'kas_masjid' ? 'fin-btn-primary' : ''}`}
               style={{ fontSize: '12px', padding: '6px 14px' }}
             >
-              🏛️ Kas Masjid (39 Baris)
+              🏛️ Kas Masjid ({selectedPeriod === 'september2026' ? mockTransactionsSeptember.length : mockTransactionsAgustus.length} Baris)
             </button>
             <button
               type="button"
@@ -73,7 +93,7 @@ export default function FinanceTransactionTable({ selectedPeriod = 'agustus2026'
               className={`fin-btn ${activeAccount === 'jpu' ? 'fin-btn-primary' : ''}`}
               style={{ fontSize: '12px', padding: '6px 14px' }}
             >
-              🤝 Jumat Peduli Umat / JPU (33 Baris)
+              🤝 Jumat Peduli Umat / JPU ({selectedPeriod === 'september2026' ? mockTransactionsSeptemberJPU.length : mockTransactionsJPU.length} Baris)
             </button>
             <button
               type="button"
@@ -81,7 +101,7 @@ export default function FinanceTransactionTable({ selectedPeriod = 'agustus2026'
               className={`fin-btn ${activeAccount === 'all' ? 'fin-btn-primary' : ''}`}
               style={{ fontSize: '12px', padding: '6px 14px' }}
             >
-              Semua Akun ({mockTransactionsAgustusCombined.length} Baris)
+              Semua Akun ({selectedPeriod === 'september2026' ? mockTransactionsSeptemberCombined.length : mockTransactionsAgustusCombined.length} Baris)
             </button>
           </div>
         )}
@@ -92,7 +112,7 @@ export default function FinanceTransactionTable({ selectedPeriod = 'agustus2026'
           <thead>
             <tr>
               <th>TANGGAL</th>
-              {selectedPeriod === 'agustus2026' && activeAccount === 'all' && <th>AKUN</th>}
+              {isMultiAccountPeriod && activeAccount === 'all' && <th>AKUN</th>}
               <th>KETERANGAN</th>
               <th>KATEGORI</th>
               <th className="fin-text-right">KAS MASUK</th>
@@ -104,7 +124,7 @@ export default function FinanceTransactionTable({ selectedPeriod = 'agustus2026'
             {list.map((trx) => (
               <tr key={trx.id}>
                 <td style={{ whiteSpace: 'nowrap' }}>{trx.tanggal}</td>
-                {selectedPeriod === 'agustus2026' && activeAccount === 'all' && (
+                {isMultiAccountPeriod && activeAccount === 'all' && (
                   <td>
                     <span style={{ fontSize: '11px', fontWeight: 600, padding: '2px 6px', borderRadius: '4px', background: trx.account === 'jpu' ? '#E0F2FE' : '#E8F5EE', color: trx.account === 'jpu' ? '#0369a1' : '#0F6130' }}>
                       {trx.accountLabel}
@@ -133,10 +153,10 @@ export default function FinanceTransactionTable({ selectedPeriod = 'agustus2026'
       </div>
 
       <div style={{ background: '#FAFAFA', padding: '16px 24px', borderTop: '1px solid #E5E5E5', fontSize: '12px', color: '#6b7f74', textAlign: 'center', fontWeight: 500 }}>
-        {selectedPeriod === 'agustus2026' && activeAccount === 'jpu' ? (
-          <span>{list.length} transaksi ditampilkan · Masuk JPU: Rp 7.750.000 | Keluar JPU: Rp 4.750.000 | Saldo JPU: Rp 4.700.000</span>
-        ) : selectedPeriod === 'agustus2026' && activeAccount === 'all' ? (
-          <span>{list.length} transaksi ditampilkan · Total Kas Masjid: Rp 16.313.667 | Total JPU: Rp 4.700.000 | Total Likuiditas: Rp 21.013.667</span>
+        {activePeriod.jpu && activeAccount === 'jpu' ? (
+          <span>{list.length} transaksi ditampilkan · Masuk JPU: {activePeriod.jpu.kasMasuk} | Keluar JPU: {activePeriod.jpu.kasKeluar} | Saldo JPU: {activePeriod.jpu.saldoAkhir}</span>
+        ) : activePeriod.combined && activeAccount === 'all' ? (
+          <span>{list.length} transaksi ditampilkan · Total Kas Masjid: {activePeriod.saldoAkhir} | Total JPU: {activePeriod.jpu?.saldoAkhir} | Total Likuiditas: {activePeriod.combined.totalSaldoAkhir}</span>
         ) : (
           <span>{list.length} transaksi ditampilkan · Masuk: {activePeriod.kasMasuk} | Keluar: {activePeriod.kasKeluar} | Saldo: {activePeriod.saldoAkhir}</span>
         )}
